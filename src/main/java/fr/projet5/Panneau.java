@@ -12,10 +12,10 @@ public class Panneau extends JPanel {
         try {
             Image img = ImageIO.read(new File("src/main/resources/image.jpg"));
             Image img2 = ImageIO.read(new File("src/main/resources/image2.jpg"));
-            g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-            //g.drawImage(img, 0, 0, this);
+            g.drawImage(img2, 0, 0, this.getWidth(), this.getHeight(), this);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
