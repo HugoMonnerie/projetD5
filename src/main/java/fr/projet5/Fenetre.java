@@ -1,7 +1,6 @@
 package fr.projet5;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Fenetre extends JFrame {
 
@@ -10,12 +9,13 @@ public class Fenetre extends JFrame {
         this.setSize(1100, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setContentPane(new Panneau());
+        Panneau panneau = new Panneau();
+        this.setContentPane(panneau.buildContentPane());
 
         this.setVisible(true);
-        setContentPane(buildContentPane());
     }
 
+<<<<<<< HEAD
     private JPanel buildContentPane(){
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
@@ -73,5 +73,7 @@ public class Fenetre extends JFrame {
 
         return panel;
     }
+=======
+>>>>>>> master
 
 }
