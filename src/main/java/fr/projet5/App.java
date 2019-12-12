@@ -1,10 +1,9 @@
 package fr.projet5;
 
-import java.sql.*;
-
 public class App {
 
     public static void main(String[] args) {
+<<<<<<< Updated upstream
         new Fenetre();
         new Panneau();
         ResultSet resultSet;
@@ -30,5 +29,9 @@ public class App {
     } catch (SQLException e) {
             e.printStackTrace();
         }
+=======
+        Fenetre fenetre = new Fenetre();
+        Panneau panneau = new Panneau();
+>>>>>>> Stashed changes
     }
 }
