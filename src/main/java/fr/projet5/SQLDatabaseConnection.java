@@ -7,20 +7,16 @@ public class SQLDatabaseConnection {
 
     // Connect to your database.
     // Replace server name, username, and password with your credentials
-    public static void main(String[] args) throws SQLException {
-        String connectionUrl =
-                "jdbc:sqlserver://http://192.168.43.223/:3306;projet5=AdventureWorks;" +
-                        "user=houssam" +
-                        "password=coding";
+    public static void Sql() throws SQLException {
+        String selectSql = "select * from football_player";
 
-        String selectSql = "SELECT * FROM `football_player` ";
+        ResultSet resultSet;
 
-        ResultSet resultSet = null;
-
-        Connection connection = getConnection(connectionUrl);
+        Connection connection = getConnection("jdbc:mysql://192.168.43.223:3306/projet5", "houssam", "coding");
         try {
              PreparedStatement prepsInsertProduct;
-            prepsInsertProduct = connection.prepareStatement(selectSql, Statement.RETURN_GENERATED_KEYS); {
+            prepsInsertProduct = connection.prepareStatement(selectSql,
+                    Statement.RETURN_GENERATED_KEYS); {
 
             prepsInsertProduct.execute();
             // Retrieve the generated key from the insert.

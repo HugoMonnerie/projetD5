@@ -37,6 +37,7 @@ public class Fenetre extends JFrame {
 		JMenu option1 = new JMenu("Paramètre");
 
 		JMenuItem quitter = new JMenuItem("quitter");
+		quitter.doClick(JFrame.EXIT_ON_CLOSE);
 
 		JMenu option2 = new JMenu("?");
 
