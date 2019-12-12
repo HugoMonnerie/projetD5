@@ -10,12 +10,5 @@ public class App {
         new SQLDatabaseConnection();
         SQLDatabaseConnection.Sql();
 
-        public class App {
-
-            public void main(String[] args) {
-                Fenetre fenetre = new Fenetre();
-                Panneau panneau = new Panneau();
             }
         }
-    }
-}
