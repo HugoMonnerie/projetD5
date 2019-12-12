@@ -14,25 +14,16 @@ public class Panneau extends JPanel {
     JTextField mdp = new JTextField();
 
     public String getUtilisateur() {
+
         return utilisateur.getText();
     }
 
     public String getMdp() {
+
         return mdp.getText();
     }
-    
-    public void paintComponent(Graphics g) {
-        try {
-            ImageIO.read(new File("src/main/resources/image.jpg"));
-            ImageIO.read(new File("src/main/resources/image2.jpg"));
-            //g.drawImage(img2, 0, 0, this.getWidth(), this.getHeight(), this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.buildContentPane();
-    }
 
-    private JPanel buildContentPane(){
+    public JPanel buildContentPane(){
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
@@ -45,11 +36,8 @@ public class Panneau extends JPanel {
 
         this.mdp = new JTextField();
         mdp.setColumns(10);
-        Login.login(getUtilisateur(), getMdp());
         JButton bouton = new JButton();
-
         bouton.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 //your actions
