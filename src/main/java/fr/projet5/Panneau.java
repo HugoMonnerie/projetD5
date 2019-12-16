@@ -2,11 +2,8 @@ package fr.projet5;
 
 import javax.swing.*;
 import java.awt.*;
-<<<<<<< HEAD
-=======
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
->>>>>>> master
 
 public class Panneau extends JPanel {
 
@@ -34,12 +31,6 @@ public class Panneau extends JPanel {
         JTextField utilisateur = new JTextField();
         utilisateur.setColumns(10);
 
-<<<<<<< HEAD
-        JTextField mdp = new JTextField();
-        mdp.setColumns(10);
-
-        JButton bouton = new JButton("Connection");
-=======
         this.mdp = new JPasswordField();
         mdp.setColumns(10);
 
@@ -51,7 +42,6 @@ public class Panneau extends JPanel {
                Login.login(getUtilisateur(), getMdp());
             }
         });
->>>>>>> master
 
         JMenuBar menuBar = new JMenuBar();
 
