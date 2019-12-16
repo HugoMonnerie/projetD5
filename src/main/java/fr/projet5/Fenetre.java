@@ -11,6 +11,11 @@ public class Fenetre extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Panneau panneau = new Panneau();
         this.setContentPane(panneau.buildContentPane());
+        /*while (Login.co == true){
+            this.setContentPane(panneau.buildContentPane2());
+            System.out.println("fgchvj");
+        }
+         */
 
         this.setVisible(true);
     }

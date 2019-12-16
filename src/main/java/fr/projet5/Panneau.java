@@ -1,12 +1,9 @@
 package fr.projet5;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 public class Panneau extends JPanel {
 
@@ -34,9 +31,10 @@ public class Panneau extends JPanel {
         this.utilisateur = new JTextField();
         utilisateur.setColumns(10);
 
-        this.mdp = new JTextField();
+        this.mdp = new JPasswordField();
         mdp.setColumns(10);
-        JButton bouton = new JButton();
+
+        JButton bouton = new JButton("Connection");
         bouton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -44,6 +42,7 @@ public class Panneau extends JPanel {
                Login.login(getUtilisateur(), getMdp());
             }
         });
+
         JMenuBar menuBar = new JMenuBar();
 
         JMenu option1 = new JMenu("Paramètre");
@@ -86,6 +85,52 @@ public class Panneau extends JPanel {
     }
 
     private void setJMenuBar(JMenuBar menuBar) {
+    }
+
+    public JPanel buildContentPane2(){
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+
+        JLabel text1 = new JLabel("<html><body>Type de parie :</body></html>");
+
+        JButton bouton1 = new JButton("Football");
+        bouton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //your actions
+                Login.login(getUtilisateur(), getMdp());
+            }
+        });
+
+        JButton bouton2 = new JButton("Tennis");
+        bouton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //your actions
+                Login.login(getUtilisateur(), getMdp());
+            }
+        });
+
+        JButton bouton3 = new JButton("Hippique");
+        bouton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //your actions
+                Login.login(getUtilisateur(), getMdp());
+            }
+        });
+
+        //affichage
+
+        panel.add(text1);
+
+        panel.add(bouton1);
+
+        panel.add(bouton2);
+
+        panel.add(bouton3);
+
+        return panel;
     }
 
 }
