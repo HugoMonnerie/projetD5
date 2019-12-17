@@ -1,9 +1,10 @@
 package fr.projet5;
 
+import com.mysql.cj.x.protobuf.MysqlxPrepare;
+import jdk.jfr.internal.cmd.Execute;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -43,12 +44,9 @@ public class Panneau extends JPanel {
         mdp.setColumns(10);
 
         JButton bouton = new JButton("Connection");
-        bouton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //your actions
-               Login.login(getUtilisateur(), getMdp(),panel,fen);
-            }
+        bouton.addActionListener(e -> {
+            //your actions
+           Login.login(getUtilisateur(), getMdp(),panel,fen);
         });
 
         JMenuBar menuBar = new JMenuBar();
@@ -78,7 +76,7 @@ public class Panneau extends JPanel {
         panel.add(bouton);
 
         //menu
-        setJMenuBar(menuBar);
+        setJMenuBar();
 
         menuBar.add(option1);
 
@@ -93,7 +91,7 @@ public class Panneau extends JPanel {
         return panel;
     }
 
-    private void setJMenuBar(JMenuBar menuBar) {
+    private void setJMenuBar() {
     }
 
     public JPanel buildContentPane2(){
@@ -103,60 +101,46 @@ public class Panneau extends JPanel {
         JLabel text1 = new JLabel("<html><body>Type de parie :</body></html>");
 
         JButton bouton1 = new JButton("Football");
-        bouton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //your actions
-                String content = "select * from football_player ; select * from football_team; select * from matchs_football;";
+        bouton1.addActionListener(e -> {
+            //your actions
+            String content = "select * from football_player ; select * from football_team; select * from matchs_football;";
 
-                File file = new File("/Users/souksou/Library/Preferences/IntelliJIdea2019.3/consoles/db/1cf3f972-69bc-4297-b7f2-a83d7b88cc16/console.sql");
+            File file = new File("/Users/souksou/Library/Preferences/IntelliJIdea2019.3/consoles/db/1cf3f972-69bc-4297-b7f2-a83d7b88cc16/console.sql");
 
-                // créer le fichier s'il n'existe pas
-                if (!file.exists()) {
-                    try {
-                        file.createNewFile();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                }
+            // créer le fichier s'il n'existe pas
 
-                FileWriter fw = null;
-                try {
-                    fw = new FileWriter(file.getAbsoluteFile());
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                BufferedWriter bw = new BufferedWriter(fw);
-                try {
-                    bw.write(content);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                try {
-                    bw.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
 
-                System.out.println("Modification terminée!");
+            FileWriter fw = null;
+            try {
+                fw = new FileWriter(file.getAbsoluteFile());
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
+            assert fw != null;
+            BufferedWriter bw = new BufferedWriter(fw);
+            try {
+                bw.write(content);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            try {
+                bw.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+            System.out.println("Modification terminée!");
         });
 
         JButton bouton2 = new JButton("Tennis");
-        bouton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //your actions
+        bouton2.addActionListener(e -> {
+            //your actions
 
-            }
         });
 
         JButton bouton3 = new JButton("Hippique");
-        bouton3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //your actions
-            }
+        bouton3.addActionListener(e -> {
+            //your actions
         });
 
         //affichage
