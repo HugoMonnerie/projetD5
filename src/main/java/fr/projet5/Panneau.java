@@ -20,7 +20,7 @@ public class Panneau extends JPanel {
         return mdp.getText();
     }
 
-    JPanel buildContentPane(){
+    JPanel buildContentPane(JFrame fen){
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
@@ -28,7 +28,7 @@ public class Panneau extends JPanel {
 
         JLabel text2 = new JLabel("<html><body>Mot de passe :</body></html>");
 
-        JTextField utilisateur = new JTextField();
+        this.utilisateur = new JTextField();
         utilisateur.setColumns(10);
 
         this.mdp = new JPasswordField();
@@ -39,7 +39,7 @@ public class Panneau extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //your actions
-               Login.login(getUtilisateur(), getMdp());
+               Login.login(getUtilisateur(), getMdp(),panel,fen);
             }
         });
 
@@ -99,7 +99,7 @@ public class Panneau extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //your actions
-                Login.login(getUtilisateur(), getMdp());
+
             }
         });
 
@@ -108,7 +108,7 @@ public class Panneau extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //your actions
-                Login.login(getUtilisateur(), getMdp());
+
             }
         });
 
@@ -117,7 +117,6 @@ public class Panneau extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //your actions
-                Login.login(getUtilisateur(), getMdp());
             }
         });
 
@@ -130,6 +129,7 @@ public class Panneau extends JPanel {
         panel.add(bouton2);
 
         panel.add(bouton3);
+        panel.setVisible(true);
 
         return panel;
     }
