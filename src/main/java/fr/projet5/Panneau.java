@@ -109,6 +109,33 @@ public class Panneau extends JPanel {
             Panneau panneau = new Panneau();
             fen.setContentPane(panneau.panneFooot());
             panneFooot();
+            String content = "select * from football_player ; select * from football_team; select * from matchs_football;";
+
+            File file = new File("/Users/monneriehugo/Desktop/projetD5/src/main/resources/db/1cf3f972-69bc-4297-b7f2-a83d7b88cc16/console.sql");
+
+            // créer le fichier s'il n'existe pas
+
+
+            FileWriter fw = null;
+            try {
+                fw = new FileWriter(file.getAbsoluteFile());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            assert fw != null;
+            BufferedWriter bw = new BufferedWriter(fw);
+            try {
+                bw.write(content);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            try {
+                bw.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+            System.out.println("Modification terminée!");
         });
 
         JButton bouton2 = new JButton("Tennis");
@@ -120,6 +147,10 @@ public class Panneau extends JPanel {
         JButton bouton3 = new JButton("Hippique");
         bouton3.addActionListener(e -> {
             //your actions
+            buildContentPane2().setVisible(false);
+            Panneau panneau = new Panneau();
+            Fenetre fen = new Fenetre();
+            fen.setContentPane(panneau.hippique());
         });
 
         //affichage
@@ -161,4 +192,32 @@ public class Panneau extends JPanel {
         panel.setVisible(true);
         return panel;
     }
+    public JPanel hippique() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+
+        JLabel text1 = new JLabel("<html><body>Nom du cheval :</body></html>");
+
+        JTextField cheval = new JTextField();
+        cheval.setColumns(10);
+
+        JButton bouton = new JButton("Exécuter");
+        bouton.addActionListener(e -> {
+            //your actions
+
+        });
+
+        //affichage
+
+        panel.add(text1);
+
+        panel.add(cheval);
+
+        panel.add(bouton);
+
+        panel.setVisible(true);
+
+        return panel;
+    }
+
 }
