@@ -105,7 +105,7 @@ public class Panneau extends JPanel {
             //your actions
             String content = "select * from football_player ; select * from football_team; select * from matchs_football;";
 
-            File file = new File("/Users/souksou/Library/Preferences/IntelliJIdea2019.3/consoles/db/1cf3f972-69bc-4297-b7f2-a83d7b88cc16/console.sql");
+            File file = new File("/Users/souksou/Desktop/projet 5/projetD5/src/main/resources/db/1cf3f972-69bc-4297-b7f2-a83d7b88cc16/console.sql");
 
             // créer le fichier s'il n'existe pas
 
