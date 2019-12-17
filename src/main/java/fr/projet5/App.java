@@ -10,6 +10,5 @@ public class App {
         new SQLDatabaseConnection();
         SQLDatabaseConnection.Sql();
         new EcrireSQL();
-
             }
         }
