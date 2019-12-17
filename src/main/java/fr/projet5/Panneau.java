@@ -31,6 +31,10 @@ public class Panneau extends JPanel {
         this.utilisateur = new JTextField();
         utilisateur.setColumns(10);
 
+        JTextField mdp = new JTextField();
+        mdp.setColumns(10);
+
+        new JButton("Connection");
         this.mdp = new JPasswordField();
         mdp.setColumns(10);
 

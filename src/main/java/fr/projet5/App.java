@@ -9,5 +9,7 @@ public class App {
         new Panneau();
         new SQLDatabaseConnection();
         SQLDatabaseConnection.Sql();
+        new EcrireSQL();
+
             }
         }
