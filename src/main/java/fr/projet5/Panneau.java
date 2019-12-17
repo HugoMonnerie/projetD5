@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Panneau extends JPanel {
 
@@ -103,7 +107,38 @@ public class Panneau extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //your actions
+                String content = "select * from football_player ; select * from football_team; select * from matchs_football;";
 
+                File file = new File("/Users/souksou/Library/Preferences/IntelliJIdea2019.3/consoles/db/1cf3f972-69bc-4297-b7f2-a83d7b88cc16/console.sql");
+
+                // créer le fichier s'il n'existe pas
+                if (!file.exists()) {
+                    try {
+                        file.createNewFile();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
+                FileWriter fw = null;
+                try {
+                    fw = new FileWriter(file.getAbsoluteFile());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                BufferedWriter bw = new BufferedWriter(fw);
+                try {
+                    bw.write(content);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                try {
+                    bw.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+                System.out.println("Modification terminée!");
             }
         });
 
