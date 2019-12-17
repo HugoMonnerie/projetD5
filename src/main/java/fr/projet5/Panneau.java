@@ -1,7 +1,5 @@
 package fr.projet5;
 
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
-import jdk.jfr.internal.cmd.Execute;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +7,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Panneau extends JPanel {
 
@@ -94,42 +95,20 @@ public class Panneau extends JPanel {
     private void setJMenuBar() {
     }
 
-    public JPanel buildContentPane2(){
+    public JPanel buildContentPane2(JFrame fen){
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
         JLabel text1 = new JLabel("<html><body>Type de parie :</body></html>");
 
         JButton bouton1 = new JButton("Football");
-        bouton1.addActionListener(e -> {
+        bouton1.addActionListener(e ->
+        {
             //your actions
-            String content = "select * from football_player ; select * from football_team; select * from matchs_football;";
-
-            File file = new File("/Users/souksou/Desktop/projet 5/projetD5/src/main/resources/db/1cf3f972-69bc-4297-b7f2-a83d7b88cc16/console.sql");
-
-            // créer le fichier s'il n'existe pas
-
-
-            FileWriter fw = null;
-            try {
-                fw = new FileWriter(file.getAbsoluteFile());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            assert fw != null;
-            BufferedWriter bw = new BufferedWriter(fw);
-            try {
-                bw.write(content);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            try {
-                bw.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
-            System.out.println("Modification terminée!");
+            panel.setVisible(false);
+            Panneau panneau = new Panneau();
+            fen.setContentPane(panneau.panneFooot());
+            panneFooot();
         });
 
         JButton bouton2 = new JButton("Tennis");
@@ -157,4 +136,29 @@ public class Panneau extends JPanel {
         return panel;
     }
 
+    public JPanel panneFooot()
+    {
+        JPanel panel = new JPanel();
+        JTextField nameOfTeam = new JTextField();
+        JButton buttonValid = new JButton("Valider");
+        nameOfTeam.setColumns(50);
+
+        buttonValid.addActionListener(e ->
+        {
+            String teamName = nameOfTeam.getText();
+            panel.setVisible(false);
+            //execute SQL
+        });
+        panel.add(nameOfTeam);
+        panel.add(buttonValid);
+        panel.setVisible(true);
+        return panel;
+    }
+    public JPanel pannelFootresult()
+    {
+        JPanel panel = new JPanel();
+
+        panel.setVisible(true);
+        return panel;
+    }
 }
