@@ -5,15 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Properties
 {
         private FileWriter myWriter;
-        private File f;
 
-        public void createFile()
+    public void createFile()
         {
             try {
                 myWriter = new FileWriter("autoConnect.log",true);
@@ -36,10 +34,10 @@ public class Properties
         public ArrayList readFile()
         {
             try {
-                f = new File("autoConnect.log");
-                Scanner myReader = null;
+                File f = new File("autoConnect.log");
+                Scanner myReader;
                 myReader = new Scanner(f);
-                ArrayList<String> listData = new ArrayList<String>();
+                ArrayList<String> listData = new ArrayList<>();
                 while (myReader.hasNextLine())
                 {
                     listData.add(myReader.nextLine());

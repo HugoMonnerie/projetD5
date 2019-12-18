@@ -20,7 +20,7 @@ public class Fenetre extends JFrame {
         //On définit le layout manager
         content.setLayout(new GridBagLayout());
         //L'objet servant à positionner les composants
-        GridBagConstraints gbc = new GridBagConstraints();
+        new GridBagConstraints();
 
         this.setVisible(true);
     }

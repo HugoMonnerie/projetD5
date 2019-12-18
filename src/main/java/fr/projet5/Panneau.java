@@ -24,7 +24,7 @@ public class Panneau extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         properties.createFile();
-        ArrayList<String> data = new ArrayList<String>();
+        ArrayList data;
         data =  properties.readFile();
         rme = false;
         JLabel text1 = new JLabel("<html><body>Utilisateur :</body></html>");
@@ -34,24 +34,19 @@ public class Panneau extends JPanel {
 
         JCheckBox check = new JCheckBox("remember me ?");
         check.addActionListener(e ->
-        {
-            rme = true;
-        });
+                rme = true);
 
         JButton bouton = new JButton("Connection");
         bouton.addActionListener(e -> {
             //your actions
-            if(rme == true)
+            if(rme)
             {
-                if(empty == true)
+                if(empty)
                 {
                     properties.removeAll();
                     properties.createFile();
-                    properties.writeFile(getUtilisateur() + "\n" + getMdp());
                 }
-                else {
-                    properties.writeFile(getUtilisateur() + "\n" + getMdp());
-                }
+                properties.writeFile(getUtilisateur() + "\n" + getMdp());
 
             }
             Login.login(getUtilisateur(), getMdp(),panel,fen);
@@ -131,7 +126,7 @@ public class Panneau extends JPanel {
             //your actions
             panel.setVisible(false);
             Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.tennis(fen));
+            fen.setContentPane(panneau.tennis());
         });
 
         JButton bouton3 = new JButton("Hippique");
@@ -139,7 +134,7 @@ public class Panneau extends JPanel {
             //your actions
             panel.setVisible(false);
             Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.hippique(fen));
+            fen.setContentPane(panneau.hippique());
         });
 
         //affichage
@@ -162,18 +157,15 @@ public class Panneau extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
-        JLabel text1 = new JLabel("<html><body>Nom de l'équipe :</body></html>");
+        JLabel textf = new JLabel("<html><body>Nom de l'équipe :</body></html>");
 
         JTextField nameOfTeam = new JTextField();
 
         JButton buttonValid = new JButton("Valider");
         nameOfTeam.setColumns(30);
-
-        });
-
         //affichage
 
-        panel.add(text1);
+        panel.add(textf);
 
         panel.add(nameOfTeam);
 
@@ -182,9 +174,11 @@ public class Panneau extends JPanel {
         panel.setVisible(true);
 
         return panel;
-    }
 
-    public JPanel tennis(JFrame fen) {
+        }
+
+
+    public JPanel tennis() {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
@@ -204,6 +198,34 @@ public class Panneau extends JPanel {
         panel.add(text1);
 
         panel.add(jtennis);
+
+        panel.add(bouton);
+
+        panel.setVisible(true);
+
+        return panel;
+    }
+
+    public JPanel hippique() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+
+        JLabel texth = new JLabel("<html><body>Nom du joueur de hippique :</body></html>");
+
+        JTextField jhippique = new JTextField();
+        jhippique.setColumns(10);
+
+        JButton bouton = new JButton("Valider");
+        bouton.addActionListener(e -> {
+            //your actions
+
+        });
+
+        //affichage
+
+        panel.add(texth);
+
+        panel.add(jhippique);
 
         panel.add(bouton);
 
