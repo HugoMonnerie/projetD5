@@ -1,1 +1,1 @@
-select * from football_player ; select * from football_team; select * from matchs_football;
+select * from football_player  ; select * from football_team; select * from matchs_football;
