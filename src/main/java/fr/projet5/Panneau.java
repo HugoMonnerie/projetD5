@@ -48,7 +48,7 @@ public class Panneau extends JPanel {
             fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         });
 
-        JMenu option2 = new JMenu("Retour");
+        JButton option2 = new JButton("Retour");
         option2.addActionListener(e -> {
             //your actions
             panel.setVisible(false);
