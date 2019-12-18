@@ -1,7 +1,5 @@
 package fr.projet5;
 
-import javax.swing.*;
-import javax.swing.text.html.HTMLDocument;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

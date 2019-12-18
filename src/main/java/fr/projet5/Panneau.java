@@ -32,12 +32,10 @@ public class Panneau extends JPanel {
         this.mdp = new JPasswordField();
         mdp.setColumns(10);
 
-        new JButton("Connection");
-
         JButton bouton = new JButton("Connection");
         bouton.addActionListener(e -> {
             //your actions
-           Login.login(getUtilisateur(), getMdp(),panel,fen);
+            Login.login(getUtilisateur(), getMdp(),panel,fen);
         });
 
         JMenuBar menuBar = new JMenuBar();
@@ -45,9 +43,19 @@ public class Panneau extends JPanel {
         JMenu option1 = new JMenu("Paramètre");
 
         JMenuItem quitter = new JMenuItem("quitter");
-        quitter.doClick(JFrame.EXIT_ON_CLOSE);
+        quitter.addActionListener(e -> {
+            //your actions
+            fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        });
 
-        JMenu option2 = new JMenu("?");
+        JMenu option2 = new JMenu("Retour");
+        option2.addActionListener(e -> {
+            //your actions
+            panel.setVisible(false);
+            fen.setContentPane(buildContentPane2(fen));
+        });
+
+        JMenu option3 = new JMenu("?");
 
         JMenuItem aide = new JMenuItem("aide");
 
@@ -67,7 +75,7 @@ public class Panneau extends JPanel {
         panel.add(bouton);
 
         //menu
-        setJMenuBar();
+        fen.setJMenuBar(menuBar);
 
         menuBar.add(option1);
 
@@ -75,14 +83,13 @@ public class Panneau extends JPanel {
 
         menuBar.add(option2);
 
-        option2.add(aide);
+        menuBar.add(option3);
 
-        option2.add(question);
+        option3.add(aide);
+
+        option3.add(question);
 
         return panel;
-    }
-
-    private void setJMenuBar() {
     }
 
     public JPanel buildContentPane2(JFrame fen){
@@ -124,6 +131,7 @@ public class Panneau extends JPanel {
         panel.add(bouton2);
 
         panel.add(bouton3);
+
         panel.setVisible(true);
 
         return panel;
@@ -213,5 +221,4 @@ public class Panneau extends JPanel {
 
         return panel;
     }
-
 }

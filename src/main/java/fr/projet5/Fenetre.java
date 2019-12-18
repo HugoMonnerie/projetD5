@@ -13,11 +13,14 @@ public class Fenetre extends JFrame {
         Panneau panneau = new Panneau();
         Fenetre fen = this;
         this.setContentPane(panneau.buildContentPane(fen));
-        /*while (Login.co == true){
-            this.setContentPane(panneau.buildContentPane2());
-            System.out.println("fgchvj");
-        }
-         */
+
+        //Le conteneur principal
+        JPanel content = new JPanel();
+        content.setPreferredSize(new Dimension(300, 120));
+        //On définit le layout manager
+        content.setLayout(new GridBagLayout());
+        //L'objet servant à positionner les composants
+        GridBagConstraints gbc = new GridBagConstraints();
 
         this.setVisible(true);
     }
