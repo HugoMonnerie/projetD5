@@ -11,6 +11,9 @@ public class Panneau extends JPanel {
     JTextField mdp = new JTextField();
     Properties properties = new Properties();
     private boolean rme = false;
+
+    JPanel panel = new JPanel();
+
     public String getUtilisateur() {
 
         return utilisateur.getText();
@@ -22,7 +25,7 @@ public class Panneau extends JPanel {
     }
 
     JPanel buildContentPane(JFrame fen){
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         properties.createFile();
         ArrayList data;
@@ -56,14 +59,17 @@ public class Panneau extends JPanel {
 
         JMenu option1 = new JMenu("Paramètre");
 
-        JMenuItem quitter = new JMenuItem("quitter");
+        JMenuItem quitter = new JMenuItem("Déconnexion");
         quitter.addActionListener(e -> {
             //your actions
-            System.exit(0);
+            panel.setVisible(false);
+            Panneau panneau = new Panneau();
+            fen.setContentPane(panneau.buildContentPane(fen));
+            System.out.println("déconnexion");
         });
 
-        JButton option2 = new JButton("Retour");
-        option2.addActionListener(e -> {
+        JMenuItem retour = new JMenuItem("Retour");
+        retour.addActionListener(e -> {
             //your actions
             System.out.println("retour");
         });
@@ -94,9 +100,9 @@ public class Panneau extends JPanel {
 
         menuBar.add(option1);
 
-        option1.add(quitter);
+        option1.add(retour);
 
-        menuBar.add(option2);
+        option1.add(quitter);
 
         menuBar.add(option3);
 
@@ -108,7 +114,7 @@ public class Panneau extends JPanel {
     }
 
     public JPanel buildContentPane2(JFrame fen, Connection db){
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
         JLabel text1 = new JLabel("<html><body>Type de parie :</body></html>");
@@ -154,7 +160,7 @@ public class Panneau extends JPanel {
 
     public JPanel panneFoot(JFrame fen, Connection db)
     {
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
         JLabel textf = new JLabel("<html><body>Nom de l'équipe :</body></html>");
@@ -186,7 +192,7 @@ public class Panneau extends JPanel {
 
 
     public JPanel tennis(JFrame fen, Connection db) {
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
         JLabel text1 = new JLabel("<html><body>Nom du joueur de tennis :</body></html>");
@@ -214,7 +220,7 @@ public class Panneau extends JPanel {
     }
 
     public JPanel hippique(JFrame fen, Connection db) {
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
         JLabel texth = new JLabel("<html><body>Nom du joueur de hippique :</body></html>");
@@ -243,7 +249,7 @@ public class Panneau extends JPanel {
 
     public JPanel resultPanelFoot(Connection db,String name)
     {
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         SQLRequete sql = new SQLRequete();
         sql.requete(db,name);
