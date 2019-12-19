@@ -12,7 +12,7 @@ public class Fenetre extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Panneau panneau = new Panneau();
         Fenetre fen = this;
-        this.setContentPane(panneau.buildContentPane(fen));
+        this.setContentPane(panneau.panelConnection(fen));
 
         //Le conteneur principal
         JPanel content = new JPanel();

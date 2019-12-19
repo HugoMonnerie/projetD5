@@ -12,7 +12,7 @@ public abstract class Login {
             System.out.println("Connected !");
             pan.setVisible(false);
             Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.buildContentPane2(fen,db));
+            fen.setContentPane(panneau.panelChoice(fen,db));
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("error");
