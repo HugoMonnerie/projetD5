@@ -118,7 +118,7 @@ public class Panneau extends JPanel {
             //your actions
             panel.setVisible(false);
             Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.panneFoot());
+            fen.setContentPane(panneau.panneFoot(fen));
         });
 
         JButton bouton2 = new JButton("Tennis");
@@ -152,7 +152,7 @@ public class Panneau extends JPanel {
         return panel;
     }
 
-    public JPanel panneFoot()
+    public JPanel panneFoot(JFrame fen)
     {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
@@ -162,6 +162,12 @@ public class Panneau extends JPanel {
         JTextField nameOfTeam = new JTextField();
 
         JButton buttonValid = new JButton("Valider");
+        buttonValid.addActionListener(e -> {
+
+            panel.setVisible(false);
+            Panneau panneau = new Panneau();
+            fen.setContentPane(panneau.resultPanelFoot());
+        });
         nameOfTeam.setColumns(30);
         //affichage
 
@@ -230,6 +236,14 @@ public class Panneau extends JPanel {
         panel.add(bouton);
 
         panel.setVisible(true);
+
+        return panel;
+    }
+
+    public JPanel resultPanelFoot()
+    {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
 
         return panel;
     }
