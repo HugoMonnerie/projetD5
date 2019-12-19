@@ -59,7 +59,7 @@ public class Panneau extends JPanel {
         JMenuItem quitter = new JMenuItem("quitter");
         quitter.addActionListener(e -> {
             //your actions
-            fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            System.exit(0);
         });
 
         JButton option2 = new JButton("Retour");
