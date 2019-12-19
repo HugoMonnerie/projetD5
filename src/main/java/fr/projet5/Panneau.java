@@ -3,6 +3,11 @@ package fr.projet5;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
+<<<<<<< HEAD
+import java.sql.SQLException;
+=======
+import java.sql.SQLOutput;
+>>>>>>> master
 import java.util.ArrayList;
 
 
@@ -11,6 +16,9 @@ public class Panneau extends JPanel {
     JTextField mdp = new JTextField();
     Properties properties = new Properties();
     private boolean rme = false;
+
+    JPanel panel = new JPanel();
+
     public String getUtilisateur() {
 
         return utilisateur.getText();
@@ -21,8 +29,61 @@ public class Panneau extends JPanel {
         return mdp.getText();
     }
 
+    JPanel menu(JFrame fen, Connection db){
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu option1 = new JMenu("Paramètre");
+
+        JMenuItem quitter = new JMenuItem("Déconnexion");
+        quitter.addActionListener(e -> {
+            //your actions
+            panel.setVisible(false);
+            Panneau panneau = new Panneau();
+            try {
+                db.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            fen.setContentPane(panneau.buildContentPane(fen));
+            System.out.println("déconnexion");
+        });
+
+        JMenuItem retour = new JMenuItem("Retour");
+        retour.addActionListener(e -> {
+            //your actions
+            panel.setVisible(false);
+            Panneau panneau = new Panneau();
+            fen.setContentPane(panneau.buildContentPane2(fen, db));
+            System.out.println("retour");
+        });
+
+        JMenu option3 = new JMenu("?");
+
+        JMenuItem aide = new JMenuItem("aide");
+
+        JMenuItem question = new JMenuItem("question");
+
+        //affichage
+
+        fen.setJMenuBar(menuBar);
+
+        menuBar.add(option1);
+
+        option1.add(retour);
+
+        option1.add(quitter);
+
+        menuBar.add(option3);
+
+        option3.add(aide);
+
+        option3.add(question);
+
+        return panel;
+    }
+
     JPanel buildContentPane(JFrame fen){
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         properties.createFile();
         ArrayList data;
@@ -52,26 +113,6 @@ public class Panneau extends JPanel {
             }
             Login.login(getUtilisateur(), getMdp(),panel,fen);
         });
-        JMenuBar menuBar = new JMenuBar();
-
-        JMenu option1 = new JMenu("Paramètre");
-
-        JMenuItem quitter = new JMenuItem("quitter");
-        quitter.addActionListener(e -> {
-            //your actions
-            fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        });
-
-        JButton option2 = new JButton("Retour");
-        option2.addActionListener(e -> {
-            //your actions
-        });
-
-        JMenu option3 = new JMenu("?");
-
-        JMenuItem aide = new JMenuItem("aide");
-
-        JMenuItem question = new JMenuItem("question");
 
         //ajout des commandes
 
@@ -88,26 +129,11 @@ public class Panneau extends JPanel {
 
         panel.add(bouton);
 
-        //menu
-        fen.setJMenuBar(menuBar);
-
-        menuBar.add(option1);
-
-        option1.add(quitter);
-
-        menuBar.add(option2);
-
-        menuBar.add(option3);
-
-        option3.add(aide);
-
-        option3.add(question);
-
         return panel;
     }
 
     public JPanel buildContentPane2(JFrame fen, Connection db){
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
         JLabel text1 = new JLabel("<html><body>Type de parie :</body></html>");
@@ -136,6 +162,8 @@ public class Panneau extends JPanel {
             fen.setContentPane(panneau.hippique(fen,db));
         });
 
+        menu(fen, db);
+
         //affichage
 
         panel.add(text1);
@@ -153,7 +181,7 @@ public class Panneau extends JPanel {
 
     public JPanel panneFoot(JFrame fen, Connection db)
     {
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
         JLabel textf = new JLabel("<html><body>Nom de l'équipe :</body></html>");
@@ -162,13 +190,20 @@ public class Panneau extends JPanel {
 
         JButton buttonValid = new JButton("Valider");
         buttonValid.addActionListener(e -> {
-
             panel.setVisible(false);
             Panneau panneau = new Panneau();
             String teamName = nameOfTeam.getText();
-            fen.setContentPane(panneau.resultPanelFoot(db,teamName));
+<<<<<<< HEAD
+            fen.setContentPane(panneau.resultPanelFoot(fen, db,teamName));
+=======
+            int index = 1;
+            fen.setContentPane(panneau.result(db,teamName,index));
+>>>>>>> master
         });
         nameOfTeam.setColumns(30);
+
+        menu(fen, db);
+
         //affichage
 
         panel.add(textf);
@@ -185,7 +220,7 @@ public class Panneau extends JPanel {
 
 
     public JPanel tennis(JFrame fen, Connection db) {
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
         JLabel text1 = new JLabel("<html><body>Nom du joueur de tennis :</body></html>");
@@ -198,6 +233,8 @@ public class Panneau extends JPanel {
             //your actions
 
         });
+
+        menu(fen, db);
 
         //affichage
 
@@ -213,7 +250,7 @@ public class Panneau extends JPanel {
     }
 
     public JPanel hippique(JFrame fen, Connection db) {
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
         JLabel texth = new JLabel("<html><body>Nom du cheval hippique :</body></html>");
@@ -226,6 +263,8 @@ public class Panneau extends JPanel {
             //your actions
 
         });
+
+        menu(fen, db);
 
         //affichage
 
@@ -240,12 +279,19 @@ public class Panneau extends JPanel {
         return panel;
     }
 
-    public JPanel resultPanelFoot(Connection db,String name)
+<<<<<<< HEAD
+    public JPanel resultPanelFoot(JFrame fen,Connection db,String name)
+=======
+    public JPanel result(Connection db, String name, int index)
+>>>>>>> master
     {
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         SQLRequete sql = new SQLRequete();
-        sql.requete(db,name);
+        String res = sql.dispatch(db,name,index);
+        System.out.println(res);
+
+        menu(fen, db);
 
         return panel;
     }
