@@ -216,7 +216,7 @@ public class Panneau extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
-        JLabel texth = new JLabel("<html><body>Nom du joueur de hippique :</body></html>");
+        JLabel texth = new JLabel("<html><body>Nom du cheval hippique :</body></html>");
 
         JTextField jhippique = new JTextField();
         jhippique.setColumns(10);
