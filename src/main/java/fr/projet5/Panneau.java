@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 
@@ -186,8 +187,9 @@ public class Panneau extends JPanel {
             panel.setVisible(false);
             Panneau panneau = new Panneau();
             String teamName = nameOfTeam.getText();
+            fen.setContentPane(panneau.resultPanelFoot(fen, db,teamName));
             int index = 1;
-            fen.setContentPane(panneau.result(fen, db,teamName,index));
+            fen.setContentPane(panneau.result(db,teamName,index));
         });
         nameOfTeam.setColumns(30);
 
@@ -267,7 +269,10 @@ public class Panneau extends JPanel {
         return panel;
     }
 
-    public JPanel result(JFrame fen,Connection db, String name, int index)
+    public JPanel resultPanelFoot(JFrame fen,Connection db,String name){
+        
+    }
+    public JPanel result(Connection db, String name, int index)
     {
         panel.setLayout(new FlowLayout());
         SQLRequete sql = new SQLRequete();
