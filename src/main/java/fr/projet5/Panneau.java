@@ -3,11 +3,7 @@ package fr.projet5;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
-<<<<<<< HEAD
 import java.sql.SQLException;
-=======
-import java.sql.SQLOutput;
->>>>>>> master
 import java.util.ArrayList;
 
 
@@ -83,7 +79,6 @@ public class Panneau extends JPanel {
     }
 
     JPanel buildContentPane(JFrame fen){
-        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         properties.createFile();
         ArrayList data;
@@ -179,9 +174,7 @@ public class Panneau extends JPanel {
         return panel;
     }
 
-    public JPanel panneFoot(JFrame fen, Connection db)
-    {
-        //JPanel panel = new JPanel();
+    public JPanel panneFoot(JFrame fen, Connection db) {
         panel.setLayout(new FlowLayout());
 
         JLabel textf = new JLabel("<html><body>Nom de l'équipe :</body></html>");
@@ -193,12 +186,8 @@ public class Panneau extends JPanel {
             panel.setVisible(false);
             Panneau panneau = new Panneau();
             String teamName = nameOfTeam.getText();
-<<<<<<< HEAD
-            fen.setContentPane(panneau.resultPanelFoot(fen, db,teamName));
-=======
             int index = 1;
-            fen.setContentPane(panneau.result(db,teamName,index));
->>>>>>> master
+            fen.setContentPane(panneau.result(fen, db,teamName,index));
         });
         nameOfTeam.setColumns(30);
 
@@ -250,7 +239,6 @@ public class Panneau extends JPanel {
     }
 
     public JPanel hippique(JFrame fen, Connection db) {
-        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
         JLabel texth = new JLabel("<html><body>Nom du cheval hippique :</body></html>");
@@ -279,13 +267,8 @@ public class Panneau extends JPanel {
         return panel;
     }
 
-<<<<<<< HEAD
-    public JPanel resultPanelFoot(JFrame fen,Connection db,String name)
-=======
-    public JPanel result(Connection db, String name, int index)
->>>>>>> master
+    public JPanel result(JFrame fen,Connection db, String name, int index)
     {
-        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         SQLRequete sql = new SQLRequete();
         String res = sql.dispatch(db,name,index);
