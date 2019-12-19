@@ -1,17 +1,31 @@
 package fr.projet5;
 
 import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class SQLRequete
 {
-    public void  requete()
+    public void  requete(Connection db,String name)
     {
-        Statement st = db.createStatement();
-        st.setFetchSize(0);
-        ResultSet rs = st.executeQuery("SELECT * FROM matable");
-        while (rs.next()) {
-            System.out.print("toutes les lignes ont été renvoyées.");
+        try {
+
+            String request = "SELECT * FROM football_team AS FT where FT.Team_name  = " + "'" +name+"'" ;
+            System.out.println(request);
+            PreparedStatement ps = db.prepareStatement(request);
+            ResultSet rs = ps.executeQuery(request);
+            while (rs.next())
+            {
+                String result = rs.getString("Team_Name");
+                System.out.println(result  + "\n");
+            }
+            rs.close();
+            ps.close();
         }
-        rs.close();
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
