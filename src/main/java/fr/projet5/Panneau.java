@@ -3,7 +3,11 @@ package fr.projet5;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
+<<<<<<< HEAD
 import java.sql.SQLException;
+=======
+import java.sql.SQLOutput;
+>>>>>>> master
 import java.util.ArrayList;
 
 
@@ -186,11 +190,15 @@ public class Panneau extends JPanel {
 
         JButton buttonValid = new JButton("Valider");
         buttonValid.addActionListener(e -> {
-
             panel.setVisible(false);
             Panneau panneau = new Panneau();
             String teamName = nameOfTeam.getText();
+<<<<<<< HEAD
             fen.setContentPane(panneau.resultPanelFoot(fen, db,teamName));
+=======
+            int index = 1;
+            fen.setContentPane(panneau.result(db,teamName,index));
+>>>>>>> master
         });
         nameOfTeam.setColumns(30);
 
@@ -271,12 +279,17 @@ public class Panneau extends JPanel {
         return panel;
     }
 
+<<<<<<< HEAD
     public JPanel resultPanelFoot(JFrame fen,Connection db,String name)
+=======
+    public JPanel result(Connection db, String name, int index)
+>>>>>>> master
     {
         //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         SQLRequete sql = new SQLRequete();
-        sql.requete(db,name);
+        String res = sql.dispatch(db,name,index);
+        System.out.println(res);
 
         menu(fen, db);
 
