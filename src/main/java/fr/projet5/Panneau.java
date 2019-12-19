@@ -3,6 +3,7 @@ package fr.projet5;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -22,6 +23,59 @@ public class Panneau extends JPanel {
     public String getMdp() {
 
         return mdp.getText();
+    }
+
+    JPanel menu(JFrame fen, Connection db){
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu option1 = new JMenu("Paramètre");
+
+        JMenuItem quitter = new JMenuItem("Déconnexion");
+        quitter.addActionListener(e -> {
+            //your actions
+            panel.setVisible(false);
+            Panneau panneau = new Panneau();
+            try {
+                db.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            fen.setContentPane(panneau.buildContentPane(fen));
+            System.out.println("déconnexion");
+        });
+
+        JMenuItem retour = new JMenuItem("Retour");
+        retour.addActionListener(e -> {
+            //your actions
+            panel.setVisible(false);
+            Panneau panneau = new Panneau();
+            fen.setContentPane(panneau.buildContentPane2(fen, db));
+            System.out.println("retour");
+        });
+
+        JMenu option3 = new JMenu("?");
+
+        JMenuItem aide = new JMenuItem("aide");
+
+        JMenuItem question = new JMenuItem("question");
+
+        //affichage
+
+        fen.setJMenuBar(menuBar);
+
+        menuBar.add(option1);
+
+        option1.add(retour);
+
+        option1.add(quitter);
+
+        menuBar.add(option3);
+
+        option3.add(aide);
+
+        option3.add(question);
+
+        return panel;
     }
 
     JPanel buildContentPane(JFrame fen){
@@ -55,30 +109,6 @@ public class Panneau extends JPanel {
             }
             Login.login(getUtilisateur(), getMdp(),panel,fen);
         });
-        JMenuBar menuBar = new JMenuBar();
-
-        JMenu option1 = new JMenu("Paramètre");
-
-        JMenuItem quitter = new JMenuItem("Déconnexion");
-        quitter.addActionListener(e -> {
-            //your actions
-            panel.setVisible(false);
-            Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.buildContentPane(fen));
-            System.out.println("déconnexion");
-        });
-
-        JMenuItem retour = new JMenuItem("Retour");
-        retour.addActionListener(e -> {
-            //your actions
-            System.out.println("retour");
-        });
-
-        JMenu option3 = new JMenu("?");
-
-        JMenuItem aide = new JMenuItem("aide");
-
-        JMenuItem question = new JMenuItem("question");
 
         //ajout des commandes
 
@@ -94,21 +124,6 @@ public class Panneau extends JPanel {
         panel.add(check);
 
         panel.add(bouton);
-
-        //menu
-        fen.setJMenuBar(menuBar);
-
-        menuBar.add(option1);
-
-        option1.add(retour);
-
-        option1.add(quitter);
-
-        menuBar.add(option3);
-
-        option3.add(aide);
-
-        option3.add(question);
 
         return panel;
     }
@@ -143,6 +158,8 @@ public class Panneau extends JPanel {
             fen.setContentPane(panneau.hippique(fen,db));
         });
 
+        menu(fen, db);
+
         //affichage
 
         panel.add(text1);
@@ -173,9 +190,12 @@ public class Panneau extends JPanel {
             panel.setVisible(false);
             Panneau panneau = new Panneau();
             String teamName = nameOfTeam.getText();
-            fen.setContentPane(panneau.resultPanelFoot(db,teamName));
+            fen.setContentPane(panneau.resultPanelFoot(fen, db,teamName));
         });
         nameOfTeam.setColumns(30);
+
+        menu(fen, db);
+
         //affichage
 
         panel.add(textf);
@@ -206,6 +226,8 @@ public class Panneau extends JPanel {
 
         });
 
+        menu(fen, db);
+
         //affichage
 
         panel.add(text1);
@@ -234,6 +256,8 @@ public class Panneau extends JPanel {
 
         });
 
+        menu(fen, db);
+
         //affichage
 
         panel.add(texth);
@@ -247,12 +271,14 @@ public class Panneau extends JPanel {
         return panel;
     }
 
-    public JPanel resultPanelFoot(Connection db,String name)
+    public JPanel resultPanelFoot(JFrame fen,Connection db,String name)
     {
         //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         SQLRequete sql = new SQLRequete();
         sql.requete(db,name);
+
+        menu(fen, db);
 
         return panel;
     }

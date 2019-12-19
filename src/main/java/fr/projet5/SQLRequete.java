@@ -11,7 +11,6 @@ public class SQLRequete
     public void  requete(Connection db,String name)
     {
         try {
-
             String request = "SELECT * FROM football_team AS FT where FT.Team_name  = " + "'" +name+"'" ;
             System.out.println(request);
             PreparedStatement ps = db.prepareStatement(request);
