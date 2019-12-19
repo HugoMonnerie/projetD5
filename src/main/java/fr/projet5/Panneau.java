@@ -82,7 +82,7 @@ public class Panneau extends JPanel {
         panel.setLayout(new FlowLayout());
         properties.createFile();
         ArrayList data;
-        data =  properties.readFile();
+        data = properties.readFile();
         rme = false;
         JLabel text1 = new JLabel("<html><body>Utilisateur :</body></html>");
         JLabel text2 = new JLabel("<html><body>Mot de passe :</body></html>");
@@ -273,9 +273,6 @@ public class Panneau extends JPanel {
         SQLRequete sql = new SQLRequete();
         String res = sql.dispatch(db,name,index);
         System.out.println(res);
-
-        menu(fen, db);
-
         return panel;
     }
 
