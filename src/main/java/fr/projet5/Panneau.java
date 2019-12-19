@@ -2,6 +2,7 @@ package fr.projet5;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 
@@ -64,8 +65,6 @@ public class Panneau extends JPanel {
         JButton option2 = new JButton("Retour");
         option2.addActionListener(e -> {
             //your actions
-            panel.setVisible(false);
-            fen.setContentPane(buildContentPane2(fen));
         });
 
         JMenu option3 = new JMenu("?");
@@ -107,7 +106,7 @@ public class Panneau extends JPanel {
         return panel;
     }
 
-    public JPanel buildContentPane2(JFrame fen){
+    public JPanel buildContentPane2(JFrame fen, Connection db){
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
@@ -118,7 +117,7 @@ public class Panneau extends JPanel {
             //your actions
             panel.setVisible(false);
             Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.panneFoot(fen));
+            fen.setContentPane(panneau.panneFoot(fen,db));
         });
 
         JButton bouton2 = new JButton("Tennis");
@@ -126,7 +125,7 @@ public class Panneau extends JPanel {
             //your actions
             panel.setVisible(false);
             Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.tennis());
+            fen.setContentPane(panneau.tennis(fen,db));
         });
 
         JButton bouton3 = new JButton("Hippique");
@@ -134,7 +133,7 @@ public class Panneau extends JPanel {
             //your actions
             panel.setVisible(false);
             Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.hippique());
+            fen.setContentPane(panneau.hippique(fen,db));
         });
 
         //affichage
@@ -152,7 +151,7 @@ public class Panneau extends JPanel {
         return panel;
     }
 
-    public JPanel panneFoot(JFrame fen)
+    public JPanel panneFoot(JFrame fen, Connection db)
     {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
@@ -166,7 +165,8 @@ public class Panneau extends JPanel {
 
             panel.setVisible(false);
             Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.resultPanelFoot());
+            String teamName = nameOfTeam.getText();
+            fen.setContentPane(panneau.resultPanelFoot(db,teamName));
         });
         nameOfTeam.setColumns(30);
         //affichage
@@ -184,7 +184,7 @@ public class Panneau extends JPanel {
         }
 
 
-    public JPanel tennis() {
+    public JPanel tennis(JFrame fen, Connection db) {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
@@ -212,7 +212,7 @@ public class Panneau extends JPanel {
         return panel;
     }
 
-    public JPanel hippique() {
+    public JPanel hippique(JFrame fen, Connection db) {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
@@ -240,10 +240,12 @@ public class Panneau extends JPanel {
         return panel;
     }
 
-    public JPanel resultPanelFoot()
+    public JPanel resultPanelFoot(Connection db,String name)
     {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
+        SQLRequete sql = new SQLRequete();
+        sql.requete(db,name);
 
         return panel;
     }
