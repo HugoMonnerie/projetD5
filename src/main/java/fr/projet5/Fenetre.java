@@ -2,7 +2,6 @@ package fr.projet5;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Connection;
 
 public class Fenetre extends JFrame {
 
