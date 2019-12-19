@@ -65,6 +65,7 @@ public class Panneau extends JPanel {
         JButton option2 = new JButton("Retour");
         option2.addActionListener(e -> {
             //your actions
+            System.out.println("retour");
         });
 
         JMenu option3 = new JMenu("?");
