@@ -268,7 +268,6 @@ public class Panneau extends JPanel {
         JButton bouton = new JButton("Valider");
         bouton.addActionListener(e -> {
             panel.setBackground(Color.gray);
-
             //your actions
 
         });
@@ -294,6 +293,9 @@ public class Panneau extends JPanel {
         SQLRequete sql = new SQLRequete();
         String res = sql.dispatch(db,name,index);
         System.out.println(res);
+        JTextArea a = new JTextArea(res);
+        a.setColumns(10);
+        panel.add(a);
         return panel;
     }
 

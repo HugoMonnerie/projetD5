@@ -36,11 +36,18 @@ public class SQLRequete
             PreparedStatement ps = db.prepareStatement(request);
             ResultSet rs = ps.executeQuery(request);
             String result = "";
+            String result2 = "";
+            String result3 = "";
             while (rs.next())
             {
                 result = rs.getString("Team_Name");
                 System.out.println(result  + "\n");
+                result2 = rs.getString("Team_create");
+                System.out.println(result2 + "\n");
+                result3 = rs.getString("Site_Team");
+                System.out.println(result3  + "\n");
             }
+            result = result +"\n"+ result2 +"\n"+ result3;
             rs.close();
             ps.close();
             return result;
