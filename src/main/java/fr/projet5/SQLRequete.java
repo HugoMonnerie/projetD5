@@ -28,7 +28,7 @@ public class SQLRequete
             return "error";
         }
     }
-    public int[] requetefoot(Connection db, String name)
+    public String requetefoot(Connection db, String name)
     {
         try {
             String request = "SELECT * FROM football_team AS FT where FT.Team_name  = " + "'" +name+"';" ;
@@ -113,9 +113,7 @@ public class SQLRequete
             rs6.close();
             ps6.close();
 
-            String resultT = [result + result2 + result3 +result4 + result5 + result6];
-
-            return resultT;
+            return result + result2 + result3 +result4 + result5 + result6;
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -124,8 +122,8 @@ public class SQLRequete
     }
     public String requeteTennis(Connection db,String name)
     {try {
-        String request = "SELECT * FROM players_tennis AS PT where PT.Name_player_t  = " + "'" +name+"'" ;
-        String request2 = "SELECT * FROM players_tennis as PT LEFT JOIN matchs_tennis as MT ON MT.Id_first_player_t = PT.Id_player_t LEFT JOIN (SELECT MT.Id_secondary_player_t as Id, COUNT(MT.Id_secondary_player_t) as nb FROM matchs_tennis as MT GROUP BY MT.Id_secondary_player_t )as tab ON tab.Id = PT.Id_player_t LEFT JOIN (SELECT tabV.id, max(tabV.v_frappe) as max_v_frappe, max(tabV.v_course) as max_v_course FROM (SELECT Id_first_player_t as id, Speed_shot_first_player_t as v_frappe, Speedrun_first_player_t as v_course FROM matchs_tennis UNION SELECT Id_secondary_player_t, Speed_shot_secondary_player_t, Speedrun_secondary_player_t FROM matchs_tennis) as tabV GROUP BY id) as tabVit ON tabVit.id=PT.Id_player_t GROUP BY PT.Id_player_t order by PT.Name_player_t ASC where PT.Name_player_t  = " + "'" +name+"'" ;
+        String request = "SELECT * FROM players_tennis AS PT where PT.Name_player_t  = " + "'" +name+"';" ;
+        String request2 = "SELECT * FROM players_tennis as PT LEFT JOIN matchs_tennis as MT ON MT.Id_first_player_t = PT.Id_player_t LEFT JOIN (SELECT MT.Id_secondary_player_t as Id, COUNT(MT.Id_secondary_player_t) as nb FROM matchs_tennis as MT GROUP BY MT.Id_secondary_player_t )as tab ON tab.Id = PT.Id_player_t LEFT JOIN (SELECT tabV.id, max(tabV.v_frappe) as max_v_frappe, max(tabV.v_course) as max_v_course FROM (SELECT Id_first_player_t as id, Speed_shot_first_player_t as v_frappe, Speedrun_first_player_t as v_course FROM matchs_tennis UNION SELECT Id_secondary_player_t, Speed_shot_secondary_player_t, Speedrun_secondary_player_t FROM matchs_tennis) as tabV GROUP BY id) as tabVit ON tabVit.id=PT.Id_player_t GROUP BY PT.Id_player_t where PT.Name_player_t  = " + "'" +name+"'"+"order by PT.Name_player_t ASC;" ;
 
         System.out.println(request);
         System.out.println(request2);
@@ -152,7 +150,7 @@ public class SQLRequete
         rs2.close();
         ps2.close();
 
-        return result, result2;
+        return result + result2;
     }
     catch (SQLException e) {
         e.printStackTrace();
@@ -163,22 +161,26 @@ public class SQLRequete
     public String requeteHippique(Connection db,String name)
     {
         try {
-            String request = "SELECT * FROM chevaux_hippique AS CH where CH.Name_horse  = " + "'" +name+"'" ;
-            String request2 = "SELECT * FROM chevaux_hippique AS CH Left JOIN  where CH.Name_horse  = " + "'" +name+"'" ;
+            String request = "SELECT * FROM chevaux_hippique AS CH LEFT JOIN jockeys_hippique AS JH ON JH.Id_horse_j = CH.Id_horse where CH.Name_horse  = " + "'" +name+"';" ;
+            String request2 = "SELECT * FROM classement_horse_race AS CHH LEFT JOIN race_hippiques as RH ON CHH.Id_race_c = RH.Id_race LEFT JOIN chevaux_hippique as CH ON CH.Id_horse = CHH.Id_horse_c where CH.Name_horse  = " + "'" +name+"'"+"ORDER BY CHH.Speed_horse DESC ;" ;
+            String request3 = "SELECT * FROM chevaux_hippique AS CH LEFT JOIN classement_horse_race AS CHH ON CH.Id_horse = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id,COUNT(CHH.Classement_horse) AS UN FROM classement_horse_race AS CHH WHERE CHH.Classement_horse = 1 GROUP BY CHH.Id_horse_c )AS tab1 ON tab1.Id = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id, COUNT(CHH.Classement_horse) AS TROIS FROM classement_horse_race AS CHH WHERE CHH.Classement_horse <= 3 GROUP BY CHH.Id_horse_c ) AS tab2 ON tab2.Id = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id, COUNT(CHH.Classement_horse) AS Loose FROM classement_horse_race AS CHH WHERE CHH.Classement_horse > 3 GROUP BY CHH.Id_horse_c )AS Looser On Looser.Id = CHH.Id_horse_c GROUP BY CH.Id_horse where CH.Name_horse  = " + "'" +name+"'"+"ORDER BY premier ASC;" ;
 
             System.out.println(request);
             System.out.println(request2);
+            System.out.println(request3);
 
             PreparedStatement ps = db.prepareStatement(request);
             PreparedStatement ps2 = db.prepareStatement(request2);
+            PreparedStatement ps3 = db.prepareStatement(request3);
 
             ResultSet rs = ps.executeQuery(request);
-            ResultSet rs2 = ps.executeQuery(request2);
+            ResultSet rs2 = ps2.executeQuery(request2);
+            ResultSet rs3 = ps3.executeQuery(request3);
 
             String result = "";
             while (rs.next())
             {
-                result = rs.getString("Name_horse, Age_horse");
+                result = rs.getString("Name_horse, Age_horse, Name_jockey, Firstname_jockey, Age_jockey, Weight_jockey");
             }
             rs.close();
             ps.close();
@@ -186,12 +188,20 @@ public class SQLRequete
             String result2 = "";
             while (rs2.next())
             {
-                result2 = rs2.getString("Team_Name");
+                result2 = rs2.getString("CHH.Speed_horse");
             }
             rs2.close();
             ps2.close();
 
-            return result, result2;
+            String result3 = "";
+            while (rs3.next())
+            {
+                result3 = rs3.getString("tab1.UN AS premier, tab2.TROIS AS podium, Looser.Loose");
+            }
+            rs3.close();
+            ps3.close();
+
+            return result + result2 + result3;
         }
         catch (SQLException e) {
             e.printStackTrace();
