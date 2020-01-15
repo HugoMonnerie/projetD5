@@ -76,13 +76,47 @@ public class SQLRequete
         return "error";
     }
     public String requeteTennis(Connection db,String name)
-    {
-
+    {try {
+        String request = "SELECT * FROM players_tennis AS FT where FT.Team_name  = " + "'" +name+"'" ;
+        System.out.println(request);
+        PreparedStatement ps = db.prepareStatement(request);
+        ResultSet rs = ps.executeQuery(request);
+        String result = "";
+        while (rs.next())
+        {
+            result = rs.getString("Team_Name");
+            System.out.println(result  + "\n");
+        }
+        rs.close();
+        ps.close();
+        return result;
+    }
+    catch (SQLException e) {
+        e.printStackTrace();
+    }
         return "error";
     }
+
     public String requeteHippique(Connection db,String name)
     {
-
+        try {
+            String request = "SELECT * FROM jockeys_hippique AS FT where FT.Team_name  = " + "'" +name+"'" ;
+            System.out.println(request);
+            PreparedStatement ps = db.prepareStatement(request);
+            ResultSet rs = ps.executeQuery(request);
+            String result = "";
+            while (rs.next())
+            {
+                result = rs.getString("Team_Name");
+                System.out.println(result  + "\n");
+            }
+            rs.close();
+            ps.close();
+            return result;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         return "error";
     }
 }
