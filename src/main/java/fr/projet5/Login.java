@@ -8,7 +8,8 @@ import java.sql.SQLException;
 public abstract class Login {
     public static void login(String id, String mdp, JPanel pan, JFrame fen){
         try {
-            Connection db = DriverManager.getConnection("BDD", id, mdp);
+            Connection db = DriverManager.getConnection("jdbc:mysql://localhost/projet5", id, mdp);
+            //Connection db = DriverManager.getConnection("BDD", id, mdp);
             System.out.println("Connected !");
             pan.setVisible(false);
             Panneau panneau = new Panneau();
