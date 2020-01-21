@@ -5,6 +5,7 @@ import java.awt.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.awt.Color;
 
 
 public class Panneau extends JPanel {
@@ -18,7 +19,6 @@ public class Panneau extends JPanel {
 
     public String getUser() {
         panel.setBackground(Color.gray);
-
 
         return utilisateur.getText();
     }
@@ -103,7 +103,8 @@ public class Panneau extends JPanel {
         check.addActionListener(e ->
                 rme = true);
 
-        JButton bouton = new JButton("Connection");
+        JButton bouton = new JButton("connection");
+        bouton.setForeground(Color.green);
         bouton.addActionListener(e -> {
             //your actions
             if(rme)
@@ -139,11 +140,13 @@ public class Panneau extends JPanel {
 
     public JPanel panelChoice(JFrame fen, Connection db){
         //JPanel panel = new JPanel();
+
         panel.setLayout(new FlowLayout());
 
         JLabel text1 = new JLabel("<html><body>Type de parie :</body></html>");
 
         JButton bouton1 = new JButton("Football");
+        bouton1.setForeground(Color.green);
         bouton1.addActionListener(e -> {
             panel.setBackground(Color.gray);
 
@@ -154,6 +157,7 @@ public class Panneau extends JPanel {
         });
 
         JButton bouton2 = new JButton("Tennis");
+        bouton2.setForeground(new Color(255, 213, 0));
         bouton2.addActionListener(e -> {
             panel.setBackground(Color.gray);
 
@@ -164,6 +168,7 @@ public class Panneau extends JPanel {
         });
 
         JButton bouton3 = new JButton("Hippique");
+        bouton3.setForeground(new Color(97, 40, 0));
         bouton3.addActionListener(e -> {
             panel.setBackground(Color.gray);
 
@@ -194,12 +199,14 @@ public class Panneau extends JPanel {
         panel.setLayout(new FlowLayout());
 
         JLabel textf = new JLabel("<html><body>Nom de l'équipe :</body></html>");
+        textf.setForeground(new Color(69, 255, 0));
 
         JTextField nameOfTeam = new JTextField();
 
         JButton buttonValid = new JButton("Valider");
+        buttonValid.setForeground(new Color(69, 255, 0));
         buttonValid.addActionListener(e -> {
-            panel.setBackground(Color.gray);
+            panel.setForeground(new Color(8, 145, 0));
 
             panel.setVisible(false);
             Panneau panneau = new Panneau();
@@ -231,11 +238,13 @@ public class Panneau extends JPanel {
         panel.setLayout(new FlowLayout());
 
         JLabel text1 = new JLabel("<html><body>Nom du joueur de tennis :</body></html>");
+        text1.setForeground(new Color(184, 175, 0));
 
         JTextField jtennis = new JTextField();
         jtennis.setColumns(10);
 
         JButton bouton = new JButton("Valider");
+        bouton.setForeground(new Color(184, 175, 0));
         bouton.addActionListener(e -> {
             //your actions
             panel.setBackground(Color.gray);
@@ -261,11 +270,15 @@ public class Panneau extends JPanel {
         panel.setLayout(new FlowLayout());
 
         JLabel texth = new JLabel("<html><body>Nom du cheval hippique :</body></html>");
+        texth.setForeground(new Color(125, 42, 0));
+
 
         JTextField jhippique = new JTextField();
         jhippique.setColumns(10);
 
         JButton bouton = new JButton("Valider");
+        bouton.setForeground(new Color(97, 40, 0));
+
         bouton.addActionListener(e -> {
             panel.setBackground(Color.gray);
             //your actions
