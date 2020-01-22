@@ -87,25 +87,6 @@ public class SQLRequete
     public List<String> requetePlayerFoot(Connection db, String name)
     {
         try {
-<<<<<<< Updated upstream
-            String request = "SELECT * FROM football_team AS FT where FT.Team_name  = " + "'" +name+"'inner join" ;
-            String request2 = "SELECT * FROM football_player Left Join football_team as FT on football_player.J_id_team_f = FT.Id_team_f where FT.Team_name = " + "'"+name+"'" + " and Titulaire_player_f = 'titulaire' ;" ;
-            /*String request3 = "SELECT * FROM football_player AS FP LEFT JOIN football_team AS FT ON FP.J_id_team_f = FT.Id_team_f where FT.Team_name  = " + "'"+name+"';";
-            String request4 = "SELECT * as Nbr_Player FROM football_player AS FP LEFT JOIN football_team AS FT ON FP.J_id_team_f = FT.Id_team_f where FT.Team_name  = " + "'"+name+"';";
-            String request5 = "SELECT * as Nbr_team FROM football_team ;";
-            String request6 = "SELECT * FROM football_team AS FT LEFT JOIN (SELECT tabBut.id as id, FT.Team_name as Name_team ,max(tabBut.but) as but, FT2.Team_name as Name_team_adv FROM (SELECT Id_team_inside_f as id, Nbr_but_inside_f as but, Id_team_outside_f as id_adv FROM matchs_football UNION SELECT Id_team_outside_f, Nbr_but_outside_f, Id_team_inside_f FROM matchs_football order by but DESC) as tabBut LEFT JOIN football_team as FT ON tabBut.id = FT.Id_team_f LEFT JOIN football_team as FT2 ON tabBut.id_adv=FT2.Id_team_f GROUP BY id) AS tab1f ON FT.Id_team_f=tab1.id LEFT JOIN (SELECT tabBut2.id as id, FT.Team_name as Name_team ,max(tabBut2.but) as but, FT2.Team_name as Name_team_adv FROM (SELECT Id_team_outside_f as id, Nbr_but_inside_f as but , Id_team_inside_f as id_adv FROM matchs_football UNION SELECT Id_team_inside_f, Nbr_but_outside_f, Id_team_outside_f FROM matchs_football ORDER BY but DESC) as tabBut2 LEFT JOIN football_team as FT ON tabBut2.id = FT.Id_team_f LEFT JOIN football_team as FT2 ON tabBut2.id_adv=FT2.Id_team_f GROUP BY id) AS tab2 ON FT.Id_team_f=tab2.id;";
-*/
-            System.out.println(request);
-            System.out.println(request2);
-            /*System.out.println(request3);
-            System.out.println(request4);
-            System.out.println(request5);
-            System.out.println(request6);*/
-
-            PreparedStatement ps = db.prepareStatement(request);
-            PreparedStatement ps2 = db.prepareStatement(request2);
-            /*PreparedStatement ps3 = db.prepareStatement(request3);
-=======
             String request2 = "SELECT COUNT(Titulaire_player_f) as Nbr_Titulaire FROM football_player Left Join football_team as FT on football_player.J_id_team_f = FT.Id_team_f where FT.Team_name = " + "'"+name+"'" + " and Titulaire_player_f = 'titulaire' ;" ;
             String request3 = "SELECT * FROM football_player AS FP LEFT JOIN football_team AS FT ON FP.J_id_team_f = FT.Id_team_f where FT.Team_name  = " + "'"+name+"';";
 
@@ -150,16 +131,11 @@ public class SQLRequete
             PreparedStatement ps = db.prepareStatement(request);
             PreparedStatement ps2 = db.prepareStatement(request2);
             PreparedStatement ps3 = db.prepareStatement(request3);
->>>>>>> Stashed changes
             PreparedStatement ps4 = db.prepareStatement(request4);
 
             ResultSet rs = ps.executeQuery(request);
             ResultSet rs2 = ps2.executeQuery(request2);
-<<<<<<< Updated upstream
-            /*ResultSet rs3 = ps3.executeQuery(request3);
-=======
             ResultSet rs3 = ps3.executeQuery(request3);
->>>>>>> Stashed changes
             ResultSet rs4 = ps4.executeQuery(request4);
 
             List<String> liste = new ArrayList<>();
@@ -171,10 +147,6 @@ public class SQLRequete
             rs.close();
             ps.close();
 
-<<<<<<< Updated upstream
-            String result2 = "";
-=======
->>>>>>> Stashed changes
             while (rs2.next())
             {
                 liste.add(rs2.getString("nb_win_outside"));
@@ -182,10 +154,6 @@ public class SQLRequete
             rs2.close();
             ps2.close();
 
-<<<<<<< Updated upstream
-            /*String result3 = "";
-=======
->>>>>>> Stashed changes
             while (rs3.next())
             {
                 liste.add(rs3.getString("nb_team_fight"));

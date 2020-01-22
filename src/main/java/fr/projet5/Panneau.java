@@ -194,16 +194,13 @@ public class Panneau extends JPanel {
 
     public JPanel panneFoot(JFrame fen, Connection db) {
 
-<<<<<<< Updated upstream
         fen.setSize(1100, 600);
         JLabel textf = new JLabel("<html><body>Nom de l'équipe :</body></html>");
         textf.setForeground(new Color(69, 255, 0));
 
-=======
         panel.setLayout(new FlowLayout());
-        JLabel textf = new JLabel("<html><body>Nom de l'équipe :</body></html>");
->>>>>>> Stashed changes
         JTextField nameOfTeam = new JTextField();
+        nameOfTeam.setColumns(10);
 
         JButton buttonValid = new JButton("Valider");
         buttonValid.setForeground(new Color(69, 255, 0));

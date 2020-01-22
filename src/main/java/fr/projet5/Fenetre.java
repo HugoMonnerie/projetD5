@@ -4,19 +4,19 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class fenetre extends JFrame {
+public class Fenetre extends JFrame {
 
-    public fenetre(){
+    public Fenetre(){
         {
             this.setTitle("MySQL");
             this.setSize(1100, 600);
             this.setLocationRelativeTo(null);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             Panneau panneau = new Panneau();
-            setContentPane(new AfficheImage("/Users/souksou/Desktop/projet 5/projetD5/src/main/resources/giphy.gif"));
+            setContentPane(new AfficheImage("../projetD5/src/main/resources/giphy.gif"));
             getContentPane().setLayout(new BorderLayout());
             this.setVisible(true);
-            fenetre fen = this;
+            Fenetre fen = this;
             this.setContentPane(panneau.panelConnection(fen));
         }
         //Le conteneur principal
@@ -51,7 +51,7 @@ public class fenetre extends JFrame {
         {
             public static void main(String[] args)
             {
-                 fenetre test = new fenetre();
+                 Fenetre test = new Fenetre();
             }
         }
 }

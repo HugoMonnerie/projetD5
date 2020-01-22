@@ -28,13 +28,6 @@ public abstract class Login {
                 }
             }
 
-            class affichage
-            {
-                public void main(String[] args)
-                {
-                    GlobalConsoleFrame test = new GlobalConsoleFrame();
-                }
-            }
             new AfficheImage("/Users/souksou/Desktop/projet 5/projetD5/src/main/resources/giphy.gif");
 
             pan.setVisible(false);
