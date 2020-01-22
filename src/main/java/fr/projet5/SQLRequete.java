@@ -1,36 +1,93 @@
 package fr.projet5;
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SQLRequete
 {
+    int i=0;
 
-    public String dispatch(Connection db, String name, int index)
-    {
-        if(index == 1)
-        {
-            return requetefoot(db, name);
+    public String nbTitulaireFoot(Connection db, String name){
+        String request2 = "SELECT COUNT(Titulaire_player_f) as Nbr_Titulaire FROM football_player Left Join football_team as FT on football_player.J_id_team_f = FT.Id_team_f where FT.Team_name = " + "'"+name+"'" + " and Titulaire_player_f = 'titulaire' ;" ;
+
+        try{
+            PreparedStatement ps2 = db.prepareStatement(request2);
+            ResultSet rs2 = ps2.executeQuery(request2);
+            String result2 = "";
+
+            while (rs2.next())
+            {
+                result2 = rs2.getString("Nbr_Titulaire");
+            }
+
+            rs2.close();
+            ps2.close();
+            return result2 ;
+        }catch (Exception e){
+
         }
-        else if(index == 2)
-        {
-            return requeteTennis(db, name);
-        }
-        else if(index == 3)
-        {
-            return requeteHippique(db, name);
-        }
-        else
-        {
-            System.out.println("ERROR INDEX");
-            return "error";
-        }
+        return null;
     }
-    public String requetefoot(Connection db, String name)
+
+    public String nbPlayerFoot(Connection db, String name){
+        String request2 = "SELECT COUNT(Name_player_f) as Nbr_Player FROM football_player Left Join football_team as FT on football_player.J_id_team_f = FT.Id_team_f where FT.Team_name = " + "'"+name+"';" ;
+
+        try{
+            PreparedStatement ps2 = db.prepareStatement(request2);
+            ResultSet rs2 = ps2.executeQuery(request2);
+            String result2 = "";
+
+            while (rs2.next())
+            {
+                result2 = rs2.getString("Nbr_Player");
+            }
+
+            rs2.close();
+            ps2.close();
+            return result2 ;
+        }catch (Exception e){
+
+        }
+        return null;
+    }
+
+    public List<String> requeteTeamFoot(Connection db, String name){
+        try {
+            String request = "SELECT * FROM football_team AS FT where FT.Team_name =" + "'" + name + "';" ;
+
+            PreparedStatement ps = db.prepareStatement(request);
+            ResultSet rs = ps.executeQuery(request);
+
+            List<String> liste = new ArrayList<>();
+
+            while (rs.next())
+            {
+                liste.add(rs.getString("Team_name"));
+                liste.add(rs.getString("Team_create"));
+                liste.add(rs.getString("Site_team"));
+                liste.add(new SQLRequete().nbTitulaireFoot(db, name));
+                liste.add(new SQLRequete().nbPlayerFoot(db, name));
+            }
+            rs.close();
+            ps.close();
+
+            return liste;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<String> requetePlayerFoot(Connection db, String name)
     {
         try {
+<<<<<<< Updated upstream
             String request = "SELECT * FROM football_team AS FT where FT.Team_name  = " + "'" +name+"'inner join" ;
             String request2 = "SELECT * FROM football_player Left Join football_team as FT on football_player.J_id_team_f = FT.Id_team_f where FT.Team_name = " + "'"+name+"'" + " and Titulaire_player_f = 'titulaire' ;" ;
             /*String request3 = "SELECT * FROM football_player AS FP LEFT JOIN football_team AS FT ON FP.J_id_team_f = FT.Id_team_f where FT.Team_name  = " + "'"+name+"';";
@@ -48,114 +105,168 @@ public class SQLRequete
             PreparedStatement ps = db.prepareStatement(request);
             PreparedStatement ps2 = db.prepareStatement(request2);
             /*PreparedStatement ps3 = db.prepareStatement(request3);
-            PreparedStatement ps4 = db.prepareStatement(request4);
-            PreparedStatement ps5 = db.prepareStatement(request5);
-            PreparedStatement ps6 = db.prepareStatement(request6);*/
+=======
+            String request2 = "SELECT COUNT(Titulaire_player_f) as Nbr_Titulaire FROM football_player Left Join football_team as FT on football_player.J_id_team_f = FT.Id_team_f where FT.Team_name = " + "'"+name+"'" + " and Titulaire_player_f = 'titulaire' ;" ;
+            String request3 = "SELECT * FROM football_player AS FP LEFT JOIN football_team AS FT ON FP.J_id_team_f = FT.Id_team_f where FT.Team_name  = " + "'"+name+"';";
 
-            ResultSet rs = ps.executeQuery(request);
+            PreparedStatement ps2 = db.prepareStatement(request2);
+            PreparedStatement ps3 = db.prepareStatement(request3);
+
             ResultSet rs2 = ps2.executeQuery(request2);
-            /*ResultSet rs3 = ps3.executeQuery(request3);
-            ResultSet rs4 = ps4.executeQuery(request4);
-            ResultSet rs5 = ps5.executeQuery(request5);
-            ResultSet rs6 = ps6.executeQuery(request6);*/
+            ResultSet rs3 = ps3.executeQuery(request3);
 
-            String result = "";
-            while (rs.next())
-            {
-                result = rs.getString("Team_create");
-            }
-            result = result +"\n";
-            rs.close();
-            ps.close();
+            List<String> liste = new ArrayList<>();
 
-            String result2 = "";
-            while (rs2.next())
-            {
-                result2 = rs2.getString("COUNT(Titulaire_player_f) as Nbr_Titulaire");
-            }
-            result2 = result2 +"\n";
-            rs2.close();
-            ps2.close();
-
-            /*String result3 = "";
             while (rs3.next())
             {
-                result3 = rs3.getString("FP.Name_player_f,  FP.Age_player_f");
+                liste.add(rs3.getString("FP.Name_player_f"));
+                liste.add(rs3.getString("FP.Age_player_f"));
+                liste.add(rs3.getString("FP.Titulaire_player_f"));
+
             }
-            result3 = result3 +"\n";
             rs3.close();
             ps3.close();
 
-            String result4 = "";
-            while (rs4.next())
-            {
-                result4 = rs4.getString("COUNT(FP.Name_player_f)");
-            }
-            result4 = result4 +"\n";
-            rs4.close();
-            ps4.close();
-
-            String result5 = "";
-            while (rs5.next())
-            {
-                result5 = rs5.getString("COUNT(Team_name)-1");
-            }
-            result5 = result5 +"\n";
-            rs5.close();
-            ps5.close();
-
-            String result6 = "";
-            while (rs4.next())
-            {
-                result6 = rs6.getString("tab1.Name_team,tab1.but, tab1.Name_team_adv ,tab2.Name_team_adv, tab2.but");
-            }
-            result6 = result6 +"\n";
-            rs6.close();
-            ps6.close();*/
-
-            return result;
+            return liste;
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return "error";
+        return null;
     }
-    public String requeteTennis(Connection db,String name)
-    {try {
-        String request = "SELECT * FROM players_tennis AS PT where PT.Name_player_t  = " + "'" +name+"';" ;
-        String request2 = "SELECT * FROM players_tennis as PT LEFT JOIN matchs_tennis as MT ON MT.Id_first_player_t = PT.Id_player_t LEFT JOIN (SELECT MT.Id_secondary_player_t as Id, COUNT(MT.Id_secondary_player_t) as nb FROM matchs_tennis as MT GROUP BY MT.Id_secondary_player_t )as tab ON tab.Id = PT.Id_player_t LEFT JOIN (SELECT tabV.id, max(tabV.v_frappe) as max_v_frappe, max(tabV.v_course) as max_v_course FROM (SELECT Id_first_player_t as id, Speed_shot_first_player_t as v_frappe, Speedrun_first_player_t as v_course FROM matchs_tennis UNION SELECT Id_secondary_player_t, Speed_shot_secondary_player_t, Speedrun_secondary_player_t FROM matchs_tennis) as tabV GROUP BY id) as tabVit ON tabVit.id=PT.Id_player_t GROUP BY PT.Id_player_t where PT.Name_player_t  = " + "'" +name+"'"+"order by PT.Name_player_t ASC;" ;
 
-        System.out.println(request);
-        System.out.println(request2);
+    public List<String> requeteMatchFoot(Connection db, String name){
+
+        try {
+            String request = "SELECT count(MT.Id_team_inside_f) as nb_win_inside FROM matchs_football AS MT LEFT JOIN football_team AS FT ON FT.Id_team_f = MT.Id_team_inside_f WHERE MT.Nbr_but_inside_f>MT.Nbr_but_outside_f AND FT.Team_name =  " + "'"+name+"';";
+
+            String request2 = "SELECT count(MT.Id_team_outside_f) as nb_win_outside FROM matchs_football AS MT LEFT JOIN football_team AS FT ON FT.Id_team_f = MT.Id_team_outside_f WHERE MT.Nbr_but_inside_f<MT.Nbr_but_outside_f AND FT.Team_name =  " + "'"+name+"';";
+
+            String request3 = "SELECT count(tab.id) as nb_team_fight FROM (SELECT  MF.Id_team_inside_f+MF.Id_team_outside_f as id , MF.Id_team_inside_f, MF.Id_team_outside_f FROM matchs_football AS MF LEFT JOIN football_team AS FT ON MF.Id_team_inside_f = FT.Id_team_f LEFT JOIN football_team as FT2 ON MF.Id_team_outside_f = FT2.Id_team_f WHERE FT.Team_name = "+"'"+name+"'"+" OR FT2.Team_name = "+"'"+name+"'"+" GROUP BY id) as tab;";
+
+            String request4 = "SELECT tab1.Name_team_adv ,tab2.Name_team_adv FROM football_team AS FT LEFT JOIN (SELECT tabBut.id as id, FT.Team_name as Name_team ,max(tabBut.but) as but, FT2.Team_name as Name_team_adv FROM (SELECT Id_team_inside_f as id, Nbr_but_inside_f as but, Id_team_outside_f as id_adv FROM matchs_football UNION SELECT Id_team_outside_f, Nbr_but_outside_f, Id_team_inside_f FROM matchs_football order by but DESC) as tabBut LEFT JOIN football_team as FT ON tabBut.id = FT.Id_team_f LEFT JOIN football_team as FT2 ON tabBut.id_adv=FT2.Id_team_f GROUP BY id) AS tab1 ON FT.Id_team_f=tab1.id LEFT JOIN (SELECT tabBut2.id as id, FT.Team_name as Name_team ,max(tabBut2.but) as but,FT2.Team_name as Name_team_adv FROM (SELECT Id_team_outside_f as id, Nbr_but_inside_f as but , Id_team_inside_f as id_adv FROM matchs_football UNION SELECT Id_team_inside_f, Nbr_but_outside_f, Id_team_outside_f FROM matchs_football ORDER BY but DESC) as tabBut2 LEFT JOIN football_team as FT ON tabBut2.id = FT.Id_team_f LEFT JOIN football_team as FT2 ON tabBut2.id_adv=FT2.Id_team_f GROUP BY id) AS tab2 ON FT.Id_team_f=tab2.id WHERE FT.Team_name = " + "'"+name+"';";
+
+
+            PreparedStatement ps = db.prepareStatement(request);
+            PreparedStatement ps2 = db.prepareStatement(request2);
+            PreparedStatement ps3 = db.prepareStatement(request3);
+>>>>>>> Stashed changes
+            PreparedStatement ps4 = db.prepareStatement(request4);
+
+            ResultSet rs = ps.executeQuery(request);
+            ResultSet rs2 = ps2.executeQuery(request2);
+<<<<<<< Updated upstream
+            /*ResultSet rs3 = ps3.executeQuery(request3);
+=======
+            ResultSet rs3 = ps3.executeQuery(request3);
+>>>>>>> Stashed changes
+            ResultSet rs4 = ps4.executeQuery(request4);
+
+            List<String> liste = new ArrayList<>();
+
+            while (rs.next())
+            {
+                liste.add(rs.getString("nb_win_inside"));
+            }
+            rs.close();
+            ps.close();
+
+<<<<<<< Updated upstream
+            String result2 = "";
+=======
+>>>>>>> Stashed changes
+            while (rs2.next())
+            {
+                liste.add(rs2.getString("nb_win_outside"));
+            }
+            rs2.close();
+            ps2.close();
+
+<<<<<<< Updated upstream
+            /*String result3 = "";
+=======
+>>>>>>> Stashed changes
+            while (rs3.next())
+            {
+                liste.add(rs3.getString("nb_team_fight"));
+            }
+            rs3.close();
+            ps3.close();
+
+            while (rs4.next())
+            {
+                liste.add(rs4.getString("tab1.Name_team_adv"));
+                liste.add(rs4.getString("tab2.Name_team_adv"));
+            }
+            rs4.close();
+            ps4.close();
+
+            return liste;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    public List<String> requetePlayerTennis(Connection db,String name)
+    {
+        try {
+        String request = "SELECT * FROM players_tennis AS PT where PT.Name_player_t  = " + "'" +name+"';" ;
 
         PreparedStatement ps = db.prepareStatement(request);
-        PreparedStatement ps2 = db.prepareStatement(request2);
 
         ResultSet rs = ps.executeQuery(request);
-        ResultSet rs2 = ps2.executeQuery(request2);
 
-        String result = "";
+        List<String> liste = new ArrayList<>();
+
         while (rs.next())
         {
-            result = rs.getString("Name_player_t, Firstname_player_t, Age_player_t");
+            liste.add(rs.getString("Name_player_t"));
+            liste.add(rs.getString("Firstname_player_t"));
+            liste.add(rs.getString("Age_player_t"));
+            liste.add(rs.getString("Nbr_medal_t"));
         }
         rs.close();
         ps.close();
 
-        String result2 = "";
-        while (rs2.next())
-        {
-            result2 = rs2.getString("PT.Firstname_player_t,PT.Name_player_t, PT.Age_player_t, COUNT(MT.`Id_first_player_t`) AS NBR_Win, tab.nb AS NBR_Loose,PT.Nbr_medal_t,tabVit.max_v_frappe as vitesse_frappe_max,tabVit.max_v_course as vitesse_max");
-        }
-        rs2.close();
-        ps2.close();
-
-        return result + result2;
+        return liste;
     }
     catch (SQLException e) {
         e.printStackTrace();
     }
-        return "error";
+        return null;
+    }
+
+    public List<String> requeteMatchTennis(Connection db,String name)
+    {
+        try {
+            String request = "SELECT PT.Firstname_player_t,PT.Name_player_t, PT.Age_player_t, COUNT(MT.`Id_first_player_t`) AS NBR_Win, tab.nb AS NBR_Loose,PT.Nbr_medal_t,tabVit.max_v_frappe as vitesse_frappe_max,tabVit.max_v_course as vitesse_max FROM players_tennis as PT LEFT JOIN matchs_tennis as MT ON MT.Id_first_player_t = PT.Id_player_t LEFT JOIN (SELECT MT.Id_secondary_player_t as Id, COUNT(MT.Id_secondary_player_t) as nb FROM matchs_tennis as MT GROUP BY MT.Id_secondary_player_t )as tab ON tab.Id = PT.Id_player_t LEFT JOIN (SELECT tabV.id, max(tabV.v_frappe) as max_v_frappe, max(tabV.v_course) as max_v_course FROM (SELECT Id_first_player_t as id, Speed_shot_first_player_t as v_frappe, Speedrun_first_player_t as v_course FROM matchs_tennis UNION SELECT Id_secondary_player_t, Speed_shot_secondary_player_t, Speedrun_secondary_player_t FROM matchs_tennis) as tabV GROUP BY id) as tabVit ON tabVit.id=PT.Id_player_t where PT.Name_player_t  = "+"'"+name+"'"+" GROUP BY PT.Id_player_t order by PT.Name_player_t ASC;" ;
+
+            PreparedStatement ps = db.prepareStatement(request);
+
+            ResultSet rs = ps.executeQuery(request);
+
+            List<String> liste = new ArrayList<>();
+
+            while (rs.next())
+            {
+                liste.add(rs.getString("NBR_Win"));
+                liste.add(rs.getString("NBR_Loose"));
+                liste.add(rs.getString("vitesse_frappe_max"));
+                liste.add(rs.getString("vitesse_max"));
+            }
+            rs.close();
+            ps.close();
+
+            return liste;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public String requeteHippique(Connection db,String name)

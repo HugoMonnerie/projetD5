@@ -5,6 +5,7 @@ import java.awt.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Panneau extends JPanel {
@@ -192,12 +193,16 @@ public class Panneau extends JPanel {
     }
 
     public JPanel panneFoot(JFrame fen, Connection db) {
-        panel.setLayout(new FlowLayout());
 
+<<<<<<< Updated upstream
         fen.setSize(1100, 600);
         JLabel textf = new JLabel("<html><body>Nom de l'équipe :</body></html>");
         textf.setForeground(new Color(69, 255, 0));
 
+=======
+        panel.setLayout(new FlowLayout());
+        JLabel textf = new JLabel("<html><body>Nom de l'équipe :</body></html>");
+>>>>>>> Stashed changes
         JTextField nameOfTeam = new JTextField();
 
         JButton buttonValid = new JButton("Valider");
@@ -207,11 +212,10 @@ public class Panneau extends JPanel {
 
             panel.setVisible(false);
             Panneau panneau = new Panneau();
+
             String teamName = nameOfTeam.getText();
-            int index = 1;
-            fen.setContentPane(panneau.result(db,teamName,index));
+            fen.setContentPane(panneau.resultFoot(db,teamName));
         });
-        nameOfTeam.setColumns(30);
 
         menu(fen, db);
 
@@ -231,7 +235,6 @@ public class Panneau extends JPanel {
 
 
     public JPanel tennis(JFrame fen, Connection db) {
-        //JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
         JLabel text1 = new JLabel("<html><body>Nom du joueur de tennis :</body></html>");
@@ -244,6 +247,12 @@ public class Panneau extends JPanel {
         bouton.setForeground(new Color(184, 175, 0));
         bouton.addActionListener(e -> {
             //your actions
+
+            panel.setVisible(false);
+            Panneau panneau = new Panneau();
+
+            String tennisName = jtennis.getText();
+            fen.setContentPane(panneau.resultTennis(db,tennisName));
 
         });
 
@@ -277,6 +286,11 @@ public class Panneau extends JPanel {
 
         bouton.addActionListener(e -> {
             //your actions
+            panel.setVisible(false);
+            Panneau panneau = new Panneau();
+
+            String teamName = jhippique.getText();
+            fen.setContentPane(panneau.resultHippique(db,teamName));
 
         });
 
@@ -295,15 +309,213 @@ public class Panneau extends JPanel {
         return panel;
     }
 
-    public JPanel result(Connection db, String name, int index)
+    public JPanel resultFoot(Connection db, String teamName)
     {
+        String[] headerTF = {"nom de l'equipe", "date creation", "site", "nb titulaire", "nb players"};
+        ModeleStatic modelTF = new ModeleStatic(headerTF);
+        TableTeamFoot TF;
+        ArrayList<String> team = new ArrayList<String>();
+
+        SQLRequete requestsSQLTF = new SQLRequete();
+        JPanel panelTabTF = new JPanel();
+
         panel.setLayout(new FlowLayout());
-        SQLRequete sql = new SQLRequete();
-        String res = sql.dispatch(db,name,index);
-        System.out.println(res);
-        JTextArea a = new JTextArea(res);
-        a.setColumns(10);
-        panel.add(a);
+        
+        List<String> valuesTF=new ArrayList<>();
+        try {
+            valuesTF = requestsSQLTF.requeteTeamFoot(db, teamName);
+            System.out.println(valuesTF);
+            if (!valuesTF.isEmpty()) {
+                int i = 0;
+
+                for (String infoArrive : valuesTF) {
+                    team.add(infoArrive);
+                    i++;
+                    if (i == headerTF.length) {
+                        modelTF.addInformation(new TableTeamFoot(team.get(0), team.get(1), team.get(2), team.get(3), team.get(4)));
+                        team.clear();
+                        i = 0;
+                    }
+                }
+
+            }
+            else { TF = new TableTeamFoot("", "", "", "", "");}
+        } catch (Exception i) {
+            System.out.println(i);
+        }
+
+        panelTabTF.setLayout(new BorderLayout());
+        JTable tableauTF = new JTable(modelTF);
+        panelTabTF.add(new JScrollPane(tableauTF), BorderLayout.CENTER);
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        String[] headerPF = {"nom du joueur", "age du joueur", "titulaire"};
+        ModeleStatic modelPF = new ModeleStatic(headerPF);
+        TablePlayerFoot PF;
+        ArrayList<String> teamPlayers = new ArrayList<String>();
+
+        SQLRequete requestsSQLPF = new SQLRequete();
+        JPanel panelTabPF = new JPanel();
+
+        panel.setLayout(new FlowLayout());
+
+        List<String> valuesPF;
+        try {
+            valuesPF = requestsSQLPF.requetePlayerFoot(db, teamName);
+            if (!valuesPF.isEmpty()) {
+                int i = 0;
+
+                for (String infoArrive : valuesPF) {
+                    teamPlayers.add(infoArrive);
+                    i++;
+                    if (i == headerPF.length) {
+                        modelPF.addInformation(new TablePlayerFoot(teamPlayers.get(0), teamPlayers.get(1), teamPlayers.get(2)));
+                        teamPlayers.clear();
+                        i = 0;
+                    }
+                }
+
+            }
+            else { PF = new TablePlayerFoot(" ", " ", "");}
+        } catch (Exception i) {
+            System.out.println(i);
+        }
+
+        panelTabPF.setLayout(new BorderLayout());
+        JTable tableauPF = new JTable(modelPF);
+        panelTabPF.add(new JScrollPane(tableauPF), BorderLayout.CENTER);
+        
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        String[] headerMF = {"nb_win_inside", "nb_win_outside", "nb_team_fight", "team_max_but_win", "team_max_but_loose"};
+        ModeleStatic modelMF = new ModeleStatic(headerMF);
+        TableMatchFoot MF;
+        ArrayList<String> matchTeam = new ArrayList<String>();
+
+        JPanel panelTabMF = new JPanel();
+        panel.setLayout(new FlowLayout());
+
+        List<String> valuesMF=new ArrayList<>();
+        try {
+            valuesMF = new SQLRequete().requeteMatchFoot(db, teamName);
+            System.out.println(valuesMF);
+            if (!valuesMF.isEmpty()) {
+                int i = 0;
+
+                for (String infoArrive : valuesMF) {
+                    matchTeam.add(infoArrive);
+                    i++;
+                    if (i == headerMF.length) {
+                        modelMF.addInformation(new TableMatchFoot(matchTeam.get(0), matchTeam.get(1), matchTeam.get(2), matchTeam.get(3), matchTeam.get(4)));
+                        teamPlayers.clear();
+                        i = 0;
+                    }
+                }
+
+            }
+            else { MF = new TableMatchFoot(" ", " ", " ", " "," ");}
+        } catch (Exception i) {
+            System.out.println(i);
+        }
+
+        panelTabMF.setLayout(new BorderLayout());
+        JTable tableauMF = new JTable(modelMF);
+        panelTabMF.add(new JScrollPane(tableauMF), BorderLayout.CENTER);
+
+        panel.add(panelTabTF);
+        panel.add(panelTabPF);
+        panel.add(panelTabMF);
+        return panel;
+    }
+
+    public JPanel resultTennis(Connection db, String TennisName)
+    {
+
+        String[] headerPT = {"nom du joueur", "prenom du joueur" , "age du joueur", "nb de medailles du joueur"};
+        ModeleStatic modelPT = new ModeleStatic(headerPT);
+        TablePlayerTennis PT;
+        ArrayList<String> PlayerTennis = new ArrayList<String>();
+
+        SQLRequete requestsSQLPT = new SQLRequete();
+        JPanel panelTabPT = new JPanel();
+
+        panel.setLayout(new FlowLayout());
+
+        List<String> valuesPT;
+        try {
+            valuesPT = requestsSQLPT.requetePlayerTennis(db, TennisName);
+            if (!valuesPT.isEmpty()) {
+                int i = 0;
+
+                for (String infoArrive : valuesPT) {
+                    PlayerTennis.add(infoArrive);
+                    i++;
+                    if (i == headerPT.length) {
+                        modelPT.addInformation(new TablePlayerTennis(PlayerTennis.get(0), PlayerTennis.get(1), PlayerTennis.get(2), PlayerTennis.get(3)));
+                        PlayerTennis.clear();
+                        i = 0;
+                    }
+                }
+
+            }
+            else { PT = new TablePlayerTennis(" ", " ", " ", " ");}
+        } catch (Exception i) {
+            System.out.println(i);
+        }
+
+        panelTabPT.setLayout(new BorderLayout());
+        JTable tableauPT = new JTable(modelPT);
+        panelTabPT.add(new JScrollPane(tableauPT), BorderLayout.CENTER);
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        String[] headerMT = {"nb win", "nb loose", "vitesse max de frappe", "vitesse max de course"};
+        ModeleStatic modelMT = new ModeleStatic(headerMT);
+        TableMatchTennis MT;
+        ArrayList<String> MatchTennis = new ArrayList<String>();
+
+        SQLRequete requestsSQLMT = new SQLRequete();
+        JPanel panelTabMT = new JPanel();
+
+        panel.setLayout(new FlowLayout());
+
+        List<String> valuesMT;
+        try {
+            valuesMT = requestsSQLMT.requeteMatchTennis(db, TennisName);
+            if (!valuesMT.isEmpty()) {
+                int i = 0;
+
+                for (String infoArrive : valuesMT) {
+                    MatchTennis.add(infoArrive);
+                    i++;
+                    if (i == headerMT.length) {
+                        modelMT.addInformation(new TableMatchTennis(MatchTennis.get(0), MatchTennis.get(1), MatchTennis.get(2), MatchTennis.get(3)));
+                        MatchTennis.clear();
+                        i = 0;
+                    }
+                }
+
+            }
+            else { MT = new TableMatchTennis(" ", " ", " ", " ");}
+        } catch (Exception i) {
+            System.out.println(i);
+        }
+
+        panelTabMT.setLayout(new BorderLayout());
+        JTable tableauMT = new JTable(modelMT);
+        panelTabMT.add(new JScrollPane(tableauMT), BorderLayout.CENTER);
+
+        panel.add(panelTabPT);
+        panel.add(panelTabMT);
+        return panel;
+    }
+
+    public JPanel resultHippique(Connection db, String HorseName)
+    {
+
+
+
         return panel;
     }
 

@@ -10,7 +10,6 @@ public abstract class Login {
     public static void login(String id, String mdp, JPanel pan, JFrame fen){
         try {
             Connection db = DriverManager.getConnection("jdbc:mysql://192.168.43.223:3306/projet5", id, mdp);
-            //Connection db = DriverManager.getConnection("BDD", id, mdp);
             System.out.println("Connected !");
 
             class AfficheImage extends JPanel
