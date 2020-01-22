@@ -12,3 +12,5 @@ gradlew.bat
 *.bin
 
 *.class
+
+.gradle/
