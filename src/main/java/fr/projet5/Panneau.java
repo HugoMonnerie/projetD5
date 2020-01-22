@@ -5,7 +5,6 @@ import java.awt.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.awt.Color;
 
 
 public class Panneau extends JPanel {
@@ -18,13 +17,11 @@ public class Panneau extends JPanel {
 
 
     public String getUser() {
-        panel.setBackground(Color.gray);
 
         return utilisateur.getText();
     }
 
     public String getPsw() {
-        panel.setBackground(Color.gray);
 
 
         return mdp.getText();
@@ -32,7 +29,6 @@ public class Panneau extends JPanel {
 
     JPanel menu(JFrame fen, Connection db){
         JMenuBar menuBar = new JMenuBar();
-        panel.setBackground(Color.darkGray);
 
 
         JMenu option1 = new JMenu("Setting");
@@ -40,8 +36,10 @@ public class Panneau extends JPanel {
         JMenuItem quitter = new JMenuItem("logout");
         quitter.addActionListener(e -> {
             //your actions
+
             panel.setVisible(false);
             Panneau panneau = new Panneau();
+
             try {
                 db.close();
             } catch (SQLException ex) {
@@ -54,14 +52,13 @@ public class Panneau extends JPanel {
         JMenuItem retour = new JMenuItem("back");
         retour.addActionListener(e -> {
             //your actions
-            panel.setBackground(Color.gray);
 
             panel.setVisible(false);
             Panneau panneau = new Panneau();
             fen.setContentPane(panneau.panelChoice(fen, db));
             System.out.println("back");
         });
-        panel.setBackground(Color.darkGray);
+
 
         JMenu option3 = new JMenu("?");
 
@@ -84,6 +81,8 @@ public class Panneau extends JPanel {
         option3.add(aide);
 
         option3.add(question);
+
+        panel.setForeground(new Color(255, 213, 0));
 
         return panel;
     }
@@ -148,7 +147,6 @@ public class Panneau extends JPanel {
         JButton bouton1 = new JButton("Football");
         bouton1.setForeground(Color.green);
         bouton1.addActionListener(e -> {
-            panel.setBackground(Color.gray);
 
             //your actions
             panel.setVisible(false);
@@ -159,7 +157,6 @@ public class Panneau extends JPanel {
         JButton bouton2 = new JButton("Tennis");
         bouton2.setForeground(new Color(255, 213, 0));
         bouton2.addActionListener(e -> {
-            panel.setBackground(Color.gray);
 
             //your actions
             panel.setVisible(false);
@@ -170,7 +167,6 @@ public class Panneau extends JPanel {
         JButton bouton3 = new JButton("Hippique");
         bouton3.setForeground(new Color(97, 40, 0));
         bouton3.addActionListener(e -> {
-            panel.setBackground(Color.gray);
 
             //your actions
             panel.setVisible(false);
@@ -198,6 +194,7 @@ public class Panneau extends JPanel {
     public JPanel panneFoot(JFrame fen, Connection db) {
         panel.setLayout(new FlowLayout());
 
+        fen.setSize(1100, 600);
         JLabel textf = new JLabel("<html><body>Nom de l'équipe :</body></html>");
         textf.setForeground(new Color(69, 255, 0));
 
@@ -247,7 +244,6 @@ public class Panneau extends JPanel {
         bouton.setForeground(new Color(184, 175, 0));
         bouton.addActionListener(e -> {
             //your actions
-            panel.setBackground(Color.gray);
 
         });
 
@@ -280,7 +276,6 @@ public class Panneau extends JPanel {
         bouton.setForeground(new Color(97, 40, 0));
 
         bouton.addActionListener(e -> {
-            panel.setBackground(Color.gray);
             //your actions
 
         });
