@@ -1,6 +1,5 @@
 package fr.projet5;
 
-import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -237,54 +236,75 @@ public class SQLRequete
         return null;
     }
 
-    public String requeteHippique(Connection db,String name)
+    public List<String> requeteHorseJockey(Connection db, String name)
     {
         try {
             String request = "SELECT * FROM chevaux_hippique AS CH LEFT JOIN jockeys_hippique AS JH ON JH.Id_horse_j = CH.Id_horse where CH.Name_horse  = " + "'" +name+"';" ;
-            String request2 = "SELECT * FROM classement_horse_race AS CHH LEFT JOIN race_hippiques as RH ON CHH.Id_race_c = RH.Id_race LEFT JOIN chevaux_hippique as CH ON CH.Id_horse = CHH.Id_horse_c where CH.Name_horse  = " + "'" +name+"'"+"ORDER BY CHH.Speed_horse DESC ;" ;
-            String request3 = "SELECT * FROM chevaux_hippique AS CH LEFT JOIN classement_horse_race AS CHH ON CH.Id_horse = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id,COUNT(CHH.Classement_horse) AS UN FROM classement_horse_race AS CHH WHERE CHH.Classement_horse = 1 GROUP BY CHH.Id_horse_c )AS tab1 ON tab1.Id = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id, COUNT(CHH.Classement_horse) AS TROIS FROM classement_horse_race AS CHH WHERE CHH.Classement_horse <= 3 GROUP BY CHH.Id_horse_c ) AS tab2 ON tab2.Id = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id, COUNT(CHH.Classement_horse) AS Loose FROM classement_horse_race AS CHH WHERE CHH.Classement_horse > 3 GROUP BY CHH.Id_horse_c )AS Looser On Looser.Id = CHH.Id_horse_c GROUP BY CH.Id_horse where CH.Name_horse  = " + "'" +name+"'"+"ORDER BY premier ASC;" ;
-
-            System.out.println(request);
-            System.out.println(request2);
-            System.out.println(request3);
 
             PreparedStatement ps = db.prepareStatement(request);
-            PreparedStatement ps2 = db.prepareStatement(request2);
-            PreparedStatement ps3 = db.prepareStatement(request3);
 
             ResultSet rs = ps.executeQuery(request);
-            ResultSet rs2 = ps2.executeQuery(request2);
-            ResultSet rs3 = ps3.executeQuery(request3);
 
-            String result = "";
+            List<String> liste = new ArrayList<>();
+
             while (rs.next())
             {
-                result = rs.getString("Name_horse, Age_horse, Name_jockey, Firstname_jockey, Age_jockey, Weight_jockey");
+                liste.add(rs.getString("Name_horse"));
+                liste.add(rs.getString("Age_horse"));
+                liste.add(rs.getString("Picture_horse"));
+                liste.add(rs.getString("Date_veterinaire"));
+                liste.add(rs.getString("Name_jockey"));
+                liste.add(rs.getString("Firstname_jockey"));
+                liste.add(rs.getString("Age_jockey"));
+                liste.add(rs.getString("Weight_jockey"));
             }
             rs.close();
             ps.close();
 
-            String result2 = "";
-            while (rs2.next())
-            {
-                result2 = rs2.getString("CHH.Speed_horse");
-            }
-            rs2.close();
-            ps2.close();
-
-            String result3 = "";
-            while (rs3.next())
-            {
-                result3 = rs3.getString("tab1.UN AS premier, tab2.TROIS AS podium, Looser.Loose");
-            }
-            rs3.close();
-            ps3.close();
-
-            return result + result2 + result3;
+            return liste;
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return "error";
+        return null;
+    }
+
+    public List<String> requeteRaceHippique(Connection db, String name)
+    {
+        try {
+            String request = "SELECT * FROM classement_horse_race AS CHH LEFT JOIN race_hippiques as RH ON CHH.Id_race_c = RH.Id_race LEFT JOIN chevaux_hippique as CH ON CH.Id_horse = CHH.Id_horse_c where CH.Name_horse  = " + "'" +name+"'"+"ORDER BY CHH.Speed_horse DESC ;" ;
+            String request2 = "SELECT tab1.UN AS premier, tab2.TROIS AS podium, Looser.Loose FROM chevaux_hippique AS CH LEFT JOIN classement_horse_race AS CHH ON CH.Id_horse = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id,COUNT(CHH.Classement_horse) AS UN FROM classement_horse_race AS CHH WHERE CHH.Classement_horse = 1 GROUP BY CHH.Id_horse_c )AS tab1 ON tab1.Id = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id, COUNT(CHH.Classement_horse) AS TROIS FROM classement_horse_race AS CHH WHERE CHH.Classement_horse <= 3 GROUP BY CHH.Id_horse_c ) AS tab2 ON tab2.Id = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id, COUNT(CHH.Classement_horse) AS Loose FROM classement_horse_race AS CHH WHERE CHH.Classement_horse > 3 GROUP BY CHH.Id_horse_c )AS Looser On Looser.Id = CHH.Id_horse_c GROUP BY CH.Id_horse where CH.Name_horse  = " + "'" +name+"'"+"ORDER BY premier ASC;" ;
+
+            PreparedStatement ps = db.prepareStatement(request);
+            PreparedStatement ps2 = db.prepareStatement(request2);
+
+            ResultSet rs = ps.executeQuery(request);
+            ResultSet rs2 = ps2.executeQuery(request2);
+
+            List<String> liste = new ArrayList<>();
+
+            while (rs.next())
+            {
+                liste.add(rs.getString("CHH.Speed_horse"));
+            }
+            rs.close();
+            ps.close();
+
+            while (rs2.next())
+            {
+                liste.add(rs2.getString("premier"));
+                liste.add(rs2.getString("podium"));
+                liste.add(rs2.getString("Looser.Loose"));
+            }
+            rs2.close();
+            ps2.close();
+
+
+            return liste;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

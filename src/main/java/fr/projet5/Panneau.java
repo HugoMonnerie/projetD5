@@ -152,7 +152,7 @@ public class Panneau extends JPanel {
             //your actions
             panel.setVisible(false);
             Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.panneFoot(fen,db));
+            fen.setContentPane(panneau.foot(fen,db));
         });
 
         JButton bouton2 = new JButton("Tennis");
@@ -192,7 +192,7 @@ public class Panneau extends JPanel {
         return panel;
     }
 
-    public JPanel panneFoot(JFrame fen, Connection db) {
+    public JPanel foot(JFrame fen, Connection db) {
 
         fen.setSize(1100, 600);
         JLabel textf = new JLabel("<html><body>Nom de l'équipe :</body></html>");
@@ -286,8 +286,8 @@ public class Panneau extends JPanel {
             panel.setVisible(false);
             Panneau panneau = new Panneau();
 
-            String teamName = jhippique.getText();
-            fen.setContentPane(panneau.resultHippique(db,teamName));
+            String nameHorse = jhippique.getText();
+            fen.setContentPane(panneau.resultHippique(db,nameHorse));
 
         });
 
@@ -318,7 +318,7 @@ public class Panneau extends JPanel {
 
         panel.setLayout(new FlowLayout());
         
-        List<String> valuesTF=new ArrayList<>();
+        List<String> valuesTF;
         try {
             valuesTF = requestsSQLTF.requeteTeamFoot(db, teamName);
             System.out.println(valuesTF);
@@ -508,13 +508,90 @@ public class Panneau extends JPanel {
         return panel;
     }
 
+
+
     public JPanel resultHippique(Connection db, String HorseName)
     {
+        String[] headerHJ = {"nom du cheval", "age du cheval", "image du cheval", "date du dernier passage au veterinaire", "nom de son jockey", "prenom de son jockey", "age de son jockey", "poids de son jockey"};
+        ModeleStatic modelHJ = new ModeleStatic(headerHJ);
+        TableHorseJockey HJ;
+        ArrayList<String> HorseJockey = new ArrayList<String>();
 
+        SQLRequete requestsSQLHJ = new SQLRequete();
+        JPanel panelTabHJ = new JPanel();
 
+        panel.setLayout(new FlowLayout());
 
+        List<String> valuesHJ;
+        try {
+            valuesHJ = requestsSQLHJ.requeteHorseJockey(db, HorseName);
+            if (!valuesHJ.isEmpty()) {
+                int i = 0;
+
+                for (String infoArrive : valuesHJ) {
+                    HorseJockey.add(infoArrive);
+                    i++;
+                    if (i == headerHJ.length) {
+                        modelHJ.addInformation(new TableHorseJockey(HorseJockey.get(0), HorseJockey.get(1), HorseJockey.get(2), HorseJockey.get(3), HorseJockey.get(4), HorseJockey.get(5), HorseJockey.get(6), HorseJockey.get(7)));
+                        HorseJockey.clear();
+                        i = 0;
+                    }
+                }
+
+            }
+            else { HJ = new TableHorseJockey(" ", " ", " ", " ", " ", " ", " ", " ");}
+        } catch (Exception i) {
+            System.out.println(i);
+        }
+
+        panelTabHJ.setLayout(new BorderLayout());
+        JTable tableauHJ = new JTable(modelHJ);
+        panelTabHJ.add(new JScrollPane(tableauHJ), BorderLayout.CENTER);
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        String[] headerRH = {"vitesse max du cheval", "nb de fois premier", "nb de fois sur le podium", "nb de fois perdu"};
+        ModeleStatic modelRH = new ModeleStatic(headerRH);
+        TableRaceHippique RH;
+        ArrayList<String> RaceHippique = new ArrayList<String>();
+
+        SQLRequete requestsSQLRH = new SQLRequete();
+        JPanel panelTabRH = new JPanel();
+
+        panel.setLayout(new FlowLayout());
+
+        List<String> valuesRH;
+        try {
+            valuesRH = requestsSQLRH.requeteRaceHippique(db, HorseName);
+            if (!valuesRH.isEmpty()) {
+                int i = 0;
+
+                for (String infoArrive : valuesRH) {
+                    RaceHippique.add(infoArrive);
+                    i++;
+                    if (i == headerRH.length) {
+                        modelRH.addInformation(new TableRaceHippique(RaceHippique.get(0), RaceHippique.get(1), RaceHippique.get(2), RaceHippique.get(3)));
+                        RaceHippique.clear();
+                        i = 0;
+                    }
+                }
+
+            }
+            else { RH = new TableRaceHippique(" ", " ", " ", " ");}
+        } catch (Exception i) {
+            System.out.println(i);
+        }
+
+        panelTabRH.setLayout(new BorderLayout());
+        JTable tableauRH = new JTable(modelRH);
+        panelTabRH.add(new JScrollPane(tableauRH), BorderLayout.CENTER);
+
+        panel.add(panelTabHJ);
+        panel.add(panelTabRH);
         return panel;
     }
+
+
 
     public boolean autoCo(ArrayList<String> data)
     {
