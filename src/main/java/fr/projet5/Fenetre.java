@@ -12,12 +12,12 @@ public class Fenetre extends JFrame {
             this.setSize(1100, 600);
             this.setLocationRelativeTo(null);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            Panneau panneau = new Panneau();
+            PanneauRequet panneauRequet = new PanneauRequet();
             setContentPane(new AfficheImage("../projetD5/src/main/resources/giphy.gif"));
             getContentPane().setLayout(new BorderLayout());
             this.setVisible(true);
             Fenetre fen = this;
-            this.setContentPane(panneau.panelConnection(fen));
+            this.setContentPane(panneauRequet.panelConnection(fen));
         }
         //Le conteneur principal
         JPanel content = new JPanel();

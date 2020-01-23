@@ -2,6 +2,7 @@ package fr.projet5;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,14 +40,14 @@ public class Panneau extends JPanel {
             //your actions
 
             panel.setVisible(false);
-            Panneau panneau = new Panneau();
+            PanneauRequet panneauRequet = new PanneauRequet();
 
             try {
                 db.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            fen.setContentPane(panneau.panelConnection(fen));
+            fen.setContentPane(panneauRequet.panelConnection(fen));
             System.out.println("logout");
         });
 
@@ -55,8 +56,8 @@ public class Panneau extends JPanel {
             //your actions
 
             panel.setVisible(false);
-            Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.panelChoice(fen, db));
+            PanneauRequet panneauRequet = new PanneauRequet();
+            fen.setContentPane(panneauRequet.panelChoice(fen, db));
             System.out.println("back");
         });
 
@@ -66,6 +67,8 @@ public class Panneau extends JPanel {
         JMenuItem aide = new JMenuItem("help");
 
         JMenuItem question = new JMenuItem("question");
+
+        JMenuItem admine = new JMenuItem("admine");
 
         //affichage
 
@@ -82,6 +85,10 @@ public class Panneau extends JPanel {
         option3.add(aide);
 
         option3.add(question);
+
+        option3.add(admine);
+
+
 
         panel.setForeground(new Color(255, 213, 0));
 
@@ -151,8 +158,8 @@ public class Panneau extends JPanel {
 
             //your actions
             panel.setVisible(false);
-            Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.panneFoot(fen,db));
+            PanneauRequet panneauRequet = new PanneauRequet();
+            fen.setContentPane(panneauRequet.panneFoot(fen,db));
         });
 
         JButton bouton2 = new JButton("Tennis");
@@ -161,8 +168,8 @@ public class Panneau extends JPanel {
 
             //your actions
             panel.setVisible(false);
-            Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.tennis(fen,db));
+            PanneauRequet panneauRequet = new PanneauRequet();
+            fen.setContentPane(panneauRequet.tennis(fen,db));
         });
 
         JButton bouton3 = new JButton("Hippique");
@@ -171,8 +178,8 @@ public class Panneau extends JPanel {
 
             //your actions
             panel.setVisible(false);
-            Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.hippique(fen,db));
+            PanneauRequet panneauRequet = new PanneauRequet();
+            fen.setContentPane(panneauRequet.hippique(fen,db));
         });
 
         menu(fen, db);
@@ -208,10 +215,10 @@ public class Panneau extends JPanel {
             panel.setForeground(new Color(8, 145, 0));
 
             panel.setVisible(false);
-            Panneau panneau = new Panneau();
+            PanneauRequet panneauRequet = new PanneauRequet();
 
             String teamName = nameOfTeam.getText();
-            fen.setContentPane(panneau.resultFoot(db,teamName));
+            fen.setContentPane(panneauRequet.resultFoot(db,teamName));
         });
 
         menu(fen, db);
@@ -246,10 +253,10 @@ public class Panneau extends JPanel {
             //your actions
 
             panel.setVisible(false);
-            Panneau panneau = new Panneau();
+            PanneauRequet panneauRequet = new PanneauRequet();
 
             String tennisName = jtennis.getText();
-            fen.setContentPane(panneau.resultTennis(db,tennisName));
+            fen.setContentPane(panneauRequet.resultTennis(db,tennisName));
 
         });
 
@@ -284,10 +291,10 @@ public class Panneau extends JPanel {
         bouton.addActionListener(e -> {
             //your actions
             panel.setVisible(false);
-            Panneau panneau = new Panneau();
+            PanneauRequet panneauRequet = new PanneauRequet();
 
             String teamName = jhippique.getText();
-            fen.setContentPane(panneau.resultHippique(db,teamName));
+            fen.setContentPane(panneauRequet.resultHippique(db,teamName));
 
         });
 

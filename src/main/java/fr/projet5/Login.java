@@ -31,8 +31,8 @@ public abstract class Login {
             new AfficheImage("/Users/souksou/Desktop/projet 5/projetD5/src/main/resources/giphy.gif");
 
             pan.setVisible(false);
-            Panneau panneau = new Panneau();
-            fen.setContentPane(panneau.panelChoice(fen,db));
+            PanneauRequet panneauRequet = new PanneauRequet();
+            fen.setContentPane(panneauRequet.panelChoice(fen,db));
             fen.setBackground(new Color(0, 255, 16));
 
         } catch (SQLException e) {
