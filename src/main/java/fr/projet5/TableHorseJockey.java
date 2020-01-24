@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is used to create a line of a table containing information about a cargo, like cargo's Id,
- * country from where it go and where it was/will arrive or depart's and arrive's date.
  */
 public class TableHorseJockey implements ITable {
     private List<String> listValues = new ArrayList<>();
 
     /**
-     *  TableCargoDetails constructor, used to set all the column values of our table
-     * @param
+     * @param Name_horse
+     * @param Age_horse
+     * @param Picture_horse
+     * @param Date_veterinaire
+     * @param Name_jockey
+     * @param Firstname_jockey
+     * @param Age_jockey
+     * @param Weight_jockey
      * */
     public TableHorseJockey(String Name_horse, String Age_horse, String Picture_horse, String Date_veterinaire, String Name_jockey, String Firstname_jockey, String Age_jockey, String Weight_jockey) {
         super();

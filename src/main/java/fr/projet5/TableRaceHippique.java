@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is used to create a line of a table containing information about a cargo, like cargo's Id,
- * country from where it go and where it was/will arrive or depart's and arrive's date.
  */
 public class TableRaceHippique implements ITable {
     private List<String> listValues = new ArrayList<>();
 
     /**
-     *  TableCargoDetails constructor, used to set all the column values of our table
-     * @param
+     * @param Speed_horse
+     * @param nb_premier
+     * @param nb_podium
+     * @param nb_loose
      * */
-    public TableRaceHippique(String Name_horse, String Age_horse, String Picture_horse, String Date_veterinaire) {
+    public TableRaceHippique(String Speed_horse, String nb_premier, String nb_podium, String nb_loose) {
         super();
 
-        this.listValues.add(Name_horse);
-        this.listValues.add(Age_horse);
-        this.listValues.add(Picture_horse);
-        this.listValues.add(Date_veterinaire);
+        this.listValues.add(Speed_horse);
+        this.listValues.add(nb_premier);
+        this.listValues.add(nb_podium);
+        this.listValues.add(nb_loose);
 
 
     }

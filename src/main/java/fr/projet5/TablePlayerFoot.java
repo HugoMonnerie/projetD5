@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is used to create a line of a table containing information about a cargo, like cargo's Id,
- * country from where it go and where it was/will arrive or depart's and arrive's date.
  */
 public class TablePlayerFoot implements ITable {
     private List<String> listValues = new ArrayList<>();
 
     /**
-     *  TableCargoDetails constructor, used to set all the column values of our table
-     * @param nom_joueur id of the cargo
-     * @param age_joueur Name of country of departure
+     * @param nom_joueur
+     * @param age_joueur
      * @param titulaire
      */
     public TablePlayerFoot(String nom_joueur, String age_joueur, String titulaire) {

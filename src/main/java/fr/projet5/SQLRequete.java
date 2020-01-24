@@ -272,8 +272,8 @@ public class SQLRequete
     public List<String> requeteRaceHippique(Connection db, String name)
     {
         try {
-            String request = "SELECT * FROM classement_horse_race AS CHH LEFT JOIN race_hippiques as RH ON CHH.Id_race_c = RH.Id_race LEFT JOIN chevaux_hippique as CH ON CH.Id_horse = CHH.Id_horse_c where CH.Name_horse  = " + "'" +name+"'"+"ORDER BY CHH.Speed_horse DESC ;" ;
-            String request2 = "SELECT tab1.UN AS premier, tab2.TROIS AS podium, Looser.Loose FROM chevaux_hippique AS CH LEFT JOIN classement_horse_race AS CHH ON CH.Id_horse = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id,COUNT(CHH.Classement_horse) AS UN FROM classement_horse_race AS CHH WHERE CHH.Classement_horse = 1 GROUP BY CHH.Id_horse_c )AS tab1 ON tab1.Id = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id, COUNT(CHH.Classement_horse) AS TROIS FROM classement_horse_race AS CHH WHERE CHH.Classement_horse <= 3 GROUP BY CHH.Id_horse_c ) AS tab2 ON tab2.Id = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id, COUNT(CHH.Classement_horse) AS Loose FROM classement_horse_race AS CHH WHERE CHH.Classement_horse > 3 GROUP BY CHH.Id_horse_c )AS Looser On Looser.Id = CHH.Id_horse_c GROUP BY CH.Id_horse where CH.Name_horse  = " + "'" +name+"'"+"ORDER BY premier ASC;" ;
+            String request = "SELECT * FROM classement_horse_race AS CHH LEFT JOIN race_hippiques as RH ON CHH.Id_race_c = RH.Id_race LEFT JOIN chevaux_hippique as CH ON CH.Id_horse = CHH.Id_horse_c where CH.Name_horse  = " + "'" +name+"'"+" ORDER BY CHH.Speed_horse DESC ;" ;
+            String request2 = "SELECT tab1.UN AS premier, tab2.TROIS AS podium, Looser.Loose FROM chevaux_hippique AS CH LEFT JOIN classement_horse_race AS CHH ON CH.Id_horse = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id,COUNT(CHH.Classement_horse) AS UN FROM classement_horse_race AS CHH WHERE CHH.Classement_horse = 1 GROUP BY CHH.Id_horse_c )AS tab1 ON tab1.Id = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id, COUNT(CHH.Classement_horse) AS TROIS FROM classement_horse_race AS CHH WHERE CHH.Classement_horse <= 3 GROUP BY CHH.Id_horse_c ) AS tab2 ON tab2.Id = CHH.Id_horse_c LEFT JOIN (SELECT CHH.Id_horse_c as Id, COUNT(CHH.Classement_horse) AS Loose FROM classement_horse_race AS CHH WHERE CHH.Classement_horse > 3 GROUP BY CHH.Id_horse_c )AS Looser On Looser.Id = CHH.Id_horse_c where CH.Name_horse  = " + "'" +name+"'"+" GROUP BY CH.Id_horse ORDER BY premier ASC;" ;
 
             PreparedStatement ps = db.prepareStatement(request);
             PreparedStatement ps2 = db.prepareStatement(request2);
@@ -298,7 +298,6 @@ public class SQLRequete
             }
             rs2.close();
             ps2.close();
-
 
             return liste;
         }
