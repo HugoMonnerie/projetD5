@@ -1,15 +1,11 @@
 package fr.projet5;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SQLRequete
 {
-    int i=0;
 
     public String nbTitulaireFoot(Connection db, String name){
         String request2 = "SELECT COUNT(Titulaire_player_f) as Nbr_Titulaire FROM football_player Left Join football_team as FT on football_player.J_id_team_f = FT.Id_team_f where FT.Team_name = " + "'"+name+"'" + " and Titulaire_player_f = 'titulaire' ;" ;
@@ -115,7 +111,8 @@ public class SQLRequete
         return null;
     }
 
-    public List<String> requeteMatchFoot(Connection db, String name){
+    public List<String> requeteMatchFoot(Connection db, String name)
+    {
 
         try {
             String request = "SELECT count(MT.Id_team_inside_f) as nb_win_inside FROM matchs_football AS MT LEFT JOIN football_team AS FT ON FT.Id_team_f = MT.Id_team_inside_f WHERE MT.Nbr_but_inside_f>MT.Nbr_but_outside_f AND FT.Team_name =  " + "'"+name+"';";
@@ -306,4 +303,85 @@ public class SQLRequete
         }
         return null;
     }
+
+    public static void requeteAddTeamFoot(Connection db, String Team_name, String Team_create, String Site_team){
+        String request = "INSERT INTO 'football_team'('Team_name', 'Team_create', 'Site_team') VALUES (?,?,?);";
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
+            ps.setString(1, Team_name);
+            ps.setString(2, Team_create);
+            ps.setString(3, Site_team);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requeteAddPlayerFoot(Connection db, String Name_player_f, String Firstname_player_f, String Age_player_f, int J_id_team_f, String Titulaire_player_f){
+        String request = "INSERT INTO 'football_player'('Name_player_f', 'Firstname_player_f', 'Age_player_f', 'J_id_team_f', 'Titulaire_player_f') VALUES (?,?,?,?,?);";
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
+            ps.setString(1, Name_player_f);
+            ps.setString(2, Firstname_player_f);
+            ps.setString(3, Age_player_f);
+            ps.setInt(4, J_id_team_f);
+            ps.setString(5, Titulaire_player_f);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requeteAddMatchFoot(Connection db, String Date_match_f, String Id_team_inside_f, String Id_team_outside_f, int Nbr_but_inside_f, String Nbr_but_outside_f){
+        String request = "INSERT INTO 'matchs_football'('Date_match_f', 'Id_team_inside_f', 'Id_team_outside_f', 'Nbr_but_inside_f', 'Nbr_but_outside_f') VALUES (?,?,?,?,?);";
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
+            ps.setString(1, Date_match_f);
+            ps.setString(2, Id_team_outside_f);
+            ps.setString(3, Id_team_inside_f);
+            ps.setInt(4, Nbr_but_inside_f);
+            ps.setString(5, Nbr_but_outside_f);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requeteAdd(Connection db, String Date_match_f, String Id_team_inside_f, String Id_team_outside_f, int Nbr_but_inside_f, String Nbr_but_outside_f){
+        String request = "INSERT INTO 'matchs_football'('Date_match_f', 'Id_team_inside_f', 'Id_team_outside_f', 'Nbr_but_inside_f', 'Nbr_but_outside_f') VALUES (?,?,?,?,?);";
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
+            ps.setString(1, Date_match_f);
+            ps.setString(2, Id_team_outside_f);
+            ps.setString(3, Id_team_inside_f);
+            ps.setInt(4, Nbr_but_inside_f);
+            ps.setString(5, Nbr_but_outside_f);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    /*
+    public static void addCity(String departementField, int postalCodeField, String cityField, boolean portCheckBoxValue) {
+        // the mysql insert statement
+        String query = " insert into domtom (departement, code_postal, ville, port)"
+                + " values (?, ?, ?, ?)";
+        // create the mysql insert preparedstatement
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://" + App.ipDatabase + ":3306/" + App.nameDatabase, App.username, App.password);
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, departementField);
+            preparedStmt.setInt(2, postalCodeField);
+            preparedStmt.setString(3, cityField);
+            preparedStmt.setBoolean(4, portCheckBoxValue);
+            System.out.println(preparedStmt);
+            // execute the preparedstatement
+            preparedStmt.execute();
+            connection.close();
+        } catch (SQLException e) {
+            TaskDialogs.showException(e);
+        }
+    }
+     */
+
 }
