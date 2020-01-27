@@ -332,32 +332,91 @@ public class SQLRequete
         }
     }
 
-    public static void requeteAddMatchFoot(Connection db, String Date_match_f, String Id_team_inside_f, String Id_team_outside_f, int Nbr_but_inside_f, String Nbr_but_outside_f){
+    public static void requeteAddMatchFoot(Connection db, String Date_match_f, int Id_team_inside_f, int Id_team_outside_f, int Nbr_but_inside_f, int Nbr_but_outside_f){
         String request = "INSERT INTO 'matchs_football'('Date_match_f', 'Id_team_inside_f', 'Id_team_outside_f', 'Nbr_but_inside_f', 'Nbr_but_outside_f') VALUES (?,?,?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Date_match_f);
-            ps.setString(2, Id_team_outside_f);
-            ps.setString(3, Id_team_inside_f);
+            ps.setInt(2, Id_team_outside_f);
+            ps.setInt(3, Id_team_inside_f);
             ps.setInt(4, Nbr_but_inside_f);
-            ps.setString(5, Nbr_but_outside_f);
+            ps.setInt(5, Nbr_but_outside_f);
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public static void requeteAdd(Connection db, String Date_match_f, String Id_team_inside_f, String Id_team_outside_f, int Nbr_but_inside_f, String Nbr_but_outside_f){
-        String request = "INSERT INTO 'matchs_football'('Date_match_f', 'Id_team_inside_f', 'Id_team_outside_f', 'Nbr_but_inside_f', 'Nbr_but_outside_f') VALUES (?,?,?,?,?);";
+    public static void requeteAddPlayerTennis(Connection db, String Name_player_t, String Firstname_player_t, int Age_player_t, int Nbr_medal_t){
+        String request = "INSERT INTO 'players_tennis'('Name_player_t', 'Firstname_player_t', 'Age_player_t', 'Nbr_medal_t') VALUES (?,?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
-            ps.setString(1, Date_match_f);
-            ps.setString(2, Id_team_outside_f);
-            ps.setString(3, Id_team_inside_f);
-            ps.setInt(4, Nbr_but_inside_f);
-            ps.setString(5, Nbr_but_outside_f);
+            ps.setString(1, Name_player_t);
+            ps.setString(2, Firstname_player_t);
+            ps.setInt(3, Age_player_t);
+            ps.setInt(4, Nbr_medal_t);
         }
         catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requeteAddMatchTennis(Connection db, String Date_match_t, String Location_match_t, String Surface_t, int Id_first_player_t, int Id_secondary_player_t, int Speed_shot_first_player_t, int Speed_shot_secondary_player_t, int Speedrun_first_player_t, int Speedrun_secondary_player_t, int Result_match_first_player_t){
+        String request = "INSERT INTO 'matchs_tennis'('Date_match_t', 'Location_match_t', 'Surface_t', 'Id_first_player_t', 'Id_secondary_player_t', 'Speed_shot_first_player_t', 'Speed_shot_secondary_player_t', 'Speedrun_first_player_t', 'Speedrun_secondary_player_t', 'Result_match_first_player_t') VALUES (?,?,?,?,?,?,?,?,?,?);";
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
+            ps.setString(1, Date_match_t);
+            ps.setString(2, Location_match_t);
+            ps.setString(3, Surface_t);
+            ps.setInt(4, Id_first_player_t);
+            ps.setInt(5, Id_secondary_player_t);
+            ps.setInt(6, Speed_shot_first_player_t);
+            ps.setInt(7, Speed_shot_secondary_player_t);
+            ps.setInt(8, Speedrun_first_player_t);
+            ps.setInt(9, Speedrun_secondary_player_t);
+            ps.setInt(10, Result_match_first_player_t);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requeteAddChevauxHippique(Connection db, String Name_horse, int Age_horse, String Picture_horse, String Date_veterinaire){
+        String request = "INSERT INTO 'chevaux_hippique'('Name_horse', 'Age_horse', 'Picture_horse', 'Date_veterinaire') VALUES (?,?,?,?);";
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
+            ps.setString(1, Name_horse);
+            ps.setInt(2, Age_horse);
+            ps.setString(3, Picture_horse);
+            ps.setString(4, Date_veterinaire);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requeteAddJockeyHippique(Connection db, String Name_jockey, String Firstname_jockey, int Age_jockey, int Weight_jockey, int Id_horse_j) {
+        String request = "INSERT INTO 'jockeys_hippique'('Name_jockey', 'Firstname_jockey', 'Age_jockey', 'Weight_jockey', 'Id_horse_j') VALUES (?,?,?,?,?);";
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
+            ps.setString(1, Name_jockey);
+            ps.setString(2, Firstname_jockey);
+            ps.setInt(3, Age_jockey);
+            ps.setInt(4, Weight_jockey);
+            ps.setInt(5, Id_horse_j);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requeteAddRaceHippique(Connection db, String Time_race, String Location_race, String Weather_race) {
+        String request = "INSERT INTO 'classement_horse_race'('Time_race', 'Location_race', 'Weather_race') VALUES (?,?,?);";
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
+            ps.setString(1, Time_race);
+            ps.setString(2, Location_race);
+            ps.setString(3, Weather_race);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
