@@ -317,6 +317,16 @@ public class SQLRequete
         }
     }
 
+    public static void requeteDelTeamFoot(Connection db, String id){
+        String request = "DELETE FROM 'football_team' WHERE 'Id_team_f' ="+ id;
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void requeteAddPlayerFoot(Connection db, String Name_player_f, String Firstname_player_f, String Age_player_f, int J_id_team_f, String Titulaire_player_f){
         String request = "INSERT INTO 'football_player'('Name_player_f', 'Firstname_player_f', 'Age_player_f', 'J_id_team_f', 'Titulaire_player_f') VALUES (?,?,?,?,?);";
         try {
@@ -326,6 +336,16 @@ public class SQLRequete
             ps.setString(3, Age_player_f);
             ps.setInt(4, J_id_team_f);
             ps.setString(5, Titulaire_player_f);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requeteDelPlayerFoot(Connection db, String id){
+        String request = "DELETE FROM 'football_player' WHERE 'Id_player_f' ="+ id;
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -347,6 +367,16 @@ public class SQLRequete
         }
     }
 
+    public static void requeteDelMatchFoot(Connection db, String id){
+        String request = "DELETE FROM 'matchs_football' WHERE 'Id_match_f' ="+ id;
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void requeteAddPlayerTennis(Connection db, String Name_player_t, String Firstname_player_t, int Age_player_t, int Nbr_medal_t){
         String request = "INSERT INTO 'players_tennis'('Name_player_t', 'Firstname_player_t', 'Age_player_t', 'Nbr_medal_t') VALUES (?,?,?,?);";
         try {
@@ -355,6 +385,16 @@ public class SQLRequete
             ps.setString(2, Firstname_player_t);
             ps.setInt(3, Age_player_t);
             ps.setInt(4, Nbr_medal_t);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requeteDelPlayerTennis(Connection db, String id){
+        String request = "DELETE FROM 'players_tennis' WHERE 'Id_player_t' ="+ id;
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -381,6 +421,16 @@ public class SQLRequete
         }
     }
 
+    public static void requeteDelMatchTennis(Connection db, String id){
+        String request = "DELETE FROM 'matchs_tennis' WHERE 'Id_match_t' ="+ id;
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void requeteAddChevauxHippique(Connection db, String Name_horse, int Age_horse, String Picture_horse, String Date_veterinaire){
         String request = "INSERT INTO 'chevaux_hippique'('Name_horse', 'Age_horse', 'Picture_horse', 'Date_veterinaire') VALUES (?,?,?,?);";
         try {
@@ -389,6 +439,16 @@ public class SQLRequete
             ps.setInt(2, Age_horse);
             ps.setString(3, Picture_horse);
             ps.setString(4, Date_veterinaire);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requeteDelChevauxHippique(Connection db, String id){
+        String request = "DELETE FROM 'chevaux_hippique' WHERE 'Id_horse' ="+ id;
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -409,13 +469,32 @@ public class SQLRequete
         }
     }
 
+    public static void requeteDelJockeyHippique(Connection db, String id){
+        String request = "DELETE FROM 'jockeys_hippique' WHERE 'Id_jockey' ="+ id;
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void requeteAddRaceHippique(Connection db, String Time_race, String Location_race, String Weather_race) {
-        String request = "INSERT INTO 'classement_horse_race'('Time_race', 'Location_race', 'Weather_race') VALUES (?,?,?);";
+        String request = "INSERT INTO 'race_hippiques'('Time_race', 'Location_race', 'Weather_race') VALUES (?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Time_race);
             ps.setString(2, Location_race);
             ps.setString(3, Weather_race);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requeteDelRaceHippique(Connection db, String id) {
+        String request = "DELETE FROM 'race_hippiques' WHERE 'Id_race' ="+id;
+        try {
+            PreparedStatement ps = db.prepareStatement(request);
         } catch (SQLException e) {
             e.printStackTrace();
         }
