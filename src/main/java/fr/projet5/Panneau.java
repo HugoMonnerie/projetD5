@@ -175,6 +175,20 @@ public class Panneau extends JPanel {
             fen.setContentPane(panneau.hippique(fen,db));
         });
 
+
+        JButton boutonajouter = new JButton("ajouter");
+
+        boutonajouter.addActionListener(e -> {
+
+            //your actions
+            new Admin();
+
+        });
+
+
+
+
+
         menu(fen, db);
 
         //affichage
@@ -186,6 +200,8 @@ public class Panneau extends JPanel {
         panel.add(bouton2);
 
         panel.add(bouton3);
+
+        panel.add(boutonajouter);
 
         panel.setVisible(true);
 
@@ -204,7 +220,7 @@ public class Panneau extends JPanel {
 
         JButton buttonValid = new JButton("Valider");
         buttonValid.setForeground(new Color(69, 255, 0));
-        buttonValid.addActionListener(e -> {
+        buttonValid.addActionListener(ee -> {
             panel.setForeground(new Color(8, 145, 0));
 
             panel.setVisible(false);
@@ -213,6 +229,10 @@ public class Panneau extends JPanel {
             String teamName = nameOfTeam.getText();
             fen.setContentPane(panneau.resultFoot(db,teamName));
         });
+
+
+
+
 
         menu(fen, db);
 

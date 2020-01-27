@@ -4,19 +4,19 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class Fenetre extends JFrame {
+public class Admin extends JFrame {
 
-    public Fenetre(){
+    public Admin(){
         {
             this.setTitle("MySQL");
-            this.setSize(1600, 900);
+            this.setSize(1280, 720);
             this.setLocationRelativeTo(null);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             Panneau panneau = new Panneau();
             setContentPane(new AfficheImage("../projetD5/src/main/resources/giphy.gif"));
             getContentPane().setLayout(new BorderLayout());
             this.setVisible(true);
-            Fenetre fen = this;
+            Admin fen = this;
             this.setContentPane(panneau.panelConnection(fen));
         }
         //Le conteneur principal
@@ -29,29 +29,29 @@ public class Fenetre extends JFrame {
         new GridBagConstraints();
 
         this.setVisible(true);
-        }
+    }
 
-        static class AfficheImage extends JPanel
+    static class AfficheImage extends JPanel
+    {
+        Image eau;
+
+        AfficheImage(String s)
         {
-            Image eau;
-
-            AfficheImage(String s)
-            {
-                eau = getToolkit().getImage(s);
-            }
-
-            public void paintComponent(Graphics g)
-            {
-                super.paintComponent(g);
-                g.drawImage(eau, 0, 0, getWidth(), getHeight(), this);
-            }
+            eau = getToolkit().getImage(s);
         }
 
-        static class affichage
+        public void paintComponent(Graphics g)
         {
-            public static void main(String[] args)
-            {
-                 Fenetre test = new Fenetre();
-            }
+            super.paintComponent(g);
+            g.drawImage(eau, 0, 0, getWidth(), getHeight(), this);
         }
+    }
+
+    static class affichage
+    {
+        public static void main(String[] args)
+        {
+            Fenetre test = new Fenetre();
+        }
+    }
 }
