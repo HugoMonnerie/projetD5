@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Admin extends JFrame {
 
-    public Admin(){
+    public Admin(int i){
         {
             this.setTitle("MySQL");
             this.setSize(1280, 720);
@@ -17,7 +17,7 @@ public class Admin extends JFrame {
             getContentPane().setLayout(new BorderLayout());
             this.setVisible(true);
             Admin fen = this;
-            this.setContentPane(panneau.panelConnection(fen));
+            this.setContentPane(panneau.panelAdmin(fen, i));
         }
         //Le conteneur principal
         JPanel content = new JPanel();
@@ -41,17 +41,14 @@ public class Admin extends JFrame {
         }
 
         public void paintComponent(Graphics g)
-        {
-            super.paintComponent(g);
-            g.drawImage(eau, 0, 0, getWidth(), getHeight(), this);
-        }
+        { super.paintComponent(g);g.drawImage(eau, 0, 0, getWidth(), getHeight(), this); }
     }
 
     static class affichage
     {
         public static void main(String[] args)
         {
-            Fenetre test = new Fenetre();
+            new Fenetre();
         }
     }
 }

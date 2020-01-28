@@ -88,6 +88,97 @@ public class Panneau extends JPanel {
         return panel;
     }
 
+
+    Container panelAdmin(JFrame fen, int i){
+        panel.setLayout(new FlowLayout());
+        properties.createFile();
+        rme = false;
+        if (i==1){
+            JLabel nom = new JLabel("<html><body>nom du joueur :</body></html>");
+            JLabel prenom = new JLabel("<html><body>prenon du joueur :</body></html>");
+            JLabel age = new JLabel("<html><body>age:</body></html>");
+            JLabel equipe = new JLabel("<html><body>equipe :</body></html>");
+            JLabel titulaire = new JLabel("<html><body>titulaire :</body></html>");
+
+            JTextField nomF= new JTextField();
+            nomF.setColumns(10);
+            JTextField prenomF = new JTextField();
+            prenomF.setColumns(10);
+            JTextField ageF = new JTextField();
+            ageF.setColumns(10);
+            JTextField equipeF = new JTextField();
+            equipeF.setColumns(10);
+            JTextField titulaireF = new JTextField();
+            titulaireF.setColumns(10);
+
+            panel.add(nom);
+            panel.add(nomF);
+            panel.add(prenom);
+            panel.add(prenomF);
+            panel.add(age);
+            panel.add(ageF);
+            panel.add(equipe);
+            panel.add(equipeF);
+            panel.add(titulaire);
+            panel.add(titulaireF);
+        }else if (i==2){
+            JLabel nomt = new JLabel("<html><body>nom du joueur :</body></html>");
+            JLabel prenomt = new JLabel("<html><body>prenon du joueur :</body></html>");
+            JLabel aget = new JLabel("<html><body>age:</body></html>");
+            JLabel nbMed = new JLabel("<html><body>nombre de medaille:</body></html>");
+
+
+            JTextField nomT= new JTextField();
+            nomT.setColumns(10);
+            JTextField prenomT = new JTextField();
+            prenomT.setColumns(10);
+            JTextField ageT = new JTextField();
+            ageT.setColumns(10);
+            JTextField nbMedT = new JTextField();
+            nbMedT.setColumns(10);
+
+            panel.add(nomt);
+            panel.add(nomT);
+            panel.add(prenomt);
+            panel.add(prenomT);
+            panel.add(aget);
+            panel.add(ageT);
+            panel.add(nbMed);
+            panel.add(nbMedT);
+
+        }else if (i==3){
+            JLabel nomh = new JLabel("<html><body>nom du cheval :</body></html>");
+            JLabel ageh= new JLabel("<html><body>age:</body></html>");
+            JLabel photo= new JLabel("<html><body>photo:</body></html>");
+            JLabel dateveto= new JLabel("<html><body>date veterinaire:</body></html>");
+
+            JTextField nomH= new JTextField();
+            nomH.setColumns(10);
+            JTextField ageH = new JTextField();
+            ageH.setColumns(10);
+            JTextField photoH = new JTextField();
+            photoH.setColumns(10);
+            JTextField datevetoH = new JTextField();
+            datevetoH.setColumns(10);
+
+
+            panel.add(nomh);
+            panel.add(nomH);
+            panel.add(ageh);
+            panel.add(ageH);
+            panel.add(photo);
+            panel.add(photoH);
+            panel.add(dateveto);
+            panel.add(datevetoH);
+
+        }
+
+
+
+        return panel;
+    }
+
+
     JPanel panelConnection(JFrame fen){
         panel.setLayout(new FlowLayout());
         properties.createFile();
@@ -104,7 +195,7 @@ public class Panneau extends JPanel {
                 rme = true);
 
         JButton bouton = new JButton("connection");
-        bouton.setForeground(Color.green);
+        bouton.setForeground(new Color(27, 103, 0));
         bouton.addActionListener(e -> {
             //your actions
             if(rme)
@@ -146,7 +237,7 @@ public class Panneau extends JPanel {
         JLabel text1 = new JLabel("<html><body>Type de parie :</body></html>");
 
         JButton bouton1 = new JButton("Football");
-        bouton1.setForeground(Color.green);
+        bouton1.setForeground(new Color(1, 105, 0));
         bouton1.addActionListener(e -> {
 
             //your actions
@@ -156,7 +247,7 @@ public class Panneau extends JPanel {
         });
 
         JButton bouton2 = new JButton("Tennis");
-        bouton2.setForeground(new Color(255, 213, 0));
+        bouton2.setForeground(new Color(173, 155, 0));
         bouton2.addActionListener(e -> {
 
             //your actions
@@ -176,14 +267,7 @@ public class Panneau extends JPanel {
         });
 
 
-        JButton boutonajouter = new JButton("ajouter");
 
-        boutonajouter.addActionListener(e -> {
-
-            //your actions
-            new Admin();
-
-        });
 
 
 
@@ -201,7 +285,7 @@ public class Panneau extends JPanel {
 
         panel.add(bouton3);
 
-        panel.add(boutonajouter);
+
 
         panel.setVisible(true);
 
@@ -212,22 +296,33 @@ public class Panneau extends JPanel {
 
         fen.setSize(1100, 600);
         JLabel textf = new JLabel("<html><body>Nom de l'équipe :</body></html>");
-        textf.setForeground(new Color(69, 255, 0));
+        textf.setForeground(new Color(32, 129, 0));
 
         panel.setLayout(new FlowLayout());
         JTextField nameOfTeam = new JTextField();
         nameOfTeam.setColumns(10);
 
         JButton buttonValid = new JButton("Valider");
-        buttonValid.setForeground(new Color(69, 255, 0));
+        buttonValid.setForeground(new Color(0, 124, 10));
         buttonValid.addActionListener(ee -> {
-            panel.setForeground(new Color(8, 145, 0));
+            panel.setForeground(new Color(8, 108, 0));
 
             panel.setVisible(false);
             Panneau panneau = new Panneau();
 
             String teamName = nameOfTeam.getText();
             fen.setContentPane(panneau.resultFoot(db,teamName));
+
+
+        });
+
+        JButton boutonajouter = new JButton("ajouter");
+
+        boutonajouter.addActionListener(e -> {
+
+            //your actions
+            new Admin(1);
+
         });
 
 
@@ -240,9 +335,12 @@ public class Panneau extends JPanel {
 
         panel.add(textf);
 
+
         panel.add(nameOfTeam);
 
         panel.add(buttonValid);
+
+        panel.add(boutonajouter);
 
         panel.setVisible(true);
 
@@ -272,6 +370,14 @@ public class Panneau extends JPanel {
             fen.setContentPane(panneau.resultTennis(db,tennisName));
 
         });
+        JButton boutonajouter = new JButton("ajouter");
+
+        boutonajouter.addActionListener(e -> {
+
+            //your actions
+            new Admin(2);
+
+        });
 
         menu(fen, db);
 
@@ -282,6 +388,8 @@ public class Panneau extends JPanel {
         panel.add(jtennis);
 
         panel.add(bouton);
+
+        panel.add(boutonajouter);
 
         panel.setVisible(true);
 
@@ -310,7 +418,14 @@ public class Panneau extends JPanel {
             fen.setContentPane(panneau.resultHippique(db,nameHorse));
 
         });
+        JButton boutonajouter = new JButton("ajouter");
 
+        boutonajouter.addActionListener(e -> {
+
+            //your actions
+            new Admin(3);
+
+        });
         menu(fen, db);
 
         //affichage
@@ -320,6 +435,8 @@ public class Panneau extends JPanel {
         panel.add(jhippique);
 
         panel.add(bouton);
+
+        panel.add(boutonajouter);
 
         panel.setVisible(true);
 
