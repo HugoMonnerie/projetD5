@@ -6,18 +6,18 @@ import java.awt.*;
 
 public class Admin extends JFrame {
 
-    public Admin(int i){
+    public Admin(String type){
         {
             this.setTitle("MySQL");
             this.setSize(1280, 720);
             this.setLocationRelativeTo(null);
-            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             Panneau panneau = new Panneau();
             setContentPane(new AfficheImage("../projetD5/src/main/resources/giphy.gif"));
             getContentPane().setLayout(new BorderLayout());
             this.setVisible(true);
             Admin fen = this;
-            this.setContentPane(panneau.panelAdmin(fen, i));
+            this.setContentPane(panneau.panelAdmin(fen, type));
         }
         //Le conteneur principal
         JPanel content = new JPanel();

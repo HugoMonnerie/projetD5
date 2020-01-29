@@ -298,7 +298,6 @@ public class SQLRequete {
         return null;
     }
 
-
     public static void requeteAddTeamFoot(Connection db, String Team_name, String Team_create, String Site_team){
         String request = "INSERT INTO 'football_team'('Team_name', 'Team_create', 'Site_team') VALUES (?,?,?);";
         try {

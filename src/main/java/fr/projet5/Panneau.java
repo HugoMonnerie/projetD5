@@ -89,92 +89,227 @@ public class Panneau extends JPanel {
     }
 
 
-    Container panelAdmin(JFrame fen, int i){
+    Container panelAdmin(JFrame fen, String type){
         panel.setLayout(new FlowLayout());
         properties.createFile();
         rme = false;
-        if (i==1){
+        if (type=="PF"){
             JLabel nom = new JLabel("<html><body>nom du joueur :</body></html>");
             JLabel prenom = new JLabel("<html><body>prenon du joueur :</body></html>");
             JLabel age = new JLabel("<html><body>age:</body></html>");
             JLabel equipe = new JLabel("<html><body>equipe :</body></html>");
             JLabel titulaire = new JLabel("<html><body>titulaire :</body></html>");
 
-            JTextField nomF= new JTextField();
-            nomF.setColumns(10);
-            JTextField prenomF = new JTextField();
-            prenomF.setColumns(10);
-            JTextField ageF = new JTextField();
-            ageF.setColumns(10);
-            JTextField equipeF = new JTextField();
-            equipeF.setColumns(10);
-            JTextField titulaireF = new JTextField();
-            titulaireF.setColumns(10);
+            JTextField nom2 = new JTextField();
+            nom2.setColumns(10);
+            JTextField prenom2 = new JTextField();
+            prenom2.setColumns(10);
+            JTextField age2 = new JTextField();
+            age2.setColumns(10);
+            JTextField equipe2 = new JTextField();
+            equipe2.setColumns(10);
+            JTextField titulaire2 = new JTextField();
+            titulaire2.setColumns(10);
 
             panel.add(nom);
-            panel.add(nomF);
+            panel.add(nom2);
             panel.add(prenom);
-            panel.add(prenomF);
+            panel.add(prenom2);
             panel.add(age);
-            panel.add(ageF);
+            panel.add(age2);
             panel.add(equipe);
-            panel.add(equipeF);
+            panel.add(equipe2);
             panel.add(titulaire);
-            panel.add(titulaireF);
-        }else if (i==2){
-            JLabel nomt = new JLabel("<html><body>nom du joueur :</body></html>");
-            JLabel prenomt = new JLabel("<html><body>prenon du joueur :</body></html>");
-            JLabel aget = new JLabel("<html><body>age:</body></html>");
+            panel.add(titulaire2);
+        } else if (type=="PT"){
+            JLabel nom = new JLabel("<html><body>nom du joueur :</body></html>");
+            JLabel prenom = new JLabel("<html><body>prenon du joueur :</body></html>");
+            JLabel age = new JLabel("<html><body>age:</body></html>");
             JLabel nbMed = new JLabel("<html><body>nombre de medaille:</body></html>");
 
 
-            JTextField nomT= new JTextField();
-            nomT.setColumns(10);
-            JTextField prenomT = new JTextField();
-            prenomT.setColumns(10);
-            JTextField ageT = new JTextField();
-            ageT.setColumns(10);
-            JTextField nbMedT = new JTextField();
-            nbMedT.setColumns(10);
+            JTextField nom2= new JTextField();
+            nom2.setColumns(10);
+            JTextField prenom2 = new JTextField();
+            prenom2.setColumns(10);
+            JTextField age2 = new JTextField();
+            age2.setColumns(10);
+            JTextField nbMed2 = new JTextField();
+            nbMed2.setColumns(10);
 
-            panel.add(nomt);
-            panel.add(nomT);
-            panel.add(prenomt);
-            panel.add(prenomT);
-            panel.add(aget);
-            panel.add(ageT);
+            panel.add(nom);
+            panel.add(nom2);
+            panel.add(prenom);
+            panel.add(prenom2);
+            panel.add(age);
+            panel.add(age2);
             panel.add(nbMed);
-            panel.add(nbMedT);
+            panel.add(nbMed2);
 
-        }else if (i==3){
-            JLabel nomh = new JLabel("<html><body>nom du cheval :</body></html>");
-            JLabel ageh= new JLabel("<html><body>age:</body></html>");
-            JLabel photo= new JLabel("<html><body>photo:</body></html>");
-            JLabel dateveto= new JLabel("<html><body>date veterinaire:</body></html>");
+        } else if (type=="H"){
+            JLabel nom = new JLabel("<html><body>nom du cheval :</body></html>");
+            JLabel age= new JLabel("<html><body>age:</body></html>");
+            JLabel photo = new JLabel("<html><body>photo:</body></html>");
+            JLabel dateveto = new JLabel("<html><body>date veterinaire:</body></html>");
 
-            JTextField nomH= new JTextField();
-            nomH.setColumns(10);
-            JTextField ageH = new JTextField();
-            ageH.setColumns(10);
-            JTextField photoH = new JTextField();
-            photoH.setColumns(10);
-            JTextField datevetoH = new JTextField();
-            datevetoH.setColumns(10);
+            JTextField nom2= new JTextField();
+            nom2.setColumns(10);
+            JTextField age2 = new JTextField();
+            age2.setColumns(10);
+            JTextField photo2 = new JTextField();
+            photo2.setColumns(10);
+            JTextField dateveto2 = new JTextField();
+            dateveto2.setColumns(10);
 
-
-            panel.add(nomh);
-            panel.add(nomH);
-            panel.add(ageh);
-            panel.add(ageH);
+            panel.add(nom);
+            panel.add(nom2);
+            panel.add(age);
+            panel.add(age2);
             panel.add(photo);
-            panel.add(photoH);
+            panel.add(photo2);
             panel.add(dateveto);
-            panel.add(datevetoH);
+            panel.add(dateveto2);
+        } else if (type=="MF"){
+            JLabel dateMatchFoot = new JLabel("<html><body>Date match foot :</body></html>");
+            JLabel equipeDom= new JLabel("<html><body>equipe domicile :</body></html>");
+            JLabel equipeExt= new JLabel("<html><body>equipe exterieur :</body></html>");
+            JLabel nbButDom= new JLabel("<html><body>nb but domicile :</body></html>");
+            JLabel nbButExt= new JLabel("<html><body>nb but exterieur :</body></html>");
 
+            JTextField dateMatchFoot2= new JTextField();
+            dateMatchFoot2.setColumns(10);
+            JTextField equipeDom2 = new JTextField();
+            equipeDom2.setColumns(10);
+            JTextField equipeExt2 = new JTextField();
+            equipeExt2.setColumns(10);
+            JTextField nbButDom2 = new JTextField();
+            nbButDom2.setColumns(10);
+            JTextField nbButExt2 = new JTextField();
+            nbButExt2.setColumns(10);
+
+            panel.add(dateMatchFoot);
+            panel.add(dateMatchFoot2);
+            panel.add(equipeDom);
+            panel.add(equipeDom2);
+            panel.add(equipeExt);
+            panel.add(equipeExt2);
+            panel.add(nbButDom);
+            panel.add(nbButDom2);
+            panel.add(nbButExt);
+            panel.add(nbButExt2);
+        } else if (type=="MT"){
+            JLabel dateMatchTennis = new JLabel("<html><body>Date match tennis :</body></html>");
+            JLabel location = new JLabel("<html><body>location match :</body></html>");
+            JLabel surface = new JLabel("<html><body>surface du terrain :</body></html>");
+            JLabel premierTennisman = new JLabel("<html><body>premier joueur :</body></html>");
+            JLabel deuxiemeTennisman = new JLabel("<html><body>deuxieme joueur :</body></html>");
+            JLabel vitMaxTirPremier = new JLabel("<html><body>vitesse de tir max premier joueur :</body></html>");
+            JLabel vitMaxTirDeuxieme = new JLabel("<html><body>vitesse de tir max deuxieme joueur :</body></html>");
+            JLabel vitMaxCoursePremier = new JLabel("<html><body>vitesse de course max premier joueur :</body></html>");
+            JLabel vitMaxCourseDeuxieme = new JLabel("<html><body>vitesse de course max deuxieme joueur :</body></html>");
+
+            JTextField dateMatchTennis2= new JTextField();
+            dateMatchTennis2.setColumns(10);
+            JTextField location2 = new JTextField();
+            location2.setColumns(10);
+            JTextField surface2 = new JTextField();
+            surface2.setColumns(10);
+            JTextField premierTennisman2 = new JTextField();
+            premierTennisman2.setColumns(10);
+            JTextField deuxiemeTennisman2 = new JTextField();
+            deuxiemeTennisman2.setColumns(10);
+            JTextField vitMaxTirPremier2 = new JTextField();
+            vitMaxTirPremier2.setColumns(10);
+            JTextField vitMaxTirDeuxieme2 = new JTextField();
+            vitMaxTirDeuxieme2.setColumns(10);
+            JTextField vitMaxCoursePremier2 = new JTextField();
+            vitMaxCoursePremier2.setColumns(10);
+            JTextField vitMaxCourseDeuxieme2 = new JTextField();
+            vitMaxCourseDeuxieme2.setColumns(10);
+
+            panel.add(dateMatchTennis);
+            panel.add(dateMatchTennis2);
+            panel.add(location);
+            panel.add(location2);
+            panel.add(surface);
+            panel.add(surface2);
+            panel.add(premierTennisman);
+            panel.add(premierTennisman2);
+            panel.add(deuxiemeTennisman);
+            panel.add(deuxiemeTennisman2);
+            panel.add(vitMaxTirPremier);
+            panel.add(vitMaxTirPremier2);
+            panel.add(vitMaxTirDeuxieme);
+            panel.add(vitMaxTirDeuxieme2);
+            panel.add(vitMaxCoursePremier);
+            panel.add(vitMaxCoursePremier2);
+            panel.add(vitMaxCourseDeuxieme);
+            panel.add(vitMaxCourseDeuxieme2);
+        } else if (type=="TF"){
+            JLabel nomTeam = new JLabel("<html><body>nom de l'equipe :</body></html>");
+            JLabel dateCrea= new JLabel("<html><body>date de creation :</body></html>");
+            JLabel site= new JLabel("<html><body>site de l'equipe:</body></html>");
+
+            JTextField nomTeam2= new JTextField();
+            nomTeam2.setColumns(10);
+            JTextField dateCrea2 = new JTextField();
+            dateCrea2.setColumns(10);
+            JTextField site2 = new JTextField();
+            site2.setColumns(10);
+
+            panel.add(nomTeam);
+            panel.add(nomTeam2);
+            panel.add(dateCrea);
+            panel.add(dateCrea2);
+            panel.add(site);
+            panel.add(site2);
+        } else if (type=="CH"){
+            JLabel date = new JLabel("<html><body>date et heure de la course :</body></html>");
+            JLabel lieu= new JLabel("<html><body>lieu de la course :</body></html>");
+            JLabel meteo= new JLabel("<html><body>meteo de la course :</body></html>");
+
+            JTextField date2= new JTextField();
+            date2.setColumns(10);
+            JTextField lieu2 = new JTextField();
+            lieu2.setColumns(10);
+            JTextField meteo2 = new JTextField();
+            meteo2.setColumns(10);
+
+            panel.add(date);
+            panel.add(date2);
+            panel.add(lieu);
+            panel.add(lieu2);
+            panel.add(meteo);
+            panel.add(meteo2);
+        } else if (type=="JH"){
+            JLabel nom = new JLabel("<html><body>nom du jockey :</body></html>");
+            JLabel prenom= new JLabel("<html><body>prenom du jockey :</body></html>");
+            JLabel age= new JLabel("<html><body>age du jockey :</body></html>");
+            JLabel poids= new JLabel("<html><body>poids du jockey:</body></html>");
+            JLabel cheval= new JLabel("<html><body>nom de son cheval:</body></html>");
+
+            JTextField nom2= new JTextField();
+            nom2.setColumns(10);
+            JTextField prenom2 = new JTextField();
+            prenom2.setColumns(10);
+            JTextField age2 = new JTextField();
+            age2.setColumns(10);
+            JTextField poids2 = new JTextField();
+            poids2.setColumns(10);
+            JTextField cheval2 = new JTextField();
+            cheval2.setColumns(10);
+
+            panel.add(nom);
+            panel.add(nom2);
+            panel.add(prenom);
+            panel.add(prenom2);
+            panel.add(age);
+            panel.add(age2);
+            panel.add(poids);
+            panel.add(poids2);
+            panel.add(cheval);
+            panel.add(cheval2);
         }
-
-
-
         return panel;
     }
 
@@ -230,7 +365,6 @@ public class Panneau extends JPanel {
     }
 
     public JPanel panelChoice(JFrame fen, Connection db){
-        //JPanel panel = new JPanel();
 
         panel.setLayout(new FlowLayout());
 
@@ -239,39 +373,27 @@ public class Panneau extends JPanel {
         JButton bouton1 = new JButton("Football");
         bouton1.setForeground(new Color(1, 105, 0));
         bouton1.addActionListener(e -> {
-
             //your actions
             panel.setVisible(false);
             Panneau panneau = new Panneau();
             fen.setContentPane(panneau.foot(fen,db));
         });
-
         JButton bouton2 = new JButton("Tennis");
         bouton2.setForeground(new Color(173, 155, 0));
         bouton2.addActionListener(e -> {
-
             //your actions
             panel.setVisible(false);
             Panneau panneau = new Panneau();
             fen.setContentPane(panneau.tennis(fen,db));
         });
-
         JButton bouton3 = new JButton("Hippique");
         bouton3.setForeground(new Color(97, 40, 0));
         bouton3.addActionListener(e -> {
-
             //your actions
             panel.setVisible(false);
             Panneau panneau = new Panneau();
             fen.setContentPane(panneau.hippique(fen,db));
         });
-
-
-
-
-
-
-
 
         menu(fen, db);
 
@@ -285,16 +407,12 @@ public class Panneau extends JPanel {
 
         panel.add(bouton3);
 
-
-
         panel.setVisible(true);
 
         return panel;
     }
 
     public JPanel foot(JFrame fen, Connection db) {
-
-        fen.setSize(1100, 600);
         JLabel textf = new JLabel("<html><body>Nom de l'équipe :</body></html>");
         textf.setForeground(new Color(32, 129, 0));
 
@@ -312,22 +430,23 @@ public class Panneau extends JPanel {
 
             String teamName = nameOfTeam.getText();
             fen.setContentPane(panneau.resultFoot(db,teamName));
-
-
         });
 
-        JButton boutonajouter = new JButton("ajouter");
-
-        boutonajouter.addActionListener(e -> {
-
+        JButton boutonajouterPF = new JButton("ajouter un joueur");
+        boutonajouterPF.addActionListener(e -> {
             //your actions
-            new Admin(1);
-
+            new Admin("PF");
         });
-
-
-
-
+        JButton boutonajouterTF = new JButton("ajouter une equipe");
+        boutonajouterTF.addActionListener(e -> {
+            //your actions
+            new Admin("TF");
+        });
+        JButton boutonajouterMF = new JButton("ajouter un match");
+        boutonajouterMF.addActionListener(e -> {
+            //your actions
+            new Admin("MF");
+        });
 
         menu(fen, db);
 
@@ -340,7 +459,11 @@ public class Panneau extends JPanel {
 
         panel.add(buttonValid);
 
-        panel.add(boutonajouter);
+        panel.add(boutonajouterPF);
+
+        panel.add(boutonajouterTF);
+
+        panel.add(boutonajouterMF);
 
         panel.setVisible(true);
 
@@ -370,13 +493,15 @@ public class Panneau extends JPanel {
             fen.setContentPane(panneau.resultTennis(db,tennisName));
 
         });
-        JButton boutonajouter = new JButton("ajouter");
-
-        boutonajouter.addActionListener(e -> {
-
+        JButton boutonajouterPT = new JButton("ajouter un tennisman");
+        boutonajouterPT.addActionListener(e -> {
             //your actions
-            new Admin(2);
-
+            new Admin("PT");
+        });
+        JButton boutonajouterMT = new JButton("ajouter un match");
+        boutonajouterMT.addActionListener(e -> {
+            //your actions
+            new Admin("MT");
         });
 
         menu(fen, db);
@@ -389,7 +514,9 @@ public class Panneau extends JPanel {
 
         panel.add(bouton);
 
-        panel.add(boutonajouter);
+        panel.add(boutonajouterPT);
+
+        panel.add(boutonajouterMT);
 
         panel.setVisible(true);
 
@@ -418,14 +545,22 @@ public class Panneau extends JPanel {
             fen.setContentPane(panneau.resultHippique(db,nameHorse));
 
         });
-        JButton boutonajouter = new JButton("ajouter");
-
-        boutonajouter.addActionListener(e -> {
-
+        JButton boutonajouterH = new JButton("ajouter un cheval");
+        boutonajouterH.addActionListener(e -> {
             //your actions
-            new Admin(3);
-
+            new Admin("H");
         });
+        JButton boutonajouterJH = new JButton("ajouter un jockey");
+        boutonajouterJH.addActionListener(e -> {
+            //your actions
+            new Admin("JH");
+        });
+        JButton boutonajouterCH = new JButton("ajouter une course hippique");
+        boutonajouterCH.addActionListener(e -> {
+            //your actions
+            new Admin("CH");
+        });
+
         menu(fen, db);
 
         //affichage
@@ -436,7 +571,11 @@ public class Panneau extends JPanel {
 
         panel.add(bouton);
 
-        panel.add(boutonajouter);
+        panel.add(boutonajouterH);
+
+        panel.add(boutonajouterJH);
+
+        panel.add(boutonajouterCH);
 
         panel.setVisible(true);
 
