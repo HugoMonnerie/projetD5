@@ -26,11 +26,12 @@ public class SQLRequete {
         }
         return null;
     }
-
-
-
-
     
+
+
+
+
+
     public String nbPlayerFoot(Connection db, String name){
         String request2 = "SELECT COUNT(Name_player_f) as Nbr_Player FROM football_player Left Join football_team as FT on football_player.J_id_team_f = FT.Id_team_f where FT.Team_name = " + "'"+name+"';" ;
 
@@ -337,14 +338,14 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteAddPlayerFoot(Connection db, String Name_player_f, String Firstname_player_f, String Age_player_f, int J_id_team_f, String Titulaire_player_f){
-        String request = "INSERT INTO 'football_player'('Name_player_f', 'Firstname_player_f', 'Age_player_f', 'J_id_team_f', 'Titulaire_player_f') VALUES (?,?,?,?,?);";
+    public static void requeteAddPlayerFoot(Connection db, String Name_player_f, String Firstname_player_f, String Age_player_f, String J_id_team_f, String Titulaire_player_f){
+        String request = "INSERT INTO football_player(Name_player_f, Firstname_player_f, Age_player_f, J_id_team_f,Titulaire_player_f ) VALUES (?,?,?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_player_f);
             ps.setString(2, Firstname_player_f);
             ps.setString(3, Age_player_f);
-            ps.setInt(4, J_id_team_f);
+            ps.setString(4, J_id_team_f);
             ps.setString(5, Titulaire_player_f);
             ps.execute();
         }
@@ -364,14 +365,14 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteModPlayerFoot(Connection db, String id, String Name_player_f, String Firstname_player_f, String Age_player_f, int J_id_team_f, String Titulaire_player_f){
+    public static void requeteModPlayerFoot(Connection db, String id, String Name_player_f, String Firstname_player_f, String Age_player_f, String J_id_team_f, String Titulaire_player_f){
         String request = "UPDATE 'football_player' SET 'Name_player_f'=?,'Firstname_player_f'=?,'Age_player_f'=?, 'J_id_team_f'=?, 'Titulaire_player_f'=? WHERE ="+ id;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_player_f);
             ps.setString(2, Firstname_player_f);
             ps.setString(3, Age_player_f);
-            ps.setInt(4, J_id_team_f);
+            ps.setString(4, J_id_team_f);
             ps.setString(5, Titulaire_player_f);
             ps.execute();
         }
@@ -380,15 +381,15 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteAddMatchFoot(Connection db, String Date_match_f, int Id_team_inside_f, int Id_team_outside_f, int Nbr_but_inside_f, int Nbr_but_outside_f){
+    public static void requeteAddMatchFoot(Connection db, String Date_match_f, String Id_team_inside_f, String Id_team_outside_f, String Nbr_but_inside_f, String Nbr_but_outside_f){
         String request = "INSERT INTO 'matchs_football'('Date_match_f', 'Id_team_inside_f', 'Id_team_outside_f', 'Nbr_but_inside_f', 'Nbr_but_outside_f') VALUES (?,?,?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Date_match_f);
-            ps.setInt(2, Id_team_outside_f);
-            ps.setInt(3, Id_team_inside_f);
-            ps.setInt(4, Nbr_but_inside_f);
-            ps.setInt(5, Nbr_but_outside_f);
+            ps.setString(2, Id_team_outside_f);
+            ps.setString(3, Id_team_inside_f);
+            ps.setString(4, Nbr_but_inside_f);
+            ps.setString(5, Nbr_but_outside_f);
             ps.execute();
         }
         catch (SQLException e) {
@@ -407,15 +408,15 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteModMatchFoot(Connection db, String id, String Date_match_f, int Id_team_inside_f, int Id_team_outside_f, int Nbr_but_inside_f, int Nbr_but_outside_f){
+    public static void requeteModMatchFoot(Connection db, String id, String Date_match_f, String Id_team_inside_f, String Id_team_outside_f, String Nbr_but_inside_f, String Nbr_but_outside_f){
         String request = "UPDATE 'matchs_football' SET 'Date_match_f'=?, 'Id_team_inside_f'=?, 'Id_team_outside_f'=?, 'Nbr_but_inside_f'=?, 'Nbr_but_outside_f'=? WHERE ="+ id;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Date_match_f);
-            ps.setInt(2, Id_team_outside_f);
-            ps.setInt(3, Id_team_inside_f);
-            ps.setInt(4, Nbr_but_inside_f);
-            ps.setInt(5, Nbr_but_outside_f);
+            ps.setString(2, Id_team_outside_f);
+            ps.setString(3, Id_team_inside_f);
+            ps.setString(4, Nbr_but_inside_f);
+            ps.setString(5, Nbr_but_outside_f);
             ps.execute();
         }
         catch (SQLException e) {
@@ -423,14 +424,14 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteAddPlayerTennis(Connection db, String Name_player_t, String Firstname_player_t, int Age_player_t, int Nbr_medal_t){
+    public static void requeteAddPlayerTennis(Connection db, String Name_player_t, String Firstname_player_t, String Age_player_t, String Nbr_medal_t){
         String request = "INSERT INTO 'players_tennis'('Name_player_t', 'Firstname_player_t', 'Age_player_t', 'Nbr_medal_t') VALUES (?,?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_player_t);
             ps.setString(2, Firstname_player_t);
-            ps.setInt(3, Age_player_t);
-            ps.setInt(4, Nbr_medal_t);
+            ps.setString(3, Age_player_t);
+            ps.setString(4, Nbr_medal_t);
             ps.execute();
         }
         catch (SQLException e) {
@@ -449,14 +450,14 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteModPlayerTennis(Connection db, String id, String Name_player_t, String Firstname_player_t, int Age_player_t, int Nbr_medal_t){
+    public static void requeteModPlayerTennis(Connection db, String id, String Name_player_t, String Firstname_player_t, String Age_player_t, String Nbr_medal_t){
         String request = "UPDATE 'players_tennis' SET 'Name_player_t'=?, 'Firstname_player_t'=?, 'Age_player_t'=?, 'Nbr_medal_t'=? WHERE ="+ id;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_player_t);
             ps.setString(2, Firstname_player_t);
-            ps.setInt(3, Age_player_t);
-            ps.setInt(4, Nbr_medal_t);
+            ps.setString(3, Age_player_t);
+            ps.setString(4, Nbr_medal_t);
             ps.execute();
         }
         catch (SQLException e) {
@@ -464,20 +465,20 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteAddMatchTennis(Connection db, String Date_match_t, String Location_match_t, String Surface_t, int Id_first_player_t, int Id_secondary_player_t, int Speed_shot_first_player_t, int Speed_shot_secondary_player_t, int Speedrun_first_player_t, int Speedrun_secondary_player_t, int Result_match_first_player_t){
+    public static void requeteAddMatchTennis(Connection db, String Date_match_t, String Location_match_t, String Surface_t, String Id_first_player_t, String Id_secondary_player_t, String Speed_shot_first_player_t, String Speed_shot_secondary_player_t, String Speedrun_first_player_t, String Speedrun_secondary_player_t, String Result_match_first_player_t){
         String request = "INSERT INTO 'matchs_tennis'('Date_match_t', 'Location_match_t', 'Surface_t', 'Id_first_player_t', 'Id_secondary_player_t', 'Speed_shot_first_player_t', 'Speed_shot_secondary_player_t', 'Speedrun_first_player_t', 'Speedrun_secondary_player_t', 'Result_match_first_player_t') VALUES (?,?,?,?,?,?,?,?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Date_match_t);
             ps.setString(2, Location_match_t);
             ps.setString(3, Surface_t);
-            ps.setInt(4, Id_first_player_t);
-            ps.setInt(5, Id_secondary_player_t);
-            ps.setInt(6, Speed_shot_first_player_t);
-            ps.setInt(7, Speed_shot_secondary_player_t);
-            ps.setInt(8, Speedrun_first_player_t);
-            ps.setInt(9, Speedrun_secondary_player_t);
-            ps.setInt(10, Result_match_first_player_t);
+            ps.setString(4, Id_first_player_t);
+            ps.setString(5, Id_secondary_player_t);
+            ps.setString(6, Speed_shot_first_player_t);
+            ps.setString(7, Speed_shot_secondary_player_t);
+            ps.setString(8, Speedrun_first_player_t);
+            ps.setString(9, Speedrun_secondary_player_t);
+            ps.setString(10, Result_match_first_player_t);
             ps.execute();
         }
         catch (SQLException e) {
@@ -496,20 +497,20 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteModMatchTennis(Connection db, String id, String Date_match_t, String Location_match_t, String Surface_t, int Id_first_player_t, int Id_secondary_player_t, int Speed_shot_first_player_t, int Speed_shot_secondary_player_t, int Speedrun_first_player_t, int Speedrun_secondary_player_t, int Result_match_first_player_t){
+    public static void requeteModMatchTennis(Connection db, String id, String Date_match_t, String Location_match_t, String Surface_t, String Id_first_player_t, String Id_secondary_player_t, String Speed_shot_first_player_t, String Speed_shot_secondary_player_t, String Speedrun_first_player_t, String Speedrun_secondary_player_t, String Result_match_first_player_t){
         String request = "UPDATE 'matchs_tennis' SET 'Date_match_t'=?, 'Location_match_t'=?, 'Surface_t'=?, 'Id_first_player_t'=?, 'Id_secondary_player_t'=?, 'Speed_shot_first_player_t'=?, 'Speed_shot_secondary_player_t'=?, 'Speedrun_first_player_t'=?, 'Speedrun_secondary_player_t'=?, 'Result_match_first_player_t'=? WHERE ="+ id;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Date_match_t);
             ps.setString(2, Location_match_t);
             ps.setString(3, Surface_t);
-            ps.setInt(4, Id_first_player_t);
-            ps.setInt(5, Id_secondary_player_t);
-            ps.setInt(6, Speed_shot_first_player_t);
-            ps.setInt(7, Speed_shot_secondary_player_t);
-            ps.setInt(8, Speedrun_first_player_t);
-            ps.setInt(9, Speedrun_secondary_player_t);
-            ps.setInt(10, Result_match_first_player_t);
+            ps.setString(4, Id_first_player_t);
+            ps.setString(5, Id_secondary_player_t);
+            ps.setString(6, Speed_shot_first_player_t);
+            ps.setString(7, Speed_shot_secondary_player_t);
+            ps.setString(8, Speedrun_first_player_t);
+            ps.setString(9, Speedrun_secondary_player_t);
+            ps.setString(10, Result_match_first_player_t);
             ps.execute();
         }
         catch (SQLException e) {
@@ -517,12 +518,12 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteAddChevauxHippique(Connection db, String Name_horse, int Age_horse, String Picture_horse, String Date_veterinaire){
+    public static void requeteAddChevauxHippique(Connection db, String Name_horse, String Age_horse, String Picture_horse, String Date_veterinaire){
         String request = "INSERT INTO 'chevaux_hippique'('Name_horse', 'Age_horse', 'Picture_horse', 'Date_veterinaire') VALUES (?,?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_horse);
-            ps.setInt(2, Age_horse);
+            ps.setString(2, Age_horse);
             ps.setString(3, Picture_horse);
             ps.setString(4, Date_veterinaire);
             ps.execute();
@@ -543,12 +544,12 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteModChevauxHippique(Connection db, String id, String Name_horse, int Age_horse, String Picture_horse, String Date_veterinaire){
+    public static void requeteModChevauxHippique(Connection db, String id, String Name_horse, String Age_horse, String Picture_horse, String Date_veterinaire){
         String request = "UPDATE 'chevaux_hippique' SET 'Name_horse'=?, 'Age_horse'=?, 'Picture_horse'=?, 'Date_veterinaire'=? WHERE ="+ id;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_horse);
-            ps.setInt(2, Age_horse);
+            ps.setString(2, Age_horse);
             ps.setString(3, Picture_horse);
             ps.setString(4, Date_veterinaire);
             ps.execute();
@@ -558,15 +559,15 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteAddJockeyHippique(Connection db, String Name_jockey, String Firstname_jockey, int Age_jockey, int Weight_jockey, int Id_horse_j) {
+    public static void requeteAddJockeyHippique(Connection db, String Name_jockey, String Firstname_jockey, String Age_jockey, String Weight_jockey, String Id_horse_j) {
         String request = "INSERT INTO 'jockeys_hippique'('Name_jockey', 'Firstname_jockey', 'Age_jockey', 'Weight_jockey', 'Id_horse_j') VALUES (?,?,?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_jockey);
             ps.setString(2, Firstname_jockey);
-            ps.setInt(3, Age_jockey);
-            ps.setInt(4, Weight_jockey);
-            ps.setInt(5, Id_horse_j);
+            ps.setString(3, Age_jockey);
+            ps.setString(4, Weight_jockey);
+            ps.setString(5, Id_horse_j);
             ps.execute();
         }
         catch (SQLException e) {
@@ -585,15 +586,15 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteModJockeyHippique(Connection db, String id, String Name_jockey, String Firstname_jockey, int Age_jockey, int Weight_jockey, int Id_horse_j){
+    public static void requeteModJockeyHippique(Connection db, String id, String Name_jockey, String Firstname_jockey, String Age_jockey, String Weight_jockey, String Id_horse_j){
         String request = "UPDATE 'jockeys_hippique' SET 'Name_jockey'=?, 'Firstname_jockey'=?, 'Age_jockey'=?, 'Weight_jockey'=?, 'Id_horse_j'=? WHERE ="+ id;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_jockey);
             ps.setString(2, Firstname_jockey);
-            ps.setInt(3, Age_jockey);
-            ps.setInt(4, Weight_jockey);
-            ps.setInt(5, Id_horse_j);
+            ps.setString(3, Age_jockey);
+            ps.setString(4, Weight_jockey);
+            ps.setString(5, Id_horse_j);
             ps.execute();
         }
         catch (SQLException e) {

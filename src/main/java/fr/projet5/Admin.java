@@ -2,11 +2,12 @@ package fr.projet5;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
 
 
 public class Admin extends JFrame {
 
-    public Admin(String type){
+    public Admin(String type, Connection db){
         {
             this.setTitle("MySQL");
             this.setSize(1280, 720);
@@ -17,7 +18,7 @@ public class Admin extends JFrame {
             getContentPane().setLayout(new BorderLayout());
             this.setVisible(true);
             Admin fen = this;
-            this.setContentPane(panneau.panelAdmin(fen, type));
+            this.setContentPane(panneau.panelAdmin(fen, type, db));
         }
         //Le conteneur principal
         JPanel content = new JPanel();

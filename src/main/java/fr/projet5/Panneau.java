@@ -89,16 +89,17 @@ public class Panneau extends JPanel {
     }
 
 
-    Container panelAdmin(JFrame fen, String type){
+    Container panelAdmin(JFrame fen, String type, Connection db){
         panel.setLayout(new FlowLayout());
         properties.createFile();
         rme = false;
+
         if (type=="PF"){
             JLabel nom = new JLabel("<html><body>nom du joueur :</body></html>");
             JLabel prenom = new JLabel("<html><body>prenon du joueur :</body></html>");
             JLabel age = new JLabel("<html><body>age:</body></html>");
             JLabel equipe = new JLabel("<html><body>equipe :</body></html>");
-            JLabel titulaire = new JLabel("<html><body>titulaire :</body></html>");
+            //JLabel titulaire = new JLabel("<html><body>titulaire :</body></html>");
 
             JTextField nom2 = new JTextField();
             nom2.setColumns(10);
@@ -108,8 +109,26 @@ public class Panneau extends JPanel {
             age2.setColumns(10);
             JTextField equipe2 = new JTextField();
             equipe2.setColumns(10);
-            JTextField titulaire2 = new JTextField();
-            titulaire2.setColumns(10);
+            //JTextField titulaire2 = new JTextField();
+            //titulaire2.setColumns(9);
+
+            JButton boutonValidePF = new JButton("valide");
+            boutonValidePF.setForeground(new Color(97, 40, 0));
+            boutonValidePF.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                String nomm = nom2.getText();
+                String prenomm = prenom2.getText();
+                String agee = age2.getText();
+                String equipee = equipe2.getText();
+                String titulairee = "titulaire";
+                SQLRequete.requeteAddPlayerFoot(db, nomm,prenomm,agee,equipee,titulairee);
+
+            });
+
+
+            panel.add(boutonValidePF);
+
 
             panel.add(nom);
             panel.add(nom2);
@@ -119,14 +138,13 @@ public class Panneau extends JPanel {
             panel.add(age2);
             panel.add(equipe);
             panel.add(equipe2);
-            panel.add(titulaire);
-            panel.add(titulaire2);
+            //panel.add(titulaire);
+            //panel.add(titulaire2);
         } else if (type=="PT"){
             JLabel nom = new JLabel("<html><body>nom du joueur :</body></html>");
             JLabel prenom = new JLabel("<html><body>prenon du joueur :</body></html>");
             JLabel age = new JLabel("<html><body>age:</body></html>");
             JLabel nbMed = new JLabel("<html><body>nombre de medaille:</body></html>");
-
 
             JTextField nom2= new JTextField();
             nom2.setColumns(10);
@@ -136,6 +154,19 @@ public class Panneau extends JPanel {
             age2.setColumns(10);
             JTextField nbMed2 = new JTextField();
             nbMed2.setColumns(10);
+
+            JButton boutonValidePT = new JButton("valide");
+            boutonValidePT.setForeground(new Color(97, 40, 0));
+            boutonValidePT.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                String nomm = nom2.getText();
+                String prenomm = prenom2.getText();
+                String agee = age2.getText();
+                String equipeee = nbMed2.getText();
+                SQLRequete.requeteAddPlayerTennis(db, nomm,prenomm,agee,equipeee);
+                panel.add(boutonValidePT);});
+
 
             panel.add(nom);
             panel.add(nom2);
@@ -151,6 +182,8 @@ public class Panneau extends JPanel {
             JLabel age= new JLabel("<html><body>age:</body></html>");
             JLabel photo = new JLabel("<html><body>photo:</body></html>");
             JLabel dateveto = new JLabel("<html><body>date veterinaire:</body></html>");
+            JLabel id = new JLabel("<html><body>date veterinaire:</body></html>");
+
 
             JTextField nom2= new JTextField();
             nom2.setColumns(10);
@@ -160,6 +193,21 @@ public class Panneau extends JPanel {
             photo2.setColumns(10);
             JTextField dateveto2 = new JTextField();
             dateveto2.setColumns(10);
+            JTextField idd = new JTextField();
+            idd.setColumns(10);
+
+            JButton boutonValideHH = new JButton("valide");
+            boutonValideHH.setForeground(new Color(97, 40, 0));
+            boutonValideHH.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                String nomm = nom2.getText();
+                String prenomm = dateveto2.getText();
+                String agee = age2.getText();
+                String equipeee = photo2.getText();
+                String iddd = photo2.getText();
+                SQLRequete.requeteAddJockeyHippique(db, nomm,prenomm,agee,equipeee,iddd);
+                panel.add(boutonValideHH);});
 
             panel.add(nom);
             panel.add(nom2);
@@ -176,6 +224,7 @@ public class Panneau extends JPanel {
             JLabel nbButDom= new JLabel("<html><body>nb but domicile :</body></html>");
             JLabel nbButExt= new JLabel("<html><body>nb but exterieur :</body></html>");
 
+
             JTextField dateMatchFoot2= new JTextField();
             dateMatchFoot2.setColumns(10);
             JTextField equipeDom2 = new JTextField();
@@ -186,6 +235,21 @@ public class Panneau extends JPanel {
             nbButDom2.setColumns(10);
             JTextField nbButExt2 = new JTextField();
             nbButExt2.setColumns(10);
+
+            JButton boutonValideHH = new JButton("valide");
+            boutonValideHH.setForeground(new Color(97, 40, 0));
+            boutonValideHH.addActionListener(e -> {
+                        //your actions
+                        panel.setVisible(false);
+                String dateMatchFoottt = dateMatchFoot2.getText();
+                String nomm = equipeDom2.getText();
+                String prenomm = equipeExt2.getText();
+                String agee = nbButDom2.getText();
+                String equipeee = nbButExt2.getText();
+
+                SQLRequete.requeteAddJockeyHippique(db, dateMatchFoottt,nomm,prenomm,agee,equipeee);
+                panel.add(boutonValideHH);
+                    });
 
             panel.add(dateMatchFoot);
             panel.add(dateMatchFoot2);
@@ -208,6 +272,7 @@ public class Panneau extends JPanel {
             JLabel vitMaxCoursePremier = new JLabel("<html><body>vitesse de course max premier joueur :</body></html>");
             JLabel vitMaxCourseDeuxieme = new JLabel("<html><body>vitesse de course max deuxieme joueur :</body></html>");
 
+
             JTextField dateMatchTennis2= new JTextField();
             dateMatchTennis2.setColumns(10);
             JTextField location2 = new JTextField();
@@ -226,6 +291,32 @@ public class Panneau extends JPanel {
             vitMaxCoursePremier2.setColumns(10);
             JTextField vitMaxCourseDeuxieme2 = new JTextField();
             vitMaxCourseDeuxieme2.setColumns(10);
+            JTextField Result_match_first_player_t = new JTextField();
+            Result_match_first_player_t.setColumns(10);
+
+
+
+
+
+            JButton boutonValideHH = new JButton("valide");
+            boutonValideHH.setForeground(new Color(97, 40, 0));
+            boutonValideHH.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                String nomm = dateMatchTennis2.getText();
+                String prenomm = location2.getText();
+                String agee = surface2.getText();
+                String equipeee = premierTennisman2.getText();
+                String equipeeee = deuxiemeTennisman2.getText();
+                String iddd = vitMaxTirPremier2.getText();
+                String iddde = vitMaxCoursePremier2.getText();
+                String idddd = vitMaxTirDeuxieme2.getText();
+                String iddddd = vitMaxCourseDeuxieme2.getText();
+                String Result_match_first_player = Result_match_first_player_t.getText();
+                SQLRequete.requeteAddMatchTennis(db, nomm,prenomm,agee,equipeee,equipeeee,iddd,iddde,idddd,iddddd,Result_match_first_player);
+                panel.add(boutonValideHH);});
+
+
 
             panel.add(dateMatchTennis);
             panel.add(dateMatchTennis2);
@@ -250,12 +341,25 @@ public class Panneau extends JPanel {
             JLabel dateCrea= new JLabel("<html><body>date de creation :</body></html>");
             JLabel site= new JLabel("<html><body>site de l'equipe:</body></html>");
 
+
             JTextField nomTeam2= new JTextField();
             nomTeam2.setColumns(10);
             JTextField dateCrea2 = new JTextField();
             dateCrea2.setColumns(10);
             JTextField site2 = new JTextField();
             site2.setColumns(10);
+
+            JButton boutonValideHH = new JButton("valide");
+            boutonValideHH.setForeground(new Color(97, 40, 0));
+            boutonValideHH.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                String nomm = nomTeam2.getText();
+                String prenomm = dateCrea2.getText();
+                String agee = site2.getText();
+
+                SQLRequete.requeteAddTeamFoot(db, nomm,prenomm,agee);
+                panel.add(boutonValideHH);});
 
             panel.add(nomTeam);
             panel.add(nomTeam2);
@@ -275,6 +379,18 @@ public class Panneau extends JPanel {
             JTextField meteo2 = new JTextField();
             meteo2.setColumns(10);
 
+            JButton boutonValideHH = new JButton("valide");
+            boutonValideHH.setForeground(new Color(97, 40, 0));
+            boutonValideHH.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                String nomm = date2.getText();
+                String prenomm = lieu2.getText();
+                String agee = meteo2.getText();
+
+                SQLRequete.requeteAddTeamFoot(db, nomm,prenomm,agee);
+                panel.add(boutonValideHH);});
+
             panel.add(date);
             panel.add(date2);
             panel.add(lieu);
@@ -287,6 +403,16 @@ public class Panneau extends JPanel {
             JLabel age= new JLabel("<html><body>age du jockey :</body></html>");
             JLabel poids= new JLabel("<html><body>poids du jockey:</body></html>");
             JLabel cheval= new JLabel("<html><body>nom de son cheval:</body></html>");
+
+            JButton boutonValideJH = new JButton("valide");
+            boutonValideJH.setForeground(new Color(97, 40, 0));
+            boutonValideJH.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                new SQLRequete();
+
+            });
+            panel.add(boutonValideJH);
 
             JTextField nom2= new JTextField();
             nom2.setColumns(10);
@@ -435,17 +561,17 @@ public class Panneau extends JPanel {
         JButton boutonajouterPF = new JButton("ajouter un joueur");
         boutonajouterPF.addActionListener(e -> {
             //your actions
-            new Admin("PF");
+            new Admin("PF", db);
         });
         JButton boutonajouterTF = new JButton("ajouter une equipe");
         boutonajouterTF.addActionListener(e -> {
             //your actions
-            new Admin("TF");
+            new Admin("TF", db);
         });
         JButton boutonajouterMF = new JButton("ajouter un match");
         boutonajouterMF.addActionListener(e -> {
             //your actions
-            new Admin("MF");
+            new Admin("MF", db);
         });
 
         menu(fen, db);
@@ -496,12 +622,12 @@ public class Panneau extends JPanel {
         JButton boutonajouterPT = new JButton("ajouter un tennisman");
         boutonajouterPT.addActionListener(e -> {
             //your actions
-            new Admin("PT");
+            new Admin("PT", db);
         });
         JButton boutonajouterMT = new JButton("ajouter un match");
         boutonajouterMT.addActionListener(e -> {
             //your actions
-            new Admin("MT");
+            new Admin("MT", db);
         });
 
         menu(fen, db);
@@ -548,17 +674,17 @@ public class Panneau extends JPanel {
         JButton boutonajouterH = new JButton("ajouter un cheval");
         boutonajouterH.addActionListener(e -> {
             //your actions
-            new Admin("H");
+            new Admin("H", db);
         });
         JButton boutonajouterJH = new JButton("ajouter un jockey");
         boutonajouterJH.addActionListener(e -> {
             //your actions
-            new Admin("JH");
+            new Admin("JH", db);
         });
         JButton boutonajouterCH = new JButton("ajouter une course hippique");
         boutonajouterCH.addActionListener(e -> {
             //your actions
-            new Admin("CH");
+            new Admin("CH", db);
         });
 
         menu(fen, db);
@@ -593,7 +719,7 @@ public class Panneau extends JPanel {
         JPanel panelTabTF = new JPanel();
 
         panel.setLayout(new FlowLayout());
-        
+
         List<String> valuesTF;
         try {
             valuesTF = requestsSQLTF.requeteTeamFoot(db, teamName);
@@ -658,7 +784,7 @@ public class Panneau extends JPanel {
         panelTabPF.setLayout(new BorderLayout());
         JTable tableauPF = new JTable(modelPF);
         panelTabPF.add(new JScrollPane(tableauPF), BorderLayout.CENTER);
-        
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         String[] headerMF = {"nb_win_inside", "nb_win_outside", "nb_team_fight", "team_max_but_win", "team_max_but_loose"};
