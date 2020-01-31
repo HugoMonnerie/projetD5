@@ -17,7 +17,6 @@ public class Admin extends JFrame {
             setContentPane(new AfficheImage("../projetD5/src/main/resources/giphy.gif"));
             getContentPane().setLayout(new BorderLayout());
             this.setVisible(true);
-            Admin fen = this;
             this.setContentPane(panneau.panelAdmin(type, db));
         }
         //Le conteneur principal

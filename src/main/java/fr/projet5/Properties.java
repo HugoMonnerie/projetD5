@@ -31,7 +31,7 @@ public class Properties
 
         }
 
-        public ArrayList readFile()
+        public  ArrayList readFile()
         {
             try {
                 File f = new File("autoConnect.log");
@@ -64,12 +64,4 @@ public class Properties
         }
 
 
-        public void closeFile()
-        {
-            try {
-                myWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 }

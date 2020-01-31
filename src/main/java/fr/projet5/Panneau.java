@@ -33,12 +33,12 @@ public class Panneau extends JPanel {
     void menu(JFrame fen, Connection db){
         JMenuBar menuBar = new JMenuBar();
 
-
         JMenu option1 = new JMenu("Setting");
 
         JMenuItem quitter = new JMenuItem("logout");
         quitter.addActionListener(e -> {
             //your actions
+
 
             panel.setVisible(false);
             Panneau panneau = new Panneau();
@@ -48,6 +48,7 @@ public class Panneau extends JPanel {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
+
             fen.setContentPane(panneau.panelConnection(fen));
             System.out.println("logout");
         });
@@ -60,7 +61,9 @@ public class Panneau extends JPanel {
             Panneau panneau = new Panneau();
             fen.setContentPane(panneau.panelChoice(fen, db));
             System.out.println("back");
+
         });
+
 
 
         JMenu option3 = new JMenu("?");
@@ -84,8 +87,7 @@ public class Panneau extends JPanel {
         option3.add(aide);
 
         option3.add(question);
-
-        panel.setForeground(new Color(255, 213, 0));
+        panel.setBackground(new Color(0, 0, 0, 50));
 
     }
 
@@ -112,7 +114,6 @@ public class Panneau extends JPanel {
                 equipe2.setColumns(10);
                 //JTextField titulaire2 = new JTextField();
                 //titulaire2.setColumns(9);
-
                 JButton boutonValidePF = new JButton("valide");
                 boutonValidePF.setForeground(new Color(97, 40, 0));
                 boutonValidePF.addActionListener(e -> {
@@ -122,6 +123,7 @@ public class Panneau extends JPanel {
                     String prenomm = prenom2.getText();
                     String agee = age2.getText();
                     String equipee = equipe2.getText();
+
                     String titulairee = "titulaire";
                     SQLRequete.requeteAddPlayerFoot(db, nomm, prenomm, agee, equipee, titulairee);
 
@@ -168,6 +170,7 @@ public class Panneau extends JPanel {
                     String equipeee = nbMed2.getText();
                     SQLRequete.requeteAddPlayerTennis(db, nomm, prenomm, agee, equipeee);
                     panel.add(boutonValidePT);
+
                 });
 
 
@@ -179,7 +182,7 @@ public class Panneau extends JPanel {
                 panel.add(age2);
                 panel.add(nbMed);
                 panel.add(nbMed2);
-
+                panel.setBackground(new Color(0, 0, 0, 253));
                 break;
             }
             case "addH": {
@@ -779,9 +782,12 @@ public class Panneau extends JPanel {
         panel.setLayout(new FlowLayout());
 
         JLabel text1 = new JLabel("<html><body>Type de parie :</body></html>");
+        text1.setForeground(new Color(216, 220, 216));
 
         JButton bouton1 = new JButton("Football");
         bouton1.setForeground(new Color(1, 105, 0));
+        bouton1.setBackground(new Color(64, 64, 64));
+
         bouton1.addActionListener(e -> {
             //your actions
             panel.setVisible(false);
