@@ -27,10 +27,6 @@ public class SQLRequete {
         return null;
     }
 
-
-
-
-    
     public String nbPlayerFoot(Connection db, String name){
         String request2 = "SELECT COUNT(Name_player_f) as Nbr_Player FROM football_player Left Join football_team as FT on football_player.J_id_team_f = FT.Id_team_f where FT.Team_name = " + "'"+name+"';" ;
 

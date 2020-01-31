@@ -2,22 +2,24 @@ package fr.projet5;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 
 public class Admin extends JFrame {
 
-    public Admin(String type){
+    public Admin(String type, Connection db) {
         {
             this.setTitle("MySQL");
             this.setSize(1280, 720);
             this.setLocationRelativeTo(null);
-            //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             Panneau panneau = new Panneau();
             setContentPane(new AfficheImage("../projetD5/src/main/resources/giphy.gif"));
             getContentPane().setLayout(new BorderLayout());
             this.setVisible(true);
             Admin fen = this;
-            this.setContentPane(panneau.panelAdmin(fen, type));
+            this.setContentPane(panneau.panelAdmin(fen, type, db));
         }
         //Le conteneur principal
         JPanel content = new JPanel();
