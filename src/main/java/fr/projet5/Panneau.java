@@ -3,9 +3,12 @@ package fr.projet5;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 
 public class Panneau extends JPanel {
@@ -89,12 +92,11 @@ public class Panneau extends JPanel {
     }
 
 
-    Container panelAdmin(JFrame fen, String type, Connection db){
+    Container panelAdmin(JFrame fen, String type, Connection db) {
         panel.setLayout(new FlowLayout());
         properties.createFile();
         rme = false;
-
-        if (type=="PF"){
+        if (type=="addPF"){
             JLabel nom = new JLabel("<html><body>nom du joueur :</body></html>");
             JLabel prenom = new JLabel("<html><body>prenon du joueur :</body></html>");
             JLabel age = new JLabel("<html><body>age:</body></html>");
@@ -138,9 +140,9 @@ public class Panneau extends JPanel {
             panel.add(age2);
             panel.add(equipe);
             panel.add(equipe2);
-            //panel.add(titulaire);
-            //panel.add(titulaire2);
-        } else if (type=="PT"){
+            panel.add(titulaire);
+            panel.add(titulaire2);
+        } else if (type=="addPT"){
             JLabel nom = new JLabel("<html><body>nom du joueur :</body></html>");
             JLabel prenom = new JLabel("<html><body>prenon du joueur :</body></html>");
             JLabel age = new JLabel("<html><body>age:</body></html>");
@@ -177,7 +179,7 @@ public class Panneau extends JPanel {
             panel.add(nbMed);
             panel.add(nbMed2);
 
-        } else if (type=="H"){
+        } else if (type=="addH"){
             JLabel nom = new JLabel("<html><body>nom du cheval :</body></html>");
             JLabel age= new JLabel("<html><body>age:</body></html>");
             JLabel photo = new JLabel("<html><body>photo:</body></html>");
@@ -217,7 +219,7 @@ public class Panneau extends JPanel {
             panel.add(photo2);
             panel.add(dateveto);
             panel.add(dateveto2);
-        } else if (type=="MF"){
+        } else if (type=="addMF"){
             JLabel dateMatchFoot = new JLabel("<html><body>Date match foot :</body></html>");
             JLabel equipeDom= new JLabel("<html><body>equipe domicile :</body></html>");
             JLabel equipeExt= new JLabel("<html><body>equipe exterieur :</body></html>");
@@ -261,7 +263,7 @@ public class Panneau extends JPanel {
             panel.add(nbButDom2);
             panel.add(nbButExt);
             panel.add(nbButExt2);
-        } else if (type=="MT"){
+        } else if (type=="addMT"){
             JLabel dateMatchTennis = new JLabel("<html><body>Date match tennis :</body></html>");
             JLabel location = new JLabel("<html><body>location match :</body></html>");
             JLabel surface = new JLabel("<html><body>surface du terrain :</body></html>");
@@ -336,7 +338,7 @@ public class Panneau extends JPanel {
             panel.add(vitMaxCoursePremier2);
             panel.add(vitMaxCourseDeuxieme);
             panel.add(vitMaxCourseDeuxieme2);
-        } else if (type=="TF"){
+        } else if (type=="addTF"){
             JLabel nomTeam = new JLabel("<html><body>nom de l'equipe :</body></html>");
             JLabel dateCrea= new JLabel("<html><body>date de creation :</body></html>");
             JLabel site= new JLabel("<html><body>site de l'equipe:</body></html>");
@@ -367,7 +369,7 @@ public class Panneau extends JPanel {
             panel.add(dateCrea2);
             panel.add(site);
             panel.add(site2);
-        } else if (type=="CH"){
+        } else if (type=="addCH"){
             JLabel date = new JLabel("<html><body>date et heure de la course :</body></html>");
             JLabel lieu= new JLabel("<html><body>lieu de la course :</body></html>");
             JLabel meteo= new JLabel("<html><body>meteo de la course :</body></html>");
@@ -397,7 +399,7 @@ public class Panneau extends JPanel {
             panel.add(lieu2);
             panel.add(meteo);
             panel.add(meteo2);
-        } else if (type=="JH"){
+        } else if (type=="addJH"){
             JLabel nom = new JLabel("<html><body>nom du jockey :</body></html>");
             JLabel prenom= new JLabel("<html><body>prenom du jockey :</body></html>");
             JLabel age= new JLabel("<html><body>age du jockey :</body></html>");
@@ -435,6 +437,106 @@ public class Panneau extends JPanel {
             panel.add(poids2);
             panel.add(cheval);
             panel.add(cheval2);
+        } else if (type=="delPF"){
+            JLabel nom = new JLabel("<html><body>nom du joueur :</body></html>");
+
+            JTextField nom2 = new JTextField();
+            nom2.setColumns(10);
+
+            panel.add(nom);
+            panel.add(nom2);
+        } else if (type=="delPT"){
+            JLabel nom = new JLabel("<html><body>nom du joueur :</body></html>");
+
+            JTextField nom2= new JTextField();
+            nom2.setColumns(10);
+
+            panel.add(nom);
+            panel.add(nom2);
+        } else if (type=="delH"){
+            JLabel nom = new JLabel("<html><body>nom du cheval :</body></html>");
+
+            JTextField nom2= new JTextField();
+            nom2.setColumns(10);
+
+            panel.add(nom);
+            panel.add(nom2);
+        } else if (type=="delMF"){
+            JLabel dateMatchFoot = new JLabel("<html><body>Date match foot :</body></html>");
+
+            JTextField dateMatchFoot2= new JTextField();
+            dateMatchFoot2.setColumns(10);
+
+            panel.add(dateMatchFoot);
+            panel.add(dateMatchFoot2);
+        } else if (type=="delMT"){
+            JLabel dateMatchTennis = new JLabel("<html><body>Date match tennis :</body></html>");
+
+            JTextField dateMatchTennis2= new JTextField();
+            dateMatchTennis2.setColumns(10);
+
+            panel.add(dateMatchTennis);
+            panel.add(dateMatchTennis2);
+        } else if (type=="delTF"){
+            JLabel nomTeam = new JLabel("<html><body>nom de l'equipe :</body></html>");
+
+            JTextField nomTeam2= new JTextField();
+            nomTeam2.setColumns(10);
+
+            panel.add(nomTeam);
+            panel.add(nomTeam2);
+        } else if (type=="delCH"){
+            JLabel date = new JLabel("<html><body>date et heure de la course :</body></html>");
+
+            JTextField date2= new JTextField();
+            date2.setColumns(10);
+
+            panel.add(date);
+            panel.add(date2);
+        } else if (type=="delJH"){
+            JLabel nom = new JLabel("<html><body>nom du jockey :</body></html>");
+
+            JTextField nom2= new JTextField();
+            nom2.setColumns(10);
+
+            panel.add(nom);
+            panel.add(nom2);
+        } else if (type=="modPF"){
+            try {
+                String request = "SELECT * FROM football_player";
+
+                PreparedStatement ps = db.prepareStatement(request);
+
+                ResultSet rs = ps.executeQuery(request);
+
+                List<String> elements = new ArrayList<>();
+
+                while (rs.next()) {
+                    elements.add(rs.getString("Name_player_f"));
+                    elements.add(rs.getString("Firstname_player_f"));
+                }
+                rs.close();
+                ps.close();
+
+                JComboBox modPF = new JComboBox((Vector) elements);
+                panel.add(modPF);
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else if (type=="modPT"){
+
+        } else if (type=="modH"){
+
+        } else if (type=="modMF"){
+
+        } else if (type=="modMT"){
+
+        } else if (type=="modTF"){
+
+        } else if (type=="modCH"){
+
+        } else if (type=="modJH"){
+
         }
         return panel;
     }
@@ -561,17 +663,47 @@ public class Panneau extends JPanel {
         JButton boutonajouterPF = new JButton("ajouter un joueur");
         boutonajouterPF.addActionListener(e -> {
             //your actions
-            new Admin("PF", db);
+            new Admin("addPF", db);
         });
         JButton boutonajouterTF = new JButton("ajouter une equipe");
         boutonajouterTF.addActionListener(e -> {
             //your actions
-            new Admin("TF", db);
+            new Admin("addTF", db);
         });
         JButton boutonajouterMF = new JButton("ajouter un match");
         boutonajouterMF.addActionListener(e -> {
             //your actions
-            new Admin("MF", db);
+            new Admin("addMF", db);
+        });
+        JButton boutonsuppPF = new JButton("supprimer un joueur");
+        boutonsuppPF.addActionListener(e -> {
+            //your actions
+            new Admin("delPF", db);
+        });
+        JButton boutonsuppTF = new JButton("supprimer une equipe");
+        boutonsuppTF.addActionListener(e -> {
+            //your actions
+            new Admin("delTF", db);
+        });
+        JButton boutonsuppMF = new JButton("supprimer un match");
+        boutonsuppMF.addActionListener(e -> {
+            //your actions
+            new Admin("delMF", db);
+        });
+        JButton boutonmodifPF = new JButton("modifier un joueur");
+        boutonmodifPF.addActionListener(e -> {
+            //your actions
+            new Admin("modPF", db);
+        });
+        JButton boutonmodifTF = new JButton("modifier une equipe");
+        boutonmodifTF.addActionListener(e -> {
+            //your actions
+            new Admin("modTF", db);
+        });
+        JButton boutonmodifMF = new JButton("modifier un match");
+        boutonmodifMF.addActionListener(e -> {
+            //your actions
+            new Admin("modMF", db);
         });
 
         menu(fen, db);
@@ -579,7 +711,6 @@ public class Panneau extends JPanel {
         //affichage
 
         panel.add(textf);
-
 
         panel.add(nameOfTeam);
 
@@ -590,6 +721,18 @@ public class Panneau extends JPanel {
         panel.add(boutonajouterTF);
 
         panel.add(boutonajouterMF);
+
+        panel.add(boutonsuppPF);
+
+        panel.add(boutonsuppTF);
+
+        panel.add(boutonsuppMF);
+
+        panel.add(boutonmodifPF);
+
+        panel.add(boutonmodifTF);
+
+        panel.add(boutonmodifMF);
 
         panel.setVisible(true);
 
@@ -622,13 +765,34 @@ public class Panneau extends JPanel {
         JButton boutonajouterPT = new JButton("ajouter un tennisman");
         boutonajouterPT.addActionListener(e -> {
             //your actions
-            new Admin("PT", db);
+            new Admin("addPT", db);
         });
         JButton boutonajouterMT = new JButton("ajouter un match");
         boutonajouterMT.addActionListener(e -> {
             //your actions
-            new Admin("MT", db);
+            new Admin("addMT", db);
         });
+        JButton boutonsuppPT = new JButton("supprimer un tennisman");
+        boutonsuppPT.addActionListener(e -> {
+            //your actions
+            new Admin("delPT", db);
+        });
+        JButton boutonsuppMT = new JButton("supprimer un match");
+        boutonsuppMT.addActionListener(e -> {
+            //your actions
+            new Admin("delMT", db);
+        });
+        JButton boutonmodifPT = new JButton("modifier un tennisman");
+        boutonmodifPT.addActionListener(e -> {
+            //your actions
+            new Admin("modPT", db);
+        });
+        JButton boutonmodifMT = new JButton("modifier un match");
+        boutonmodifMT.addActionListener(e -> {
+            //your actions
+            new Admin("modMT", db);
+        });
+
 
         menu(fen, db);
 
@@ -643,6 +807,14 @@ public class Panneau extends JPanel {
         panel.add(boutonajouterPT);
 
         panel.add(boutonajouterMT);
+
+        panel.add(boutonsuppPT);
+
+        panel.add(boutonsuppMT);
+
+        panel.add(boutonmodifPT);
+
+        panel.add(boutonmodifMT);
 
         panel.setVisible(true);
 
@@ -674,17 +846,47 @@ public class Panneau extends JPanel {
         JButton boutonajouterH = new JButton("ajouter un cheval");
         boutonajouterH.addActionListener(e -> {
             //your actions
-            new Admin("H", db);
+            new Admin("addH", db);
         });
         JButton boutonajouterJH = new JButton("ajouter un jockey");
         boutonajouterJH.addActionListener(e -> {
             //your actions
-            new Admin("JH", db);
+            new Admin("addJH", db);
         });
         JButton boutonajouterCH = new JButton("ajouter une course hippique");
         boutonajouterCH.addActionListener(e -> {
             //your actions
-            new Admin("CH", db);
+            new Admin("addCH", db);
+        });
+        JButton boutonsuppH = new JButton("supprimer un cheval");
+        boutonsuppH.addActionListener(e -> {
+            //your actions
+            new Admin("delH", db);
+        });
+        JButton boutonsuppJH = new JButton("supprimer un jockey");
+        boutonsuppJH.addActionListener(e -> {
+            //your actions
+            new Admin("delJH", db);
+        });
+        JButton boutonsuppCH = new JButton("supprimer une course hippique");
+        boutonsuppCH.addActionListener(e -> {
+            //your actions
+            new Admin("delCH", db);
+        });
+        JButton boutonmodifH = new JButton("modifier un cheval");
+        boutonajouterH.addActionListener(e -> {
+            //your actions
+            new Admin("modH", db);
+        });
+        JButton boutonmodifJH = new JButton("modifier un jockey");
+        boutonmodifJH.addActionListener(e -> {
+            //your actions
+            new Admin("modJH", db);
+        });
+        JButton boutonmodifCH = new JButton("modifier une course hippique");
+        boutonmodifCH.addActionListener(e -> {
+            //your actions
+            new Admin("modCH", db);
         });
 
         menu(fen, db);
@@ -702,6 +904,18 @@ public class Panneau extends JPanel {
         panel.add(boutonajouterJH);
 
         panel.add(boutonajouterCH);
+
+        panel.add(boutonsuppH);
+
+        panel.add(boutonsuppJH);
+
+        panel.add(boutonsuppCH);
+
+        panel.add(boutonmodifH);
+
+        panel.add(boutonmodifJH);
+
+        panel.add(boutonmodifCH);
 
         panel.setVisible(true);
 
