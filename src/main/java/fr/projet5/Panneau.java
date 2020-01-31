@@ -1189,7 +1189,7 @@ public class Panneau extends JPanel {
                 String prenomm = dateCrea2.getText();
                 String agee = site2.getText();
 
-                SQLRequete.requeteAddTeamFoot(db, nomm,prenomm,agee);
+                SQLRequete.requeteModTeamFoot(db, nomm,prenomm,agee);
                 panel.add(boutonValideHH);});
 
             panel.add(nomTeam);
@@ -1274,7 +1274,7 @@ public class Panneau extends JPanel {
                 String prenomm = lieu2.getText();
                 String agee = meteo2.getText();
 
-                SQLRequete.requeteAddRaceHippique(db, nomm,prenomm,agee);
+                SQLRequete.requeteModRaceHippique(db, nomm,prenomm,agee);
                 panel.add(boutonValideHH);});
 
             panel.add(date);
@@ -1369,7 +1369,7 @@ public class Panneau extends JPanel {
                 String datevetoo= poids2.getText();
                 String chevall= cheval2.getText();
 
-                SQLRequete.requeteAddJockeyHippique(db, nomm,prenomm,agee,datevetoo,chevall);
+                SQLRequete.requeteModJockeyHippique(db, nomm,prenomm,agee,datevetoo,chevall);
                 panel.add(boutonValideHH);});
 
             panel.add(nom);
