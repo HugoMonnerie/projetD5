@@ -2,6 +2,8 @@ package fr.projet5;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -463,10 +465,39 @@ public class Panneau extends JPanel {
                     listPlayer[i] = values.get(i);
                 }
                 JComboBox<? extends String> delPF = new JComboBox<>(listPlayer);
+                delPF.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try{
+                            String request = "SELECT * FROM football_player";
+                            PreparedStatement ps = db.prepareStatement(request);
+                            ResultSet rs = ps.executeQuery(request);
+                            List<String> values = new ArrayList<>();
+                            while (rs.next()) {
+                                values.add(rs.getString("Name_player_f") + " " + rs.getString("Firstname_player_f"));
+                                //JComboBox.add(rs.getString("Name_player_f"));
+                                //JComboBox.add(rs.getString("Firstname_player_f"));
+                            }
+                            rs.close();
+                            ps.close();
+                        }catch (SQLException ex){
+
+                        }
+                    }
+                });
                 panel.add(delPF);
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+
+
+
+            JButton football_player = new JButton("supprimer");
+            football_player.setForeground(new Color(97, 40, 0));
+            football_player.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                panel.add(football_player);});
 
         } else if (type=="delPT"){
             try {
