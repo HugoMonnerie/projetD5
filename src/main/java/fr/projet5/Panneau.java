@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Vector;
 
 
@@ -275,7 +276,6 @@ public class Panneau extends JPanel {
             JLabel vitMaxCoursePremier = new JLabel("<html><body>vitesse de course max premier joueur :</body></html>");
             JLabel vitMaxCourseDeuxieme = new JLabel("<html><body>vitesse de course max deuxieme joueur :</body></html>");
 
-
             JTextField dateMatchTennis2= new JTextField();
             dateMatchTennis2.setColumns(10);
             JTextField location2 = new JTextField();
@@ -297,10 +297,6 @@ public class Panneau extends JPanel {
             JTextField Result_match_first_player_t = new JTextField();
             Result_match_first_player_t.setColumns(10);
 
-
-
-
-
             JButton boutonValideHH = new JButton("valide");
             boutonValideHH.setForeground(new Color(97, 40, 0));
             boutonValideHH.addActionListener(e -> {
@@ -317,9 +313,8 @@ public class Panneau extends JPanel {
                 String iddddd = vitMaxCourseDeuxieme2.getText();
                 String Result_match_first_player = Result_match_first_player_t.getText();
                 SQLRequete.requeteAddMatchTennis(db, nomm,prenomm,agee,equipeee,equipeeee,iddd,iddde,idddd,iddddd,Result_match_first_player);
-                panel.add(boutonValideHH);});
-
-
+                panel.add(boutonValideHH);
+            });
 
             panel.add(dateMatchTennis);
             panel.add(dateMatchTennis2);
@@ -343,7 +338,6 @@ public class Panneau extends JPanel {
             JLabel nomTeam = new JLabel("<html><body>nom de l'equipe :</body></html>");
             JLabel dateCrea= new JLabel("<html><body>date de creation :</body></html>");
             JLabel site= new JLabel("<html><body>site de l'equipe:</body></html>");
-
 
             JTextField nomTeam2= new JTextField();
             nomTeam2.setColumns(10);
@@ -372,13 +366,10 @@ public class Panneau extends JPanel {
             panel.add(site2);
         } else if (type=="addCH"){
             JLabel date = new JLabel("<html><body>date et heure de la course :</body></html>");
-            JLabel dateveto = new JLabel("<html><body>date et heure du veto :</body></html>");
             JLabel lieu= new JLabel("<html><body>lieu de la course :</body></html>");
             JLabel meteo= new JLabel("<html><body>meteo de la course :</body></html>");
 
             JTextField date2= new JTextField();
-            date2.setColumns(10);
-            JTextField dateveto2= new JTextField();
             date2.setColumns(10);
             JTextField lieu2 = new JTextField();
             lieu2.setColumns(10);
@@ -393,9 +384,8 @@ public class Panneau extends JPanel {
                 String nomm = date2.getText();
                 String prenomm = lieu2.getText();
                 String agee = meteo2.getText();
-                String datevetoo= dateveto2.getText();
 
-                SQLRequete.requeteAddChevauxHippique(db, nomm,prenomm,agee,datevetoo);
+                SQLRequete.requeteAddRaceHippique(db, nomm,prenomm,agee);
                 panel.add(boutonValideHH);});
 
             panel.add(date);
@@ -658,41 +648,740 @@ public class Panneau extends JPanel {
             }
 
         } else if (type=="modPF"){
+
+            JLabel nom = new JLabel("<html><body>nom du joueur :</body></html>");
+            JLabel prenom = new JLabel("<html><body>prenon du joueur :</body></html>");
+            JLabel age = new JLabel("<html><body>age:</body></html>");
+            JLabel equipe = new JLabel("<html><body>equipe :</body></html>");
+            JLabel titulaire = new JLabel("<html><body>titulaire :</body></html>");
+
+            JTextField nom2 = new JTextField();
+            nom2.setColumns(10);
+            JTextField prenom2 = new JTextField();
+            prenom2.setColumns(10);
+            JTextField age2 = new JTextField();
+            age2.setColumns(10);
+            JTextField equipe2 = new JTextField();
+            equipe2.setColumns(10);
+            JTextField titulaire2 = new JTextField();
+            titulaire2.setColumns(10);
             try {
                 String request = "SELECT * FROM football_player";
 
                 PreparedStatement ps = db.prepareStatement(request);
 
                 ResultSet rs = ps.executeQuery(request);
+                List<String> values = new ArrayList<>();
 
-                List<String> elements = new ArrayList<>();
 
                 while (rs.next()) {
-                    elements.add(rs.getString("Name_player_f"));
-                    elements.add(rs.getString("Firstname_player_f"));
+                    values.add(rs.getString("Name_player_f") + " " + rs.getString("Firstname_player_f"));
                 }
                 rs.close();
                 ps.close();
 
-                JComboBox modPF = new JComboBox((Vector) elements);
-                panel.add(modPF);
+                String[] listPlayer = new String[values.size()];
+                for(int i =0; i<values.size(); i++){
+                    listPlayer[i] = values.get(i);
+                }
+
+
+                    JComboBox modPF = new JComboBox(listPlayer);
+                    modPF.addItemListener(new ItemListener() {
+                        @Override
+                        public void itemStateChanged(ItemEvent itemEvent) {
+                            try {
+                            String player = Objects.requireNonNull(modPF.getSelectedItem()).toString();
+                            String[] splited = player.split("\\ ");
+
+                            nom2.setText(splited[0]);
+                            prenom2.setText(splited[1]);
+
+                            String request = "SELECT * FROM football_player AS FP LEFT JOIN football_team AS FT ON FP.J_id_team_f = FT.Id_team_f WHERE FP.Name_player_f = '"+ nom2.getText() +"' AND FP.Firstname_player_f = '"+ prenom2.getText() +"';";
+
+                            PreparedStatement ps = db.prepareStatement(request);
+
+                            ResultSet rs = ps.executeQuery(request);
+
+                            while (rs.next()) {
+                                age2.setText(rs.getString("FP.Age_player_f"));
+                                equipe2.setText(rs.getString("FT.Team_name"));
+                                titulaire2.setText(rs.getString("FP.Titulaire_player_f"));
+                            }
+                            rs.close();
+                            ps.close();
+                            }catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+                    panel.add(modPF);
+
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+
+            panel.add(nom);
+            panel.add(nom2);
+            panel.add(prenom);
+            panel.add(prenom2);
+            panel.add(age);
+            panel.add(age2);
+            panel.add(equipe);
+            panel.add(equipe2);
+            panel.add(titulaire);
+            panel.add(titulaire2);
+
         } else if (type=="modPT"){
+            JLabel nom = new JLabel("<html><body>nom du joueur :</body></html>");
+            JLabel prenom = new JLabel("<html><body>prenon du joueur :</body></html>");
+            JLabel age = new JLabel("<html><body>age:</body></html>");
+            JLabel nbMed = new JLabel("<html><body>nombre de medaille:</body></html>");
+
+            JTextField nom2 = new JTextField();
+            nom2.setColumns(10);
+            JTextField prenom2 = new JTextField();
+            prenom2.setColumns(10);
+            JTextField age2 = new JTextField();
+            age2.setColumns(10);
+            JTextField nbMed2 = new JTextField();
+            nbMed2.setColumns(10);
+            try {
+                String request = "SELECT * FROM players_tennis";
+
+                PreparedStatement ps = db.prepareStatement(request);
+
+                ResultSet rs = ps.executeQuery(request);
+                List<String> values = new ArrayList<>();
+
+
+                while (rs.next()) {
+                    values.add(rs.getString("Name_player_t") + " " + rs.getString("Firstname_player_t"));
+                }
+                rs.close();
+                ps.close();
+
+                String[] listPlayer = new String[values.size()];
+                for(int i =0; i<values.size(); i++){
+                    listPlayer[i] = values.get(i);
+                }
+
+                JComboBox modPT = new JComboBox(listPlayer);
+                modPT.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try {
+                            String player = Objects.requireNonNull(modPT.getSelectedItem()).toString();
+                            String[] splited = player.split("\\ ");
+
+                            nom2.setText(splited[0]);
+                            prenom2.setText(splited[1]);
+
+                            String request = "SELECT * FROM players_tennis AS PT WHERE PT.Name_player_t = '"+ nom2.getText() +"' AND PT.Firstname_player_t = '"+ prenom2.getText() +"';";
+
+                            PreparedStatement ps = db.prepareStatement(request);
+
+                            ResultSet rs = ps.executeQuery(request);
+
+                            while (rs.next()) {
+                                age2.setText(rs.getString("PT.Age_player_t"));
+                                nbMed2.setText(rs.getString("PT.Nbr_medal_t"));
+                            }
+                            rs.close();
+                            ps.close();
+                        }catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+                panel.add(modPT);
+
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            panel.add(nom);
+            panel.add(nom2);
+            panel.add(prenom);
+            panel.add(prenom2);
+            panel.add(age);
+            panel.add(age2);
+            panel.add(nbMed);
+            panel.add(nbMed2);
 
         } else if (type=="modH"){
+            JLabel nom = new JLabel("<html><body>nom du cheval :</body></html>");
+            JLabel age= new JLabel("<html><body>age:</body></html>");
+            JLabel photo = new JLabel("<html><body>photo:</body></html>");
+            JLabel dateveto = new JLabel("<html><body>date veterinaire:</body></html>");
 
+            JTextField nom2= new JTextField();
+            nom2.setColumns(10);
+            JTextField age2 = new JTextField();
+            age2.setColumns(10);
+            JTextField photo2 = new JTextField();
+            photo2.setColumns(10);
+            JTextField dateveto2 = new JTextField();
+            dateveto2.setColumns(10);
+            try {
+                String request = "SELECT * FROM chevaux_hippique";
+
+                PreparedStatement ps = db.prepareStatement(request);
+
+                ResultSet rs = ps.executeQuery(request);
+                List<String> values = new ArrayList<>();
+
+
+                while (rs.next()) {
+                    values.add(rs.getString("Name_horse"));
+                }
+                rs.close();
+                ps.close();
+
+                String[] listPlayer = new String[values.size()];
+                for(int i =0; i<values.size(); i++){
+                    listPlayer[i] = values.get(i);
+                }
+                JComboBox modH = new JComboBox(listPlayer);
+                modH.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try {
+                            String player = Objects.requireNonNull(modH.getSelectedItem()).toString();
+                            String[] splited = player.split("  ");
+
+                            nom2.setText(splited[0]);
+
+                            String request = "SELECT * FROM chevaux_hippique AS CH WHERE CH.Name_horse = '"+ nom2.getText() +"';";
+
+                            PreparedStatement ps = db.prepareStatement(request);
+
+                            ResultSet rs = ps.executeQuery(request);
+
+                            while (rs.next()) {
+                                age2.setText(rs.getString("CH.Age_horse"));
+                                photo2.setText(rs.getString("CH.Picture_horse"));
+                                dateveto2.setText(rs.getString("CH.Date_veterinaire"));
+                            }
+                            rs.close();
+                            ps.close();
+
+                        }catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                panel.add(modH);
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+            panel.add(nom);
+            panel.add(nom2);
+            panel.add(age);
+            panel.add(age2);
+            panel.add(photo);
+            panel.add(photo2);
+            panel.add(dateveto);
+            panel.add(dateveto2);
         } else if (type=="modMF"){
+            JLabel dateMatchFoot = new JLabel("<html><body>Date match foot :</body></html>");
+            JLabel equipeDom= new JLabel("<html><body>equipe domicile :</body></html>");
+            JLabel equipeExt= new JLabel("<html><body>equipe exterieur :</body></html>");
+            JLabel nbButDom= new JLabel("<html><body>nb but domicile :</body></html>");
+            JLabel nbButExt= new JLabel("<html><body>nb but exterieur :</body></html>");
 
+            JTextField dateMatchFoot2= new JTextField();
+            dateMatchFoot2.setColumns(10);
+            JTextField equipeDom2 = new JTextField();
+            equipeDom2.setColumns(10);
+            JTextField equipeExt2 = new JTextField();
+            equipeExt2.setColumns(10);
+            JTextField nbButDom2 = new JTextField();
+            nbButDom2.setColumns(10);
+            JTextField nbButExt2 = new JTextField();
+            nbButExt2.setColumns(10);
+
+            try {
+                String request = "SELECT * FROM matchs_football";
+
+                PreparedStatement ps = db.prepareStatement(request);
+
+                ResultSet rs = ps.executeQuery(request);
+                List<String> values = new ArrayList<>();
+
+
+                while (rs.next()) {
+                    values.add(rs.getString("Date_match_f"));
+                }
+                rs.close();
+                ps.close();
+
+                String[] listMatch = new String[values.size()];
+                for(int i =0; i<values.size(); i++){
+                    listMatch[i] = values.get(i);
+                }
+
+                JComboBox modMF = new JComboBox(listMatch);
+                modMF.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try {
+                            String player = Objects.requireNonNull(modMF.getSelectedItem()).toString();
+                            String[] splited = player.split("  ");
+
+                            dateMatchFoot2.setText(splited[0]);
+
+                            String request = "SELECT * FROM matchs_football AS MF Left JOIN football_team as ft on MF.Id_team_inside_f = ft.Id_team_f Left JOIN football_team as ft2 on MF.Id_team_outside_f = ft2.Id_team_f WHERE MF.Date_match_f = '"+ dateMatchFoot2.getText() +"';";
+
+                            PreparedStatement ps = db.prepareStatement(request);
+
+                            ResultSet rs = ps.executeQuery(request);
+
+                            while (rs.next()) {
+                                equipeDom2.setText(rs.getString("ft.Team_name"));
+                                equipeExt2.setText(rs.getString("ft2.Team_name"));
+                                nbButDom2.setText(rs.getString("MF.Nbr_but_inside_f"));
+                                nbButExt2.setText(rs.getString("MF.Nbr_but_outside_f"));
+                            }
+                            rs.close();
+                            ps.close();
+                        }catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+                panel.add(modMF);
+
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            JButton boutonValideHH = new JButton("valide");
+            boutonValideHH.setForeground(new Color(97, 40, 0));
+            boutonValideHH.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                String dateMatchFoottt = dateMatchFoot2.getText();
+                String nomm = equipeDom2.getText();
+                String prenomm = equipeExt2.getText();
+                String agee = nbButDom2.getText();
+                String equipeee = nbButExt2.getText();
+
+                SQLRequete.requeteAddMatchFoot(db, dateMatchFoottt,nomm,prenomm,agee,equipeee);
+                panel.add(boutonValideHH);
+            });
+
+            panel.add(dateMatchFoot);
+            panel.add(dateMatchFoot2);
+            panel.add(equipeDom);
+            panel.add(equipeDom2);
+            panel.add(equipeExt);
+            panel.add(equipeExt2);
+            panel.add(nbButDom);
+            panel.add(nbButDom2);
+            panel.add(nbButExt);
+            panel.add(nbButExt2);
         } else if (type=="modMT"){
+            JLabel dateMatchTennis = new JLabel("<html><body>Date match tennis :</body></html>");
+            JLabel location = new JLabel("<html><body>location match :</body></html>");
+            JLabel surface = new JLabel("<html><body>surface du terrain :</body></html>");
+            JLabel premierTennisman = new JLabel("<html><body>premier joueur :</body></html>");
+            JLabel deuxiemeTennisman = new JLabel("<html><body>deuxieme joueur :</body></html>");
+            JLabel vitMaxTirPremier = new JLabel("<html><body>vitesse de tir max premier joueur :</body></html>");
+            JLabel vitMaxTirDeuxieme = new JLabel("<html><body>vitesse de tir max deuxieme joueur :</body></html>");
+            JLabel vitMaxCoursePremier = new JLabel("<html><body>vitesse de course max premier joueur :</body></html>");
+            JLabel vitMaxCourseDeuxieme = new JLabel("<html><body>vitesse de course max deuxieme joueur :</body></html>");
 
+            JTextField dateMatchTennis2= new JTextField();
+            dateMatchTennis2.setColumns(10);
+            JTextField location2 = new JTextField();
+            location2.setColumns(10);
+            JTextField surface2 = new JTextField();
+            surface2.setColumns(10);
+            JTextField premierTennisman2 = new JTextField();
+            premierTennisman2.setColumns(10);
+            JTextField deuxiemeTennisman2 = new JTextField();
+            deuxiemeTennisman2.setColumns(10);
+            JTextField vitMaxTirPremier2 = new JTextField();
+            vitMaxTirPremier2.setColumns(10);
+            JTextField vitMaxTirDeuxieme2 = new JTextField();
+            vitMaxTirDeuxieme2.setColumns(10);
+            JTextField vitMaxCoursePremier2 = new JTextField();
+            vitMaxCoursePremier2.setColumns(10);
+            JTextField vitMaxCourseDeuxieme2 = new JTextField();
+            vitMaxCourseDeuxieme2.setColumns(10);
+            JTextField Result_match_first_player_t = new JTextField();
+            Result_match_first_player_t.setColumns(10);
+
+            try {
+                String request = "SELECT * FROM matchs_tennis";
+
+                PreparedStatement ps = db.prepareStatement(request);
+
+                ResultSet rs = ps.executeQuery(request);
+                List<String> values = new ArrayList<>();
+
+
+                while (rs.next()) {
+                    values.add(rs.getString("Date_match_t"));
+                }
+                rs.close();
+                ps.close();
+
+                String[] listPlayer = new String[values.size()];
+                for(int i =0; i<values.size(); i++){
+                    listPlayer[i] = values.get(i);
+                }
+
+
+                JComboBox modMT = new JComboBox(listPlayer);
+                modMT.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try {
+                            String player = Objects.requireNonNull(modMT.getSelectedItem()).toString();
+                            String[] splited = player.split("  ");
+
+                            dateMatchTennis2.setText(splited[0]);
+
+                            String request = "SELECT * FROM matchs_tennis AS MT LEFT JOIN players_tennis AS PT on MT.Id_first_player_t = PT.Id_player_t left join players_tennis as PT2 on MT.Id_secondary_player_t = PT2.Id_player_t WHERE MT.Date_match_t = '"+ dateMatchTennis2.getText() +"';";
+
+                            PreparedStatement ps = db.prepareStatement(request);
+
+                            ResultSet rs = ps.executeQuery(request);
+
+                            while (rs.next()) {
+                                location2.setText(rs.getString("MT.Location_match_t"));
+                                surface2.setText(rs.getString("MT.Surface_t"));
+                                premierTennisman2.setText(rs.getString("PT.Name_player_t"));
+                                deuxiemeTennisman2.setText(rs.getString("PT2.Name_player_t"));
+                                vitMaxTirPremier2.setText(rs.getString("MT.Speed_shot_first_player_t"));
+                                vitMaxTirDeuxieme2.setText(rs.getString("MT.Speed_shot_secondary_player_t"));
+                                vitMaxCoursePremier2.setText(rs.getString("MT.Speedrun_first_player_t"));
+                                vitMaxCourseDeuxieme2.setText(rs.getString("MT.Speedrun_secondary_player_t"));
+                                Result_match_first_player_t.setText(rs.getString("MT.Result_match_first_player_t"));
+                            }
+                            rs.close();
+                            ps.close();
+                        }catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+                panel.add(modMT);
+
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            JButton boutonValideHH = new JButton("valide");
+            boutonValideHH.setForeground(new Color(97, 40, 0));
+            boutonValideHH.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                String nomm = dateMatchTennis2.getText();
+                String prenomm = location2.getText();
+                String agee = surface2.getText();
+                String equipeee = premierTennisman2.getText();
+                String equipeeee = deuxiemeTennisman2.getText();
+                String iddd = vitMaxTirPremier2.getText();
+                String iddde = vitMaxCoursePremier2.getText();
+                String idddd = vitMaxTirDeuxieme2.getText();
+                String iddddd = vitMaxCourseDeuxieme2.getText();
+                String Result_match_first_player = Result_match_first_player_t.getText();
+                SQLRequete.requeteAddMatchTennis(db, nomm,prenomm,agee,equipeee,equipeeee,iddd,iddde,idddd,iddddd,Result_match_first_player);
+                panel.add(boutonValideHH);
+            });
+
+            panel.add(dateMatchTennis);
+            panel.add(dateMatchTennis2);
+            panel.add(location);
+            panel.add(location2);
+            panel.add(surface);
+            panel.add(surface2);
+            panel.add(premierTennisman);
+            panel.add(premierTennisman2);
+            panel.add(deuxiemeTennisman);
+            panel.add(deuxiemeTennisman2);
+            panel.add(vitMaxTirPremier);
+            panel.add(vitMaxTirPremier2);
+            panel.add(vitMaxTirDeuxieme);
+            panel.add(vitMaxTirDeuxieme2);
+            panel.add(vitMaxCoursePremier);
+            panel.add(vitMaxCoursePremier2);
+            panel.add(vitMaxCourseDeuxieme);
+            panel.add(vitMaxCourseDeuxieme2);
         } else if (type=="modTF"){
+            JLabel nomTeam = new JLabel("<html><body>nom de l'equipe :</body></html>");
+            JLabel dateCrea= new JLabel("<html><body>date de creation :</body></html>");
+            JLabel site= new JLabel("<html><body>site de l'equipe:</body></html>");
 
+            JTextField nomTeam2= new JTextField();
+            nomTeam2.setColumns(10);
+            JTextField dateCrea2 = new JTextField();
+            dateCrea2.setColumns(10);
+            JTextField site2 = new JTextField();
+            site2.setColumns(10);
+
+            try {
+                String request = "SELECT * FROM football_team";
+
+                PreparedStatement ps = db.prepareStatement(request);
+
+                ResultSet rs = ps.executeQuery(request);
+                List<String> values = new ArrayList<>();
+
+                while (rs.next()) {
+                    values.add(rs.getString("Team_name"));
+                }
+                rs.close();
+                ps.close();
+
+                String[] listPlayer = new String[values.size()];
+                for(int i =0; i<values.size(); i++){
+                    listPlayer[i] = values.get(i);
+                }
+
+                JComboBox modTF = new JComboBox(listPlayer);
+                modTF.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try {
+                            String player = Objects.requireNonNull(modTF.getSelectedItem()).toString();
+                            String[] splited = player.split("  ");
+
+                            nomTeam2.setText(splited[0]);
+
+                            String request = "SELECT * FROM football_team AS FT WHERE FT.Team_name = '"+ nomTeam2.getText() +"';";
+
+                            PreparedStatement ps = db.prepareStatement(request);
+
+                            ResultSet rs = ps.executeQuery(request);
+
+                            while (rs.next()) {
+                                dateCrea2.setText(rs.getString("FT.Team_create"));
+                                site2.setText(rs.getString("FT.Site_team"));
+                            }
+                            rs.close();
+                            ps.close();
+                        }catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+                panel.add(modTF);
+
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            JButton boutonValideHH = new JButton("valide");
+            boutonValideHH.setForeground(new Color(97, 40, 0));
+            boutonValideHH.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                String nomm = nomTeam2.getText();
+                String prenomm = dateCrea2.getText();
+                String agee = site2.getText();
+
+                SQLRequete.requeteAddTeamFoot(db, nomm,prenomm,agee);
+                panel.add(boutonValideHH);});
+
+            panel.add(nomTeam);
+            panel.add(nomTeam2);
+            panel.add(dateCrea);
+            panel.add(dateCrea2);
+            panel.add(site);
+            panel.add(site2);
         } else if (type=="modCH"){
+            JLabel date = new JLabel("<html><body>date et heure de la course :</body></html>");
+            JLabel lieu= new JLabel("<html><body>lieu de la course :</body></html>");
+            JLabel meteo= new JLabel("<html><body>meteo de la course :</body></html>");
 
+            JTextField date2= new JTextField();
+            date2.setColumns(10);
+            JTextField lieu2 = new JTextField();
+            lieu2.setColumns(10);
+            JTextField meteo2 = new JTextField();
+            meteo2.setColumns(10);
+
+            try {
+                String request = "SELECT * FROM race_hippiques";
+
+                PreparedStatement ps = db.prepareStatement(request);
+
+                ResultSet rs = ps.executeQuery(request);
+                List<String> values = new ArrayList<>();
+
+
+                while (rs.next()) {
+                    values.add(rs.getString("Time_race"));
+                }
+                rs.close();
+                ps.close();
+
+                String[] listPlayer = new String[values.size()];
+                for(int i =0; i<values.size(); i++){
+                    listPlayer[i] = values.get(i);
+                }
+
+
+                JComboBox modCH = new JComboBox(listPlayer);
+                modCH.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try {
+                            String player = Objects.requireNonNull(modCH.getSelectedItem()).toString();
+                            String[] splited = player.split("  ");
+
+                            date2.setText(splited[0]);
+
+                            String request = "SELECT * FROM race_hippiques AS RH WHERE RH.Time_race = '"+ date2.getText() +"';";
+
+                            PreparedStatement ps = db.prepareStatement(request);
+
+                            ResultSet rs = ps.executeQuery(request);
+
+                            while (rs.next()) {
+                                lieu2.setText(rs.getString("RH.Location_race"));
+                                meteo2.setText(rs.getString("RH.Weather_race"));
+                            }
+                            rs.close();
+                            ps.close();
+                        }catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+                panel.add(modCH);
+
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            JButton boutonValideHH = new JButton("valide");
+            boutonValideHH.setForeground(new Color(97, 40, 0));
+            boutonValideHH.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                String nomm = date2.getText();
+                String prenomm = lieu2.getText();
+                String agee = meteo2.getText();
+
+                SQLRequete.requeteAddRaceHippique(db, nomm,prenomm,agee);
+                panel.add(boutonValideHH);});
+
+            panel.add(date);
+            panel.add(date2);
+            panel.add(lieu);
+            panel.add(lieu2);
+            panel.add(meteo);
+            panel.add(meteo2);
         } else if (type=="modJH"){
+            JLabel nom = new JLabel("<html><body>nom du jockey :</body></html>");
+            JLabel prenom= new JLabel("<html><body>prenom du jockey :</body></html>");
+            JLabel age= new JLabel("<html><body>age du jockey :</body></html>");
+            JLabel poids= new JLabel("<html><body>poids du jockey:</body></html>");
+            JLabel cheval= new JLabel("<html><body>nom de son cheval:</body></html>");
 
+            JTextField nom2= new JTextField();
+            nom2.setColumns(10);
+            JTextField prenom2 = new JTextField();
+            prenom2.setColumns(10);
+            JTextField age2 = new JTextField();
+            age2.setColumns(10);
+            JTextField poids2 = new JTextField();
+            poids2.setColumns(10);
+            JTextField cheval2 = new JTextField();
+            cheval2.setColumns(10);
+
+            try {
+                String request = "SELECT * FROM jockeys_hippique";
+
+                PreparedStatement ps = db.prepareStatement(request);
+
+                ResultSet rs = ps.executeQuery(request);
+                List<String> values = new ArrayList<>();
+
+
+                while (rs.next()) {
+                    values.add(rs.getString("Name_jockey") + " " + rs.getString("Firstname_jockey"));
+                }
+                rs.close();
+                ps.close();
+
+                String[] listPlayer = new String[values.size()];
+                for(int i =0; i<values.size(); i++){
+                    listPlayer[i] = values.get(i);
+                }
+
+
+                JComboBox modJH = new JComboBox(listPlayer);
+                modJH.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try {
+                            String player = Objects.requireNonNull(modJH.getSelectedItem()).toString();
+                            String[] splited = player.split("\\ ");
+
+                            nom2.setText(splited[0]);
+                            prenom2.setText(splited[1]);
+
+                            String request = "SELECT * FROM jockeys_hippique AS JH LEFT JOIN chevaux_hippique AS CH on JH.Id_horse_j = CH.Id_horse WHERE JH.Name_jockey = '"+ nom2.getText() +"' AND JH.Firstname_jockey = '"+ prenom2.getText() +"';";
+
+                            PreparedStatement ps = db.prepareStatement(request);
+
+                            ResultSet rs = ps.executeQuery(request);
+
+                            while (rs.next()) {
+                                age2.setText(rs.getString("JH.Age_jockey"));
+                                poids2.setText(rs.getString("JH.Weight_jockey"));
+                                cheval2.setText(rs.getString("CH.Name_horse"));
+                            }
+                            rs.close();
+                            ps.close();
+                        }catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+                panel.add(modJH);
+
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            JButton boutonValideHH = new JButton("valide");
+            boutonValideHH.setForeground(new Color(97, 40, 0));
+            boutonValideHH.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                String nomm = nom2.getText();
+                String prenomm = prenom2.getText();
+                String agee = age2.getText();
+                String datevetoo= poids2.getText();
+                String chevall= cheval2.getText();
+
+                SQLRequete.requeteAddJockeyHippique(db, nomm,prenomm,agee,datevetoo,chevall);
+                panel.add(boutonValideHH);});
+
+            panel.add(nom);
+            panel.add(nom2);
+            panel.add(prenom);
+            panel.add(prenom2);
+            panel.add(age);
+            panel.add(age2);
+            panel.add(poids);
+            panel.add(poids2);
+            panel.add(cheval);
+            panel.add(cheval2);
         }
         return panel;
     }
@@ -1031,7 +1720,7 @@ public class Panneau extends JPanel {
             new Admin("delCH", db);
         });
         JButton boutonmodifH = new JButton("modifier un cheval");
-        boutonajouterH.addActionListener(e -> {
+        boutonmodifH.addActionListener(e -> {
             //your actions
             new Admin("modH", db);
         });
