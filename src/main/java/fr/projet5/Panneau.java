@@ -171,7 +171,7 @@ public class Panneau extends JPanel {
                 SQLRequete.requeteAddPlayerTennis(db, nomm,prenomm,agee,equipeee);
                 panel.add(boutonValidePT);});
 
-
+            panel.add(boutonValidePT);
             panel.add(nom);
             panel.add(nom2);
             panel.add(prenom);
@@ -213,6 +213,7 @@ public class Panneau extends JPanel {
                 SQLRequete.requeteAddJockeyHippique(db, nomm,prenomm,agee,equipeee,iddd);
                 panel.add(boutonValideHH);});
 
+            panel.add(boutonValideHH);
             panel.add(nom);
             panel.add(nom2);
             panel.add(age);
@@ -255,6 +256,8 @@ public class Panneau extends JPanel {
                 panel.add(boutonValideHH);
                     });
 
+
+            panel.add(boutonValideHH);
             panel.add(dateMatchFoot);
             panel.add(dateMatchFoot2);
             panel.add(equipeDom);
@@ -316,6 +319,7 @@ public class Panneau extends JPanel {
                 panel.add(boutonValideHH);
             });
 
+            panel.add(boutonValideHH);
             panel.add(dateMatchTennis);
             panel.add(dateMatchTennis2);
             panel.add(location);
@@ -358,6 +362,7 @@ public class Panneau extends JPanel {
                 SQLRequete.requeteAddTeamFoot(db, nomm,prenomm,agee);
                 panel.add(boutonValideHH);});
 
+            panel.add(boutonValideHH);
             panel.add(nomTeam);
             panel.add(nomTeam2);
             panel.add(dateCrea);
@@ -388,6 +393,7 @@ public class Panneau extends JPanel {
                 SQLRequete.requeteAddRaceHippique(db, nomm,prenomm,agee);
                 panel.add(boutonValideHH);});
 
+            panel.add(boutonValideHH);
             panel.add(date);
             panel.add(date2);
             panel.add(lieu);
@@ -426,6 +432,7 @@ public class Panneau extends JPanel {
                 SQLRequete.requeteAddJockeyHippique(db, nomm,prenomm,agee,datevetoo,chevall);
                 panel.add(boutonValideHH);});
 
+            panel.add(boutonValideHH);
             panel.add(nom);
             panel.add(nom2);
             panel.add(prenom);
@@ -488,6 +495,7 @@ public class Panneau extends JPanel {
                 //your actions
                 panel.setVisible(false);
                 panel.add(football_player);});
+            panel.add(football_player);
 
         } else if (type=="delPT"){
             try {
@@ -511,6 +519,13 @@ public class Panneau extends JPanel {
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+            JButton player_tennis = new JButton("supprimer");
+            player_tennis.setForeground(new Color(97, 40, 0));
+            player_tennis.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                panel.add(player_tennis);});
+            panel.add(player_tennis);
         } else if (type=="delH"){
             try {
                 String request = "SELECT * FROM chevaux_hippique";
@@ -533,6 +548,14 @@ public class Panneau extends JPanel {
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+            JButton football_player = new JButton("supprimer");
+            football_player.setForeground(new Color(97, 40, 0));
+            football_player.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                panel.add(football_player);});
+            panel.add(football_player);
+
         } else if (type=="delMF"){
             try {
                 String request = "SELECT * FROM matchs_football";
@@ -555,6 +578,14 @@ public class Panneau extends JPanel {
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+            JButton football_player = new JButton("supprimer");
+            football_player.setForeground(new Color(97, 40, 0));
+            football_player.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                panel.add(football_player);});
+            panel.add(football_player);
+
 
         } else if (type=="delMT"){
             try {
@@ -578,6 +609,13 @@ public class Panneau extends JPanel {
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+            JButton football_player = new JButton("supprimer");
+            football_player.setForeground(new Color(97, 40, 0));
+            football_player.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                panel.add(football_player);});
+            panel.add(football_player);
 
         } else if (type=="delTF"){
             try {
@@ -601,6 +639,14 @@ public class Panneau extends JPanel {
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+            JButton football_player = new JButton("supprimer");
+            football_player.setForeground(new Color(97, 40, 0));
+            football_player.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                panel.add(football_player);});
+            panel.add(football_player);
+
         } else if (type=="delCH"){
             try {
                 String request = "SELECT * FROM chevaux_hippique";
@@ -623,6 +669,13 @@ public class Panneau extends JPanel {
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+            JButton football_player = new JButton("supprimer");
+            football_player.setForeground(new Color(97, 40, 0));
+            football_player.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                panel.add(football_player);});
+            panel.add(football_player);
 
         } else if (type=="delJH"){
             try {
@@ -646,6 +699,13 @@ public class Panneau extends JPanel {
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+            JButton football_player = new JButton("supprimer");
+            football_player.setForeground(new Color(97, 40, 0));
+            football_player.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                panel.add(football_player);});
+            panel.add(football_player);
 
         } else if (type=="modPF"){
 
@@ -721,6 +781,13 @@ public class Panneau extends JPanel {
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+            JButton football_player = new JButton("modifier");
+            football_player.setForeground(new Color(97, 40, 0));
+            football_player.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                panel.add(football_player);});
+            panel.add(football_player);
 
             panel.add(nom);
             panel.add(nom2);
@@ -801,6 +868,13 @@ public class Panneau extends JPanel {
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+            JButton football_player = new JButton("modifier");
+            football_player.setForeground(new Color(97, 40, 0));
+            football_player.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                panel.add(football_player);});
+            panel.add(football_player);
 
             panel.add(nom);
             panel.add(nom2);
@@ -877,6 +951,14 @@ public class Panneau extends JPanel {
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+            JButton football_player = new JButton("modifier");
+            football_player.setForeground(new Color(97, 40, 0));
+            football_player.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                panel.add(football_player);});
+            panel.add(football_player);
+
             panel.add(nom);
             panel.add(nom2);
             panel.add(age);
@@ -958,6 +1040,13 @@ public class Panneau extends JPanel {
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+            JButton football_player = new JButton("modifier");
+            football_player.setForeground(new Color(97, 40, 0));
+            football_player.addActionListener(e -> {
+                //your actions
+                panel.setVisible(false);
+                panel.add(football_player);});
+            panel.add(football_player);
 
             JButton boutonValideHH = new JButton("valide");
             boutonValideHH.setForeground(new Color(97, 40, 0));
@@ -1097,6 +1186,7 @@ public class Panneau extends JPanel {
                 panel.add(boutonValideHH);
             });
 
+            panel.add(boutonValideHH);
             panel.add(dateMatchTennis);
             panel.add(dateMatchTennis2);
             panel.add(location);
@@ -1192,6 +1282,7 @@ public class Panneau extends JPanel {
                 SQLRequete.requeteModTeamFoot(db, nomm,prenomm,agee);
                 panel.add(boutonValideHH);});
 
+            panel.add(boutonValideHH);
             panel.add(nomTeam);
             panel.add(nomTeam2);
             panel.add(dateCrea);
@@ -1275,8 +1366,9 @@ public class Panneau extends JPanel {
                 String agee = meteo2.getText();
 
                 SQLRequete.requeteModRaceHippique(db, nomm,prenomm,agee);
-                panel.add(boutonValideHH);});
+                });
 
+            panel.add(boutonValideHH);
             panel.add(date);
             panel.add(date2);
             panel.add(lieu);
