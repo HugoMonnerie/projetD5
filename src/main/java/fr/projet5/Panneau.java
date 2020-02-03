@@ -90,6 +90,7 @@ public class Panneau extends JPanel {
         option3.add(question);
         panel.setBackground(new Color(32, 32, 32, 255));
 
+        panel.setForeground(new Color(32, 32, 32));
 
         return panel;
     }
@@ -477,6 +478,7 @@ public class Panneau extends JPanel {
                             }
                             rs.close();
                             ps.close();
+
                         }catch (SQLException ex){
 
                         }
@@ -494,7 +496,17 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                String player = Objects.requireNonNull(delPF.getSelectedItem()).toString();
+                String[] splited = player.split("\\ ");
+
+                String nom2 = splited[0];
+                Object prenom2 = splited[1];
+
+                String nomm = nom2.toString();
+                String prenomm = prenom2.toString();
+                SQLRequete.requeteDelPlayerFoot(db, nomm, prenomm);
+
+            });
             panel.add(football_player);
 
         } else if (type=="delPT"){
@@ -515,16 +527,25 @@ public class Panneau extends JPanel {
                     listPlayer[i] = values.get(i);
                 }
                 JComboBox<? extends String> delPt = new JComboBox<>(listPlayer);
-                panel.add(delPt);
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
+            panel.add(delPt);
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+        }
             JButton player_tennis = new JButton("supprimer");
             player_tennis.setForeground(new Color(97, 40, 0));
             player_tennis.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(player_tennis);});
+                String player = Objects.requireNonNull(delPt.getSelectedItem()).toString();
+                String[] splited = player.split("\\ ");
+
+                String nom2 = splited[0];
+                Object prenom2 = splited[1];
+
+                String nomm = nom2.toString();
+                String prenomm = prenom2.toString();
+                SQLRequete.requeteDelPlayerTennis(db, nomm, prenomm);
+            });
             panel.add(player_tennis);
         } else if (type=="delH"){
             try {
@@ -1536,6 +1557,7 @@ public class Panneau extends JPanel {
 
         JLabel text1 = new JLabel("<html><body>Type de parie :</body></html>");
         text1.setForeground(new Color(255, 255, 255));
+        text1.setForeground(new Color(225,225,225));
 
         JButton bouton1 = new JButton("Football");
         bouton1.setForeground(new Color(1, 105, 0));
