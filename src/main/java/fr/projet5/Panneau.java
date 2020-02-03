@@ -1059,10 +1059,10 @@ public class Panneau extends JPanel {
                 String agee = nbButDom2.getText();
                 String equipeee = nbButExt2.getText();
 
-                SQLRequete.requeteAddMatchFoot(db, dateMatchFoottt,nomm,prenomm,agee,equipeee);
-                panel.add(boutonValideHH);
+                SQLRequete.requeteModMatchFoot(db, dateMatchFoottt,nomm,prenomm,agee,equipeee);
             });
 
+            panel.add(boutonValideHH);
             panel.add(dateMatchFoot);
             panel.add(dateMatchFoot2);
             panel.add(equipeDom);

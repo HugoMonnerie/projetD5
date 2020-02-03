@@ -309,8 +309,8 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteDelTeamFoot(Connection db, String id){
-        String request = "DELETE FROM 'football_team' WHERE 'Id_team_f' ="+ id;
+    public static void requeteDelTeamFoot(Connection db, String Team_name){
+        String request = "DELETE FROM 'football_team' WHERE 'Team_name' ="+ Team_name;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -350,8 +350,8 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteDelPlayerFoot(Connection db, String id){
-        String request = "DELETE FROM 'football_player' WHERE 'Id_player_f' ="+ id;
+    public static void requeteDelPlayerFoot(Connection db, String Firstname_player_f, String Name_player_f){
+        String request = "DELETE FROM 'football_player' WHERE 'Firstname_player_f' ="+ Firstname_player_f +" 'Name_player_f'= "+ Name_player_f ;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -393,8 +393,8 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteDelMatchFoot(Connection db, String id){
-        String request = "DELETE FROM 'matchs_football' WHERE 'Id_match_f' ="+ id;
+    public static void requeteDelMatchFoot(Connection db, String Date_match_f){
+        String request = "DELETE FROM 'matchs_football' WHERE 'Date_match_f' ="+ Date_match_f;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -435,8 +435,8 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteDelPlayerTennis(Connection db, String id){
-        String request = "DELETE FROM 'players_tennis' WHERE 'Id_player_t' ="+ id;
+    public static void requeteDelPlayerTennis(Connection db, String Firstname_player_t, String Name_player_t){
+        String request = "DELETE FROM 'players_tennis' WHERE 'Firstname_player_f' ="+ Firstname_player_t +" 'Name_player_f'= "+ Name_player_t ;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -482,8 +482,8 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteDelMatchTennis(Connection db, String id){
-        String request = "DELETE FROM 'matchs_tennis' WHERE 'Id_match_t' ="+ id;
+    public static void requeteDelMatchTennis(Connection db, String Name_horse,String Location_match_t){
+        String request = "DELETE FROM 'matchs_tennis' WHERE 'Date_match_t' ="+ Name_horse +"Location_match_t="+ Location_match_t;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -529,8 +529,8 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteDelChevauxHippique(Connection db, String id){
-        String request = "DELETE FROM 'chevaux_hippique' WHERE 'Id_horse' ="+ id;
+    public static void requeteDelChevauxHippique(Connection db, String Name_horse){
+        String request = "DELETE FROM 'chevaux_hippique' WHERE 'Name_horse' ="+ Name_horse;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -571,8 +571,8 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteDelJockeyHippique(Connection db, String id){
-        String request = "DELETE FROM 'jockeys_hippique' WHERE 'Id_jockey' ="+ id;
+    public static void requeteDelJockeyHippique(Connection db, String Name_jockey, String Firstname_jockey){
+        String request = "DELETE FROM 'jockeys_hippique' WHERE 'Name_jockey' ="+ Name_jockey+ "Firstname_jockey= "+ Firstname_jockey;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -612,8 +612,8 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteDelRaceHippique(Connection db, String id){
-        String request = "DELETE FROM 'race_hippiques' WHERE 'Id_race' ="+id;
+    public static void requeteDelRaceHippique(Connection db, String Time_race,String Location_race){
+        String request = "DELETE FROM 'race_hippiques' WHERE 'Time_race' ="+Time_race+ "Location_race="+Location_race;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
