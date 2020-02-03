@@ -612,8 +612,8 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteDelRaceHippique(Connection db, String Time_race,String Location_race){
-        String request = "DELETE FROM 'race_hippiques' WHERE 'Time_race' ="+Time_race+ "Location_race="+Location_race;
+    public static void requeteDelRaceHippique(Connection db, String Time_race){
+        String request = "DELETE FROM 'race_hippiques' WHERE 'Time_race' ="+Time_race;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
