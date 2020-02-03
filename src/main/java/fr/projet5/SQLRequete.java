@@ -482,8 +482,8 @@ public class SQLRequete {
         }
     }
 
-    public static void requeteDelMatchTennis(Connection db, String Name_horse,String Location_match_t){
-        String request = "DELETE FROM 'matchs_tennis' WHERE 'Date_match_t' ="+ Name_horse +"Location_match_t="+ Location_match_t;
+    public static void requeteDelMatchTennis(Connection db, String Date_match_t){
+        String request = "DELETE FROM 'matchs_tennis' WHERE 'Date_match_t'";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();

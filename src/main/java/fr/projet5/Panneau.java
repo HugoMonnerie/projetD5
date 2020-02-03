@@ -488,9 +488,6 @@ public class Panneau extends JPanel {
             }catch (SQLException e) {
                 e.printStackTrace();
             }
-
-
-
             JButton football_player = new JButton("supprimer");
             football_player.setForeground(new Color(97, 40, 0));
             football_player.addActionListener(e -> {
@@ -574,7 +571,9 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                SQLRequete.requeteDelChevauxHippique(db, nomm);
+
+            });
             panel.add(football_player);
 
         } else if (type=="delMF"){
@@ -604,7 +603,8 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                SQLRequete.requeteDelMatchFoot(db, date);
+            });
             panel.add(football_player);
 
 
@@ -635,7 +635,8 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                SQLRequete.requeteDelMatchTennis(db,Date_match_t);
+            });
             panel.add(football_player);
 
         } else if (type=="delTF"){
@@ -665,7 +666,8 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                SQLRequete.requeteDelTeamFoot(db,team_name_f);
+            });
             panel.add(football_player);
 
         } else if (type=="delCH"){
@@ -695,7 +697,8 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                SQLRequete.requeteDelMatchTennis(db,date_match_t);
+            });
             panel.add(football_player);
 
         } else if (type=="delJH"){
@@ -725,7 +728,8 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                SQLRequete.requeteDelJockeyHippique(db,name_jockey,Firstname_jockey);
+            });
             panel.add(football_player);
 
         } else if (type=="modPF"){
