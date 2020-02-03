@@ -1462,8 +1462,9 @@ public class Panneau extends JPanel {
                 String chevall= cheval2.getText();
 
                 SQLRequete.requeteModJockeyHippique(db, nomm,prenomm,agee,datevetoo,chevall);
-                panel.add(boutonValideHH);});
+                });
 
+            panel.add(boutonValideHH);
             panel.add(nom);
             panel.add(nom2);
             panel.add(prenom);
