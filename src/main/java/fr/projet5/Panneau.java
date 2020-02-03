@@ -211,7 +211,7 @@ public class Panneau extends JPanel {
                 String equipeee = photo2.getText();
                 String iddd = photo2.getText();
                 SQLRequete.requeteAddJockeyHippique(db, nomm,prenomm,agee,equipeee,iddd);
-                panel.add(boutonValideHH);});
+            });
 
             panel.add(boutonValideHH);
             panel.add(nom);
@@ -253,7 +253,6 @@ public class Panneau extends JPanel {
                 String equipeee = nbButExt2.getText();
 
                 SQLRequete.requeteAddMatchFoot(db, dateMatchFoottt,nomm,prenomm,agee,equipeee);
-                panel.add(boutonValideHH);
                     });
 
 
@@ -268,7 +267,7 @@ public class Panneau extends JPanel {
             panel.add(nbButDom2);
             panel.add(nbButExt);
             panel.add(nbButExt2);
-        } else if (type=="addMT"){
+        } else if (type=="addMT") {
             JLabel dateMatchTennis = new JLabel("<html><body>Date match tennis :</body></html>");
             JLabel location = new JLabel("<html><body>location match :</body></html>");
             JLabel surface = new JLabel("<html><body>surface du terrain :</body></html>");
@@ -279,7 +278,7 @@ public class Panneau extends JPanel {
             JLabel vitMaxCoursePremier = new JLabel("<html><body>vitesse de course max premier joueur :</body></html>");
             JLabel vitMaxCourseDeuxieme = new JLabel("<html><body>vitesse de course max deuxieme joueur :</body></html>");
 
-            JTextField dateMatchTennis2= new JTextField();
+            JTextField dateMatchTennis2 = new JTextField();
             dateMatchTennis2.setColumns(10);
             JTextField location2 = new JTextField();
             location2.setColumns(10);
@@ -315,8 +314,7 @@ public class Panneau extends JPanel {
                 String idddd = vitMaxTirDeuxieme2.getText();
                 String iddddd = vitMaxCourseDeuxieme2.getText();
                 String Result_match_first_player = Result_match_first_player_t.getText();
-                SQLRequete.requeteAddMatchTennis(db, nomm,prenomm,agee,equipeee,equipeeee,iddd,iddde,idddd,iddddd,Result_match_first_player);
-                panel.add(boutonValideHH);
+                SQLRequete.requeteAddMatchTennis(db, nomm, prenomm, agee, equipeee, equipeeee, iddd, iddde, idddd, iddddd, Result_match_first_player);
             });
 
             panel.add(boutonValideHH);
@@ -360,7 +358,7 @@ public class Panneau extends JPanel {
                 String agee = site2.getText();
 
                 SQLRequete.requeteAddTeamFoot(db, nomm,prenomm,agee);
-                panel.add(boutonValideHH);});
+            });
 
             panel.add(boutonValideHH);
             panel.add(nomTeam);
@@ -391,7 +389,7 @@ public class Panneau extends JPanel {
                 String agee = meteo2.getText();
 
                 SQLRequete.requeteAddRaceHippique(db, nomm,prenomm,agee);
-                panel.add(boutonValideHH);});
+            });
 
             panel.add(boutonValideHH);
             panel.add(date);
@@ -430,7 +428,7 @@ public class Panneau extends JPanel {
                 String chevall= cheval2.getText();
 
                 SQLRequete.requeteAddJockeyHippique(db, nomm,prenomm,agee,datevetoo,chevall);
-                panel.add(boutonValideHH);});
+            });
 
             panel.add(boutonValideHH);
             panel.add(nom);
@@ -452,8 +450,6 @@ public class Panneau extends JPanel {
                 List<String> values = new ArrayList<>();
                 while (rs.next()) {
                     values.add(rs.getString("Name_player_f") + " " + rs.getString("Firstname_player_f"));
-                    //JComboBox.add(rs.getString("Name_player_f"));
-                    //JComboBox.add(rs.getString("Firstname_player_f"));
                 }
                 rs.close();
                 ps.close();
@@ -472,8 +468,6 @@ public class Panneau extends JPanel {
                             List<String> values = new ArrayList<>();
                             while (rs.next()) {
                                 values.add(rs.getString("Name_player_f") + " " + rs.getString("Firstname_player_f"));
-                                //JComboBox.add(rs.getString("Name_player_f"));
-                                //JComboBox.add(rs.getString("Firstname_player_f"));
                             }
                             rs.close();
                             ps.close();
@@ -487,14 +481,14 @@ public class Panneau extends JPanel {
                 e.printStackTrace();
             }
 
-
-
             JButton football_player = new JButton("supprimer");
             football_player.setForeground(new Color(97, 40, 0));
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                SQLRequete.requeteDelPlayerFoot(db, id);
+
+            });
             panel.add(football_player);
 
         } else if (type=="delPT"){
@@ -505,8 +499,6 @@ public class Panneau extends JPanel {
                 List<String> values = new ArrayList<>();
                 while (rs.next()) {
                     values.add(rs.getString("Name_player_t") + " " + rs.getString("Firstname_player_t"));
-                    //JComboBox.add(rs.getString("Name_player_f"));
-                    //JComboBox.add(rs.getString("Firstname_player_f"));
                 }
                 rs.close();
                 ps.close();
@@ -524,7 +516,8 @@ public class Panneau extends JPanel {
             player_tennis.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(player_tennis);});
+                SQLRequete.requeteDelPlayerTennis(db, id);
+            });
             panel.add(player_tennis);
         } else if (type=="delH"){
             try {
@@ -534,8 +527,6 @@ public class Panneau extends JPanel {
                 List<String> values = new ArrayList<>();
                 while (rs.next()) {
                     values.add(rs.getString("Name_horse")) ;
-                    //JComboBox.add(rs.getString("Name_player_f"));
-                    //JComboBox.add(rs.getString("Firstname_player_f"));
                 }
                 rs.close();
                 ps.close();
@@ -553,7 +544,8 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                SQLRequete.requeteDelChevauxHippique(db, id);
+            });
             panel.add(football_player);
 
         } else if (type=="delMF"){
@@ -564,8 +556,6 @@ public class Panneau extends JPanel {
                 List<String> values = new ArrayList<>();
                 while (rs.next()) {
                     values.add(rs.getString("id_match_f") + " " + rs.getString("date_match_f"));
-                    //JComboBox.add(rs.getString("Name_player_f"));
-                    //JComboBox.add(rs.getString("Firstname_player_f"));
                 }
                 rs.close();
                 ps.close();
@@ -583,7 +573,8 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                SQLRequete.requeteDelMatchFoot(db, id);
+            });
             panel.add(football_player);
 
 
@@ -595,8 +586,6 @@ public class Panneau extends JPanel {
                 List<String> values = new ArrayList<>();
                 while (rs.next()) {
                     values.add(rs.getString("id_match_t") + " " + rs.getString("date_match_t"));
-                    //JComboBox.add(rs.getString("Name_player_f"));
-                    //JComboBox.add(rs.getString("Firstname_player_f"));
                 }
                 rs.close();
                 ps.close();
@@ -614,7 +603,8 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                SQLRequete.requeteDelMatchTennis(db, id);
+            });
             panel.add(football_player);
 
         } else if (type=="delTF"){
@@ -625,8 +615,6 @@ public class Panneau extends JPanel {
                 List<String> values = new ArrayList<>();
                 while (rs.next()) {
                     values.add(rs.getString("Team_name"));
-                    //JComboBox.add(rs.getString("Name_player_f"));
-                    //JComboBox.add(rs.getString("Firstname_player_f"));
                 }
                 rs.close();
                 ps.close();
@@ -644,7 +632,8 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                SQLRequete.requeteDelTeamFoot(db, id);
+            });
             panel.add(football_player);
 
         } else if (type=="delCH"){
@@ -655,8 +644,6 @@ public class Panneau extends JPanel {
                 List<String> values = new ArrayList<>();
                 while (rs.next()) {
                     values.add(rs.getString("Name_horse") + " " + rs.getString("date_match_t"));
-                    //JComboBox.add(rs.getString("Name_player_f"));
-                    //JComboBox.add(rs.getString("Firstname_player_f"));
                 }
                 rs.close();
                 ps.close();
@@ -674,7 +661,8 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                SQLRequete.requeteDelChevauxHippique(db, id);
+            });
             panel.add(football_player);
 
         } else if (type=="delJH"){
@@ -685,8 +673,6 @@ public class Panneau extends JPanel {
                 List<String> values = new ArrayList<>();
                 while (rs.next()) {
                     values.add(rs.getString("Name_jockeys"));
-                    //JComboBox.add(rs.getString("Name_player_f"));
-                    //JComboBox.add(rs.getString("Firstname_player_f"));
                 }
                 rs.close();
                 ps.close();
@@ -704,7 +690,8 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                SQLRequete.requeteDelJockeyHippique(db, id);
+            });
             panel.add(football_player);
 
         } else if (type=="modPF"){
@@ -786,7 +773,14 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                String nomm = nom2.getText();
+                String prenomm = prenom2.getText();
+                String agee = age2.getText();
+                String equipee = equipe2.getText();
+                String titulairee = titulaire2.getText();
+
+                SQLRequete.requeteModPlayerFoot(db, nomm,prenomm,agee,equipee,titulairee);
+            });
             panel.add(football_player);
 
             panel.add(nom);
@@ -873,7 +867,14 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                String nomm = nom2.getText();
+                String prenomm = prenom2.getText();
+                String agee = age2.getText();
+                String equipee = age2.getText();
+                String titulairee = nbMed2.getText();
+
+                SQLRequete.requeteModPlayerTennis(db, nomm,prenomm,agee,equipee,titulairee);
+            });
             panel.add(football_player);
 
             panel.add(nom);
@@ -956,7 +957,13 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                String nomm = nom2.getText();
+                String agee = age2.getText();
+                String equipee = photo2.getText();
+                String titulairee = dateveto2.getText();
+
+                SQLRequete.requeteModChevauxHippique(db, nomm,agee,equipee,titulairee);
+            });
             panel.add(football_player);
 
             panel.add(nom);
@@ -1045,23 +1052,15 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
-            panel.add(football_player);
+                String nomm = dateMatchFoot2.getText();
+                String prenomm = equipeDom2.getText();
+                String agee = equipeExt2.getText();
+                String equipee = nbButDom2.getText();
+                String titulairee = nbButExt2.getText();
 
-            JButton boutonValideHH = new JButton("valide");
-            boutonValideHH.setForeground(new Color(97, 40, 0));
-            boutonValideHH.addActionListener(e -> {
-                //your actions
-                panel.setVisible(false);
-                String dateMatchFoottt = dateMatchFoot2.getText();
-                String nomm = equipeDom2.getText();
-                String prenomm = equipeExt2.getText();
-                String agee = nbButDom2.getText();
-                String equipeee = nbButExt2.getText();
-
-                SQLRequete.requeteAddMatchFoot(db, dateMatchFoottt,nomm,prenomm,agee,equipeee);
-                panel.add(boutonValideHH);
+                SQLRequete.requeteModMatchFoot(db, nomm,prenomm,agee,equipee,titulairee);
             });
+            panel.add(football_player);
 
             panel.add(dateMatchFoot);
             panel.add(dateMatchFoot2);
@@ -1183,7 +1182,6 @@ public class Panneau extends JPanel {
                 String iddddd = vitMaxCourseDeuxieme2.getText();
                 String Result_match_first_player = Result_match_first_player_t.getText();
                 SQLRequete.requeteAddMatchTennis(db, nomm,prenomm,agee,equipeee,equipeeee,iddd,iddde,idddd,iddddd,Result_match_first_player);
-                panel.add(boutonValideHH);
             });
 
             panel.add(boutonValideHH);
@@ -1280,7 +1278,7 @@ public class Panneau extends JPanel {
                 String agee = site2.getText();
 
                 SQLRequete.requeteModTeamFoot(db, nomm,prenomm,agee);
-                panel.add(boutonValideHH);});
+            });
 
             panel.add(boutonValideHH);
             panel.add(nomTeam);
@@ -1462,7 +1460,8 @@ public class Panneau extends JPanel {
                 String chevall= cheval2.getText();
 
                 SQLRequete.requeteModJockeyHippique(db, nomm,prenomm,agee,datevetoo,chevall);
-                panel.add(boutonValideHH);});
+            });
+            panel.add(boutonValideHH);
 
             panel.add(nom);
             panel.add(nom2);
