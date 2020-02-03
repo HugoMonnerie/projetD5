@@ -811,7 +811,13 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                String nomm = nom2.getText();
+                String prenomm = prenom2.getText();
+                String agee = age2.getText();
+                String equipee = equipe2.getText();
+                String titulairee = titulaire2.getText();
+
+                SQLRequete.requeteModPlayerFoot(db, nomm,prenomm,agee,equipee,titulairee);            });
             panel.add(football_player);
 
             panel.add(nom);
@@ -898,7 +904,13 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                String nomm = nom2.getText();
+                String prenomm = prenom2.getText();
+                String agee = age2.getText();
+                String equipee = age2.getText();
+                String titulairee = nbMed2.getText();
+
+                SQLRequete.requeteModPlayerTennis(db, nomm,prenomm,agee,equipee,titulairee);            });
             panel.add(football_player);
 
             panel.add(nom);
@@ -981,7 +993,12 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                String nomm = nom2.getText();
+                String agee = age2.getText();
+                String equipee = photo2.getText();
+                String titulairee = dateveto2.getText();
+
+                SQLRequete.requeteModChevauxHippique(db, nomm,agee,equipee,titulairee);            });
             panel.add(football_player);
 
             panel.add(nom);
@@ -1070,24 +1087,16 @@ public class Panneau extends JPanel {
             football_player.addActionListener(e -> {
                 //your actions
                 panel.setVisible(false);
-                panel.add(football_player);});
+                String nomm = nom2.getText();
+                String agee = age2.getText();
+                String equipee = photo2.getText();
+                String titulairee = dateveto2.getText();
+
+                SQLRequete.requeteModChevauxHippique(db, nomm,agee,equipee,titulairee);            });
             panel.add(football_player);
 
-            JButton boutonValideHH = new JButton("valide");
-            boutonValideHH.setForeground(new Color(97, 40, 0));
-            boutonValideHH.addActionListener(e -> {
-                //your actions
-                panel.setVisible(false);
-                String dateMatchFoottt = dateMatchFoot2.getText();
-                String nomm = equipeDom2.getText();
-                String prenomm = equipeExt2.getText();
-                String agee = nbButDom2.getText();
-                String equipeee = nbButExt2.getText();
 
-                SQLRequete.requeteModMatchFoot(db, dateMatchFoottt,nomm,prenomm,agee,equipeee);
-            });
 
-            panel.add(boutonValideHH);
             panel.add(dateMatchFoot);
             panel.add(dateMatchFoot2);
             panel.add(equipeDom);
@@ -1208,7 +1217,6 @@ public class Panneau extends JPanel {
                 String iddddd = vitMaxCourseDeuxieme2.getText();
                 String Result_match_first_player = Result_match_first_player_t.getText();
                 SQLRequete.requeteAddMatchTennis(db, nomm,prenomm,agee,equipeee,equipeeee,iddd,iddde,idddd,iddddd,Result_match_first_player);
-                panel.add(boutonValideHH);
             });
 
             panel.add(boutonValideHH);
@@ -1305,7 +1313,7 @@ public class Panneau extends JPanel {
                 String agee = site2.getText();
 
                 SQLRequete.requeteModTeamFoot(db, nomm,prenomm,agee);
-                panel.add(boutonValideHH);});
+            });
 
             panel.add(boutonValideHH);
             panel.add(nomTeam);
