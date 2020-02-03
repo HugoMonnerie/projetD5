@@ -88,8 +88,8 @@ public class Panneau extends JPanel {
         option3.add(aide);
 
         option3.add(question);
+        panel.setBackground(new Color(32, 32, 32, 255));
 
-        panel.setForeground(new Color(255, 213, 0));
 
         return panel;
     }
@@ -1534,6 +1534,7 @@ public class Panneau extends JPanel {
         panel.setLayout(new FlowLayout());
 
         JLabel text1 = new JLabel("<html><body>Type de parie :</body></html>");
+        text1.setForeground(new Color(255, 255, 255));
 
         JButton bouton1 = new JButton("Football");
         bouton1.setForeground(new Color(1, 105, 0));
