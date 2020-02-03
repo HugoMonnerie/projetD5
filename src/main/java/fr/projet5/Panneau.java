@@ -431,7 +431,7 @@ public class Panneau extends JPanel {
                 String chevall= cheval2.getText();
 
                 SQLRequete.requeteAddJockeyHippique(db, nomm,prenomm,agee,datevetoo,chevall);
-                panel.add(boutonValideHH);});
+            });
 
             panel.add(boutonValideHH);
             panel.add(nom);
@@ -524,6 +524,25 @@ public class Panneau extends JPanel {
                     listPlayer[i] = values.get(i);
                 }
                 JComboBox<? extends String> delPt = new JComboBox<>(listPlayer);
+                delPt.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try{
+                            String request = "SELECT * FROM players_tennis";
+                            PreparedStatement ps = db.prepareStatement(request);
+                            ResultSet rs = ps.executeQuery(request);
+                            List<String> values = new ArrayList<>();
+                            while (rs.next()) {
+                                values.add(rs.getString("Name_player_t") + " " + rs.getString("Firstname_player_t"));
+                            }
+                            rs.close();
+                            ps.close();
+
+                        }catch (SQLException ex){
+
+                        }
+                    }
+                });
             panel.add(delPt);
         }catch (SQLException ex) {
             ex.printStackTrace();
@@ -544,6 +563,7 @@ public class Panneau extends JPanel {
                 SQLRequete.requeteDelPlayerTennis(db, nomm, prenomm);
             });
             panel.add(player_tennis);
+
         } else if (type=="delH"){
             try {
                 String request = "SELECT * FROM chevaux_hippique";
@@ -562,6 +582,25 @@ public class Panneau extends JPanel {
                     listPlayer[i] = values.get(i);
                 }
                 JComboBox<? extends String> delPt = new JComboBox<>(listPlayer);
+                delPt.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try{
+                            String request = "SELECT * FROM chevaux_hippique";
+                            PreparedStatement ps = db.prepareStatement(request);
+                            ResultSet rs = ps.executeQuery(request);
+                            List<String> values = new ArrayList<>();
+                            while (rs.next()) {
+                                values.add(rs.getString("Name_horse"));
+                            }
+                            rs.close();
+                            ps.close();
+
+                        }catch (SQLException ex){
+
+                        }
+                    }
+                });
                 panel.add(delPt);
             }catch (SQLException e) {
                 e.printStackTrace();
@@ -583,7 +622,7 @@ public class Panneau extends JPanel {
                 ResultSet rs = ps.executeQuery(request);
                 List<String> values = new ArrayList<>();
                 while (rs.next()) {
-                    values.add(rs.getString("id_match_f") + " " + rs.getString("date_match_f"));
+                    values.add(rs.getString("date_match_f"));
                     //JComboBox.add(rs.getString("Name_player_f"));
                     //JComboBox.add(rs.getString("Firstname_player_f"));
                 }
@@ -594,6 +633,25 @@ public class Panneau extends JPanel {
                     listPlayer[i] = values.get(i);
                 }
                 JComboBox<? extends String> delPt = new JComboBox<>(listPlayer);
+                delPt.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try{
+                            String request = "SELECT * FROM matchs_football";
+                            PreparedStatement ps = db.prepareStatement(request);
+                            ResultSet rs = ps.executeQuery(request);
+                            List<String> values = new ArrayList<>();
+                            while (rs.next()) {
+                                values.add(rs.getString("date_match_f"));
+                            }
+                            rs.close();
+                            ps.close();
+
+                        }catch (SQLException ex){
+
+                        }
+                    }
+                });
                 panel.add(delPt);
             }catch (SQLException e) {
                 e.printStackTrace();
@@ -615,7 +673,7 @@ public class Panneau extends JPanel {
                 ResultSet rs = ps.executeQuery(request);
                 List<String> values = new ArrayList<>();
                 while (rs.next()) {
-                    values.add(rs.getString("id_match_t") + " " + rs.getString("date_match_t"));
+                    values.add(rs.getString("date_match_t"));
                     //JComboBox.add(rs.getString("Name_player_f"));
                     //JComboBox.add(rs.getString("Firstname_player_f"));
                 }
@@ -626,6 +684,25 @@ public class Panneau extends JPanel {
                     listPlayer[i] = values.get(i);
                 }
                 JComboBox<? extends String> delPt = new JComboBox<>(listPlayer);
+                delPt.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try{
+                            String request = "SELECT * FROM matchs_tennis";
+                            PreparedStatement ps = db.prepareStatement(request);
+                            ResultSet rs = ps.executeQuery(request);
+                            List<String> values = new ArrayList<>();
+                            while (rs.next()) {
+                                values.add(rs.getString("date_match_t"));
+                            }
+                            rs.close();
+                            ps.close();
+
+                        }catch (SQLException ex){
+
+                        }
+                    }
+                });
                 panel.add(delPt);
             }catch (SQLException e) {
                 e.printStackTrace();
@@ -657,6 +734,25 @@ public class Panneau extends JPanel {
                     listPlayer[i] = values.get(i);
                 }
                 JComboBox<? extends String> delPt = new JComboBox<>(listPlayer);
+                delPt.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try{
+                            String request = "SELECT * FROM football_team";
+                            PreparedStatement ps = db.prepareStatement(request);
+                            ResultSet rs = ps.executeQuery(request);
+                            List<String> values = new ArrayList<>();
+                            while (rs.next()) {
+                                values.add(rs.getString("Team_name"));
+                            }
+                            rs.close();
+                            ps.close();
+
+                        }catch (SQLException ex){
+
+                        }
+                    }
+                });
                 panel.add(delPt);
             }catch (SQLException e) {
                 e.printStackTrace();
@@ -688,6 +784,25 @@ public class Panneau extends JPanel {
                     listPlayer[i] = values.get(i);
                 }
                 JComboBox<? extends String> delPt = new JComboBox<>(listPlayer);
+                delPt.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try{
+                            String request = "SELECT * FROM chevaux_hippique";
+                            PreparedStatement ps = db.prepareStatement(request);
+                            ResultSet rs = ps.executeQuery(request);
+                            List<String> values = new ArrayList<>();
+                            while (rs.next()) {
+                                values.add(rs.getString("Name_horse") + " " + rs.getString("date_match_t"));
+                            }
+                            rs.close();
+                            ps.close();
+
+                        }catch (SQLException ex){
+
+                        }
+                    }
+                });
                 panel.add(delPt);
             }catch (SQLException e) {
                 e.printStackTrace();
@@ -719,6 +834,25 @@ public class Panneau extends JPanel {
                     listPlayer[i] = values.get(i);
                 }
                 JComboBox<? extends String> delPt = new JComboBox<>(listPlayer);
+                delPt.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent itemEvent) {
+                        try{
+                            String request = "SELECT * FROM jockeys_hippique";
+                            PreparedStatement ps = db.prepareStatement(request);
+                            ResultSet rs = ps.executeQuery(request);
+                            List<String> values = new ArrayList<>();
+                            while (rs.next()) {
+                                values.add(rs.getString("Name_jockeys"));
+                            }
+                            rs.close();
+                            ps.close();
+
+                        }catch (SQLException ex){
+
+                        }
+                    }
+                });
                 panel.add(delPt);
             }catch (SQLException e) {
                 e.printStackTrace();
