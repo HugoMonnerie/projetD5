@@ -479,32 +479,34 @@ public class Panneau extends JPanel {
                             rs.close();
                             ps.close();
 
+
                         }catch (SQLException ex){
 
                         }
                     }
                 });
+                JButton football_player = new JButton("supprimer");
+                football_player.setForeground(new Color(97, 40, 0));
+                football_player.addActionListener(e -> {
+                    //your actions
+                    panel.setVisible(false);
+                    String player = Objects.requireNonNull(delPF.getSelectedItem()).toString();
+                    String[] splited = player.split("\\ ");
+
+                    String nom2 = splited[0];
+                    Object prenom2 = splited[1];
+
+                    String nomm = nom2.toString();
+                    String prenomm = prenom2.toString();
+                    SQLRequete.requeteDelPlayerFoot(db, nomm, prenomm);
+
+                });
+                panel.add(football_player);
                 panel.add(delPF);
             }catch (SQLException e) {
                 e.printStackTrace();
             }
-            JButton football_player = new JButton("supprimer");
-            football_player.setForeground(new Color(97, 40, 0));
-            football_player.addActionListener(e -> {
-                //your actions
-                panel.setVisible(false);
-                String player = Objects.requireNonNull(delPF.getSelectedItem()).toString();
-                String[] splited = player.split("\\ ");
 
-                String nom2 = splited[0];
-                Object prenom2 = splited[1];
-
-                String nomm = nom2.toString();
-                String prenomm = prenom2.toString();
-                SQLRequete.requeteDelPlayerFoot(db, nomm, prenomm);
-
-            });
-            panel.add(football_player);
 
         } else if (type=="delPT"){
             try {
