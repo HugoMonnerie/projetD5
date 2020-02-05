@@ -468,8 +468,6 @@ public class Panneau extends JPanel {
                             List<String> values = new ArrayList<>();
                             while (rs.next()) {
                                 values.add(rs.getString("Name_player_f") + " " + rs.getString("Firstname_player_f"));
-                                //JComboBox.add(rs.getString("Name_player_f"));
-                                //JComboBox.add(rs.getString("Firstname_player_f"));
                             }
                             rs.close();
                             ps.close();
@@ -493,7 +491,7 @@ public class Panneau extends JPanel {
 
                     String nomm = nom2.toString();
                     String prenomm = prenom2.toString();
-                    SQLRequete.requeteDelPlayerFoot(db, nomm, prenomm);
+                    SQLRequete.requeteDelPlayerFoot(db, prenomm, nomm);
 
                 });
                 panel.add(football_player);
@@ -511,8 +509,6 @@ public class Panneau extends JPanel {
                 List<String> values = new ArrayList<>();
                 while (rs.next()) {
                     values.add(rs.getString("Name_player_t") + " " + rs.getString("Firstname_player_t"));
-                    //JComboBox.add(rs.getString("Name_player_f"));
-                    //JComboBox.add(rs.getString("Firstname_player_f"));
                 }
                 rs.close();
                 ps.close();
@@ -553,7 +549,7 @@ public class Panneau extends JPanel {
 
                     String nomm = nom2.toString();
                     String prenomm = prenom2.toString();
-                    SQLRequete.requeteDelPlayerTennis(db, nomm, prenomm);
+                    SQLRequete.requeteDelPlayerTennis(db, prenomm,nomm);
                 });
                 panel.add(player_tennis);
 
