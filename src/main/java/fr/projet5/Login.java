@@ -28,7 +28,7 @@ public abstract class Login {
                 }
             }
 
-            new AfficheImage("/Users/souksou/Desktop/projet 5/projetD5/src/main/resources/giphy.gif");
+            new AfficheImage("../src/main/resources/giphy.gif");
 
             pan.setVisible(false);
             Panneau panneau = new Panneau();
