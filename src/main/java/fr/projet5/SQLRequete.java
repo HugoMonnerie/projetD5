@@ -168,29 +168,29 @@ public class SQLRequete {
 
     public List<String> requetePlayerTennis(Connection db,String name){
         try {
-        String request = "SELECT * FROM players_tennis AS PT where PT.Name_player_t  = " + "'" +name+"';" ;
+            String request = "SELECT * FROM players_tennis AS PT where PT.Name_player_t  = " + "'" +name+"';" ;
 
-        PreparedStatement ps = db.prepareStatement(request);
+            PreparedStatement ps = db.prepareStatement(request);
 
-        ResultSet rs = ps.executeQuery(request);
+            ResultSet rs = ps.executeQuery(request);
 
-        List<String> liste = new ArrayList<>();
+            List<String> liste = new ArrayList<>();
 
-        while (rs.next())
-        {
-            liste.add(rs.getString("Name_player_t"));
-            liste.add(rs.getString("Firstname_player_t"));
-            liste.add(rs.getString("Age_player_t"));
-            liste.add(rs.getString("Nbr_medal_t"));
+            while (rs.next())
+            {
+                liste.add(rs.getString("Name_player_t"));
+                liste.add(rs.getString("Firstname_player_t"));
+                liste.add(rs.getString("Age_player_t"));
+                liste.add(rs.getString("Nbr_medal_t"));
+            }
+            rs.close();
+            ps.close();
+
+            return liste;
         }
-        rs.close();
-        ps.close();
-
-        return liste;
-    }
-    catch (SQLException e) {
-        e.printStackTrace();
-    }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -292,7 +292,7 @@ public class SQLRequete {
     }
 
     public static void requeteAddTeamFoot(Connection db, String Team_name, String Team_create, String Site_team){
-        String request = "INSERT INTO 'football_team'('Team_name', 'Team_create', 'Site_team') VALUES (?,?,?);";
+        String request = "INSERT INTO football_team(Team_name, Team_create, Site_team) VALUES (?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Team_name);
@@ -306,7 +306,7 @@ public class SQLRequete {
     }
 
     public static void requeteDelTeamFoot(Connection db, String Team_name){
-        String request = "DELETE FROM 'football_team' WHERE 'Team_name' ="+ Team_name;
+        String request = "DELETE FROM football_team WHERE Team_name ="+ Team_name;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -317,7 +317,7 @@ public class SQLRequete {
     }
 
     public static void requeteModTeamFoot(Connection db, String Team_name, String Team_create, String Site_team){
-    String request = "UPDATE 'football_team' SET 'Team_name'=?,'Team_create'=?,'Site_team'=? WHERE 'Team_name'="+ Team_name;
+    String request = "UPDATE football_team SET Team_name=?,Team_create=?,Site_team=? WHERE Team_name="+ Team_name;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Team_name);
@@ -347,7 +347,7 @@ public class SQLRequete {
     }
 
     public static void requeteDelPlayerFoot(Connection db, String Firstname_player_f, String Name_player_f){
-        String request = "DELETE FROM 'football_player' WHERE 'Firstname_player_f' ="+ Firstname_player_f +" 'Name_player_f'= "+ Name_player_f ;
+        String request = "DELETE FROM football_player WHERE Firstname_player_f = '"+ Firstname_player_f +"' AND Name_player_f = '"+ Name_player_f +"';" ;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -358,7 +358,7 @@ public class SQLRequete {
     }
 
     public static void requeteModPlayerFoot(Connection db, String Name_player_f, String Firstname_player_f, String Age_player_f, String J_id_team_f, String Titulaire_player_f){
-        String request = "UPDATE 'football_player' SET 'Name_player_f'=?,'Firstname_player_f'=?,'Age_player_f'=?, 'J_id_team_f'=?, 'Titulaire_player_f'=? WHERE 'Name_player_f'="+ Name_player_f+" AND 'Firstname_player_f'="+Firstname_player_f;
+        String request = "UPDATE football_player SET Name_player_f=?,Firstname_player_f=?,Age_player_f=?, J_id_team_f=?, Titulaire_player_f=? WHERE Name_player_f="+ Name_player_f+" AND Firstname_player_f="+Firstname_player_f;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_player_f);
@@ -374,7 +374,7 @@ public class SQLRequete {
     }
 
     public static void requeteAddMatchFoot(Connection db, String Date_match_f, String Id_team_inside_f, String Id_team_outside_f, String Nbr_but_inside_f, String Nbr_but_outside_f){
-        String request = "INSERT INTO 'matchs_football'('Date_match_f', 'Id_team_inside_f', 'Id_team_outside_f', 'Nbr_but_inside_f', 'Nbr_but_outside_f') VALUES (?,?,?,?,?);";
+        String request = "INSERT INTO matchs_football(Date_match_f, Id_team_inside_f, Id_team_outside_f, Nbr_but_inside_f, Nbr_but_outside_f) VALUES (?,?,?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Date_match_f);
@@ -390,7 +390,7 @@ public class SQLRequete {
     }
 
     public static void requeteDelMatchFoot(Connection db, String Date_match_f){
-        String request = "DELETE FROM 'matchs_football' WHERE 'Date_match_f' ="+ Date_match_f;
+        String request = "DELETE FROM matchs_football WHERE Date_match_f ="+ Date_match_f;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -401,7 +401,7 @@ public class SQLRequete {
     }
 
     public static void requeteModMatchFoot(Connection db, String Date_match_f, String Id_team_inside_f, String Id_team_outside_f, String Nbr_but_inside_f, String Nbr_but_outside_f){
-        String request = "UPDATE 'matchs_football' SET 'Date_match_f'=?, 'Id_team_inside_f'=?, 'Id_team_outside_f'=?, 'Nbr_but_inside_f'=?, 'Nbr_but_outside_f'=? WHERE 'Date_match_f'="+ Date_match_f;
+        String request = "UPDATE matchs_football SET Date_match_f=?, Id_team_inside_f=?, Id_team_outside_f=?, Nbr_but_inside_f=?, Nbr_but_outside_f=? WHERE Date_match_f="+ Date_match_f;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Date_match_f);
@@ -417,7 +417,7 @@ public class SQLRequete {
     }
 
     public static void requeteAddPlayerTennis(Connection db, String Name_player_t, String Firstname_player_t, String Age_player_t, String Nbr_medal_t){
-        String request = "INSERT INTO 'players_tennis'('Name_player_t', 'Firstname_player_t', 'Age_player_t', 'Nbr_medal_t') VALUES (?,?,?,?);";
+        String request = "INSERT INTO players_tennis(Name_player_t, Firstname_player_t, Age_player_t, Nbr_medal_t) VALUES (?,?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_player_t);
@@ -432,7 +432,7 @@ public class SQLRequete {
     }
 
     public static void requeteDelPlayerTennis(Connection db, String Firstname_player_t, String Name_player_t){
-        String request = "DELETE FROM 'players_tennis' WHERE 'Firstname_player_f' ="+ Firstname_player_t +" 'Name_player_f'= "+ Name_player_t ;
+        String request = "DELETE FROM players_tennis WHERE Firstname_player_f ="+ Firstname_player_t +" AND Name_player_f= "+ Name_player_t ;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -443,7 +443,7 @@ public class SQLRequete {
     }
 
     public static void requeteModPlayerTennis(Connection db, String Name_player_t, String Firstname_player_t, String Age_player_t, String Nbr_medal_t){
-        String request = "UPDATE 'players_tennis' SET 'Name_player_t'=?, 'Firstname_player_t'=?, 'Age_player_t'=?, 'Nbr_medal_t'=? WHERE 'Name_player_t'="+ Name_player_t+" AND 'Firstname_player_t'="+Firstname_player_t;
+        String request = "UPDATE players_tennis SET Name_player_t=?, Firstname_player_t=?, Age_player_t=?, Nbr_medal_t=? WHERE Name_player_t="+ Name_player_t+" AND Firstname_player_t="+Firstname_player_t;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_player_t);
@@ -458,7 +458,7 @@ public class SQLRequete {
     }
 
     public static void requeteAddMatchTennis(Connection db, String Date_match_t, String Location_match_t, String Surface_t, String Id_first_player_t, String Id_secondary_player_t, String Speed_shot_first_player_t, String Speed_shot_secondary_player_t, String Speedrun_first_player_t, String Speedrun_secondary_player_t, String Result_match_first_player_t){
-        String request = "INSERT INTO 'matchs_tennis'('Date_match_t', 'Location_match_t', 'Surface_t', 'Id_first_player_t', 'Id_secondary_player_t', 'Speed_shot_first_player_t', 'Speed_shot_secondary_player_t', 'Speedrun_first_player_t', 'Speedrun_secondary_player_t', 'Result_match_first_player_t') VALUES (?,?,?,?,?,?,?,?,?,?);";
+        String request = "INSERT INTO matchs_tennis(Date_match_t, Location_match_t, Surface_t, Id_first_player_t, Id_secondary_player_t, Speed_shot_first_player_t, Speed_shot_secondary_player_t, Speedrun_first_player_t, Speedrun_secondary_player_t, Result_match_first_player_t) VALUES (?,?,?,?,?,?,?,?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Date_match_t);
@@ -479,7 +479,7 @@ public class SQLRequete {
     }
 
     public static void requeteDelMatchTennis(Connection db, String Date_match_t){
-        String request = "DELETE FROM 'matchs_tennis' WHERE 'Date_match_t'= "+Date_match_t;
+        String request = "DELETE FROM matchs_tennis WHERE Date_match_t= "+Date_match_t;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -490,7 +490,7 @@ public class SQLRequete {
     }
 
     public static void requeteModMatchTennis(Connection db, String Date_match_t, String Location_match_t, String Surface_t, String Id_first_player_t, String Id_secondary_player_t, String Speed_shot_first_player_t, String Speed_shot_secondary_player_t, String Speedrun_first_player_t, String Speedrun_secondary_player_t, String Result_match_first_player_t){
-        String request = "UPDATE 'matchs_tennis' SET 'Date_match_t'=?, 'Location_match_t'=?, 'Surface_t'=?, 'Id_first_player_t'=?, 'Id_secondary_player_t'=?, 'Speed_shot_first_player_t'=?, 'Speed_shot_secondary_player_t'=?, 'Speedrun_first_player_t'=?, 'Speedrun_secondary_player_t'=?, 'Result_match_first_player_t'=? WHERE 'Date_match_t'="+ Date_match_t;
+        String request = "UPDATE matchs_tennis SET Date_match_t=?, Location_match_t=?, Surface_t=?, Id_first_player_t=?, Id_secondary_player_t=?, Speed_shot_first_player_t=?, Speed_shot_secondary_player_t=?, Speedrun_first_player_t=?, Speedrun_secondary_player_t=?, Result_match_first_player_t=? WHERE Date_match_t="+ Date_match_t;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Date_match_t);
@@ -511,7 +511,7 @@ public class SQLRequete {
     }
 
     public static void requeteAddChevauxHippique(Connection db, String Name_horse, String Age_horse, String Picture_horse, String Date_veterinaire){
-        String request = "INSERT INTO 'chevaux_hippique'('Name_horse', 'Age_horse', 'Picture_horse', 'Date_veterinaire') VALUES (?,?,?,?);";
+        String request = "INSERT INTO chevaux_hippique(Name_horse, Age_horse, Picture_horse, Date_veterinaire) VALUES (?,?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_horse);
@@ -526,7 +526,7 @@ public class SQLRequete {
     }
 
     public static void requeteDelChevauxHippique(Connection db, String Name_horse){
-        String request = "DELETE FROM 'chevaux_hippique' WHERE 'Name_horse' ="+ Name_horse;
+        String request = "DELETE FROM chevaux_hippique WHERE Name_horse ="+ Name_horse;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -537,7 +537,7 @@ public class SQLRequete {
     }
 
     public static void requeteModChevauxHippique(Connection db, String Name_horse, String Age_horse, String Picture_horse, String Date_veterinaire){
-        String request = "UPDATE 'chevaux_hippique' SET 'Name_horse'=?, 'Age_horse'=?, 'Picture_horse'=?, 'Date_veterinaire'=? WHERE 'Name_horse'="+ Name_horse;
+        String request = "UPDATE chevaux_hippique SET Name_horse=?, Age_horse=?, Picture_horse=?, Date_veterinaire=? WHERE Name_horse="+ Name_horse;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_horse);
@@ -552,7 +552,7 @@ public class SQLRequete {
     }
 
     public static void requeteAddJockeyHippique(Connection db, String Name_jockey, String Firstname_jockey, String Age_jockey, String Weight_jockey, String Id_horse_j) {
-        String request = "INSERT INTO 'jockeys_hippique'('Name_jockey', 'Firstname_jockey', 'Age_jockey', 'Weight_jockey', 'Id_horse_j') VALUES (?,?,?,?,?);";
+        String request = "INSERT INTO jockeys_hippique(Name_jockey, Firstname_jockey, Age_jockey, Weight_jockey, Id_horse_j) VALUES (?,?,?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_jockey);
@@ -568,7 +568,7 @@ public class SQLRequete {
     }
 
     public static void requeteDelJockeyHippique(Connection db, String Name_jockey, String Firstname_jockey){
-        String request = "DELETE FROM 'jockeys_hippique' WHERE 'Name_jockey' ="+ Name_jockey+ "Firstname_jockey= "+ Firstname_jockey;
+        String request = "DELETE FROM jockeys_hippique WHERE Name_jockey ="+ Name_jockey+ " AND Firstname_jockey= "+ Firstname_jockey;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -579,7 +579,7 @@ public class SQLRequete {
     }
 
     public static void requeteModJockeyHippique(Connection db, String Name_jockey, String Firstname_jockey, String Age_jockey, String Weight_jockey, String Id_horse_j){
-        String request = "UPDATE 'jockeys_hippique' SET 'Name_jockey'=?, 'Firstname_jockey'=?, 'Age_jockey'=?, 'Weight_jockey'=?, 'Id_horse_j'=? WHERE 'Name_jockey'="+ Name_jockey+" AND 'Firstname_jockey'="+Firstname_jockey;
+        String request = "UPDATE jockeys_hippique SET Name_jockey=?, Firstname_jockey=?, Age_jockey=?, Weight_jockey=?, Id_horse_j=? WHERE Name_jockey="+ Name_jockey+" AND Firstname_jockey="+Firstname_jockey;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Name_jockey);
@@ -595,7 +595,7 @@ public class SQLRequete {
     }
 
     public static void requeteAddRaceHippique(Connection db, String Time_race, String Location_race, String Weather_race) {
-        String request = "INSERT INTO 'race_hippiques'('Time_race', 'Location_race', 'Weather_race') VALUES (?,?,?);";
+        String request = "INSERT INTO race_hippiques(Time_race, Location_race, Weather_race) VALUES (?,?,?);";
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Time_race);
@@ -609,7 +609,7 @@ public class SQLRequete {
     }
 
     public static void requeteDelRaceHippique(Connection db, String Time_race){
-        String request = "DELETE FROM 'race_hippiques' WHERE 'Time_race' ="+Time_race;
+        String request = "DELETE FROM race_hippiques WHERE Time_race ="+Time_race;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.execute();
@@ -620,7 +620,7 @@ public class SQLRequete {
     }
 
     public static void requeteModRaceHippique(Connection db, String Time_race, String Location_race, String Weather_race){
-        String request = "UPDATE 'race_hippiques' SET 'Time_race'=?, 'Location_race'=?, 'Weather_race'=? WHERE 'Time_race'="+ Time_race;
+        String request = "UPDATE race_hippiques SET Time_race=?, Location_race=?, Weather_race=? WHERE Time_race="+ Time_race;
         try {
             PreparedStatement ps = db.prepareStatement(request);
             ps.setString(1, Time_race);
