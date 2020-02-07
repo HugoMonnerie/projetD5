@@ -3,7 +3,6 @@ package fr.projet5;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 
 public class Admin extends JFrame {
@@ -19,7 +18,7 @@ public class Admin extends JFrame {
             getContentPane().setLayout(new BorderLayout());
             this.setVisible(true);
             Admin fen = this;
-            this.setContentPane(panneau.panelAdmin(fen, type, db));
+            this.setContentPane(panneau.panelAdmin(type, db));
         }
         //Le conteneur principal
         JPanel content = new JPanel();

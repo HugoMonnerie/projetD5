@@ -21,12 +21,11 @@ public class SQLRequete {
             rs2.close();
             ps2.close();
             return result2 ;
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
         return null;
     }
-    
 
     public String nbPlayerFoot(Connection db, String name){
         String request2 = "SELECT COUNT(Name_player_f) as Nbr_Player FROM football_player Left Join football_team as FT on football_player.J_id_team_f = FT.Id_team_f where FT.Team_name = " + "'"+name+"';" ;
@@ -44,7 +43,7 @@ public class SQLRequete {
             rs2.close();
             ps2.close();
             return result2 ;
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
         return null;
@@ -80,13 +79,10 @@ public class SQLRequete {
 
     public List<String> requetePlayerFoot(Connection db, String name){
         try {
-            String request2 = "SELECT COUNT(Titulaire_player_f) as Nbr_Titulaire FROM football_player Left Join football_team as FT on football_player.J_id_team_f = FT.Id_team_f where FT.Team_name = " + "'"+name+"'" + " and Titulaire_player_f = 'titulaire' ;" ;
             String request3 = "SELECT * FROM football_player AS FP LEFT JOIN football_team AS FT ON FP.J_id_team_f = FT.Id_team_f where FT.Team_name  = " + "'"+name+"';";
 
-            PreparedStatement ps2 = db.prepareStatement(request2);
             PreparedStatement ps3 = db.prepareStatement(request3);
 
-            ResultSet rs2 = ps2.executeQuery(request2);
             ResultSet rs3 = ps3.executeQuery(request3);
 
             List<String> liste = new ArrayList<>();
